@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* AEONOMY design tokens — placeholder neutral palette.
+   The frontend-design skill (Task 33) overrides these values + adds type/spacing.
+   Do NOT add a purple gradient or shadcn default dark theme here. */
+:root {
+  --color-surface: #faf8f3;
+  --color-ink: #1a1a17;
+  --color-muted: #6b6960;
+  --color-accent: #1f6f5c;
+  --color-line: #e4e0d6;
+}
+
+html,
+body {
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+* {
+  box-sizing: border-box;
+}
