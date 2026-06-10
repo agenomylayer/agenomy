@@ -8,8 +8,8 @@ function makeLog(agentId: bigint, block: bigint) {
   return {
     args: {
       agentId,
-      owner: '0x1111111111111111111111111111111111111111',
-      wallet: '0x2222222222222222222222222222222222222222',
+      owner: '0x1111111111111111111111111111111111111111' as `0x${string}`,
+      wallet: '0x2222222222222222222222222222222222222222' as `0x${string}`,
       handle: `agent-${agentId}`,
       manifestHash,
       configHash,
