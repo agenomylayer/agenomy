@@ -1,0 +1,50 @@
+{
+  "version": "1.0",
+  "generated": "2026-06-10T13:06:51Z",
+  "repo": "aaronjmars/aeon",
+  "total": 3,
+  "categories": ["productivity", "social"],
+  "skills": [
+    {
+      "slug": "action-converter",
+      "name": "Action Converter",
+      "description": "5 concrete real-life actions, leverage-scored against open loops with specificity and anti-fluff gates",
+      "category": "productivity",
+      "schedule": "0 18 * * *",
+      "var": "",
+      "requires": [],
+      "mcp": [],
+      "files": 0,
+      "sha": "516a854",
+      "updated": "2026-06-09",
+      "install": "./add-skill aaronjmars/aeon action-converter"
+    },
+    {
+      "slug": "agent-buzz",
+      "name": "Agent Buzz",
+      "description": "Curated AI-agent tweets, clustered into narratives with insight summaries",
+      "category": "social",
+      "schedule": "30 17 * * *",
+      "var": "",
+      "requires": [{ "key": "XAI_API_KEY", "optional": false }],
+      "mcp": [],
+      "files": 0,
+      "sha": "004c1b5",
+      "updated": "2026-06-09",
+      "install": "./add-skill aaronjmars/aeon agent-buzz"
+    },
+    {
+      "slug": "no-category-skill",
+      "name": "No Category Skill",
+      "description": "An entry deliberately missing a category to test the null path",
+      "schedule": "0 9 * * *",
+      "var": "",
+      "requires": [],
+      "mcp": [],
+      "files": 0,
+      "sha": "deadbee",
+      "updated": "2026-06-09",
+      "install": "./add-skill aaronjmars/aeon no-category-skill"
+    }
+  ]
+}
