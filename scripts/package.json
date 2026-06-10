@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "seed:skills": "tsx src/seed-skills.ts",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest"
   },
