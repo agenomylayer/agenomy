@@ -1,7 +1,38 @@
+# deps
 node_modules/
+.pnpm-store/
+
+# builds
+dist/
+build/
+out/
+.next/
+*.tsbuildinfo
+
+# foundry
+packages/contracts/out/
+packages/contracts/cache/
+packages/contracts/broadcast/
+packages/contracts/lib/
+
+# env
 .env
 .env.local
+.env.*.local
+
+# logs
 *.log
-out/
-broadcast/
-cache/
+npm-debug.log*
+pnpm-debug.log*
+
+# os / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# docker volumes (local)
+.pgdata/
+
+# test/coverage
+coverage/
