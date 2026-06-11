@@ -29,6 +29,6 @@ describe("AgentProfile", () => {
 
     expect(screen.getByText(/memory/i)).toBeInTheDocument();
     expect(screen.getByText(/earnings/i)).toBeInTheDocument();
-    expect(screen.getByText(/coming in a later slice/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/coming in a later slice/i)).toHaveLength(2);
   });
 });

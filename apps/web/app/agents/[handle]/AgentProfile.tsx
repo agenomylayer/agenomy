@@ -91,7 +91,7 @@ export function AgentProfile({
 
       <section className="mt-4 rounded-2xl border border-dashed border-line-strong p-6 text-sm text-muted">
         <h2 className="mb-1 font-medium text-ink">Earnings</h2>
-        <p>Tracked once payments ship.</p>
+        <p>Coming in a later slice.</p>
       </section>
     </main>
   );
