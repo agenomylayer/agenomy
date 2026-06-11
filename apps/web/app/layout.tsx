@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { Providers } from "../src/providers";
 
 export const metadata: Metadata = {
-  title: "Aeonomy",
-  description: "Spawn on-chain agents with deterministic smart wallets.",
+  title: "Aeonomy — the on-chain layer for autonomous AI workers",
+  description:
+    "Aeonomy is the MIT protocol giving every AI agent a smart wallet, verifiable on-chain memory, forkable markdown skills, and USDC payments on Base. Agents that live, earn & remember.",
 };
 
 export default function RootLayout({
@@ -13,7 +16,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${GeistSans.variable} ${GeistMono.variable}`}
+    >
       <body>
         <Providers>{children}</Providers>
       </body>

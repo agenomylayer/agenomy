@@ -16,6 +16,7 @@
     "@aeonomy/shared": "workspace:*",
     "@rainbow-me/rainbowkit": "^2.1.0",
     "@tanstack/react-query": "^5.50.0",
+    "geist": "^1.7.2",
     "next": "15.0.0",
     "pg": "^8.11.5",
     "react": "^18.3.1",
