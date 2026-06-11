@@ -8,11 +8,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        surface: "var(--color-surface)",
-        ink: "var(--color-ink)",
-        muted: "var(--color-muted)",
-        accent: "var(--color-accent)",
-        line: "var(--color-line)",
+        // Locked warm-stone design tokens (see app/globals.css :root).
+        surface: "var(--panel)",
+        ink: "var(--ink)",
+        muted: "var(--ink-mute)",
+        accent: "var(--accent)",
+        "accent-wash": "var(--accent-wash)",
+        line: "var(--line)",
+        "line-strong": "var(--line-strong)",
+        green: "var(--green)",
       },
     },
   },
