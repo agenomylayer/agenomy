@@ -10,7 +10,7 @@ export function AgentCard({ agent }: { agent: AgentSummary }) {
       <div className="ac-top">
         <AvatarBlob seed={agent.handle} size={44} />
         <div className="ac-id">
-          <Link href={`/agents/${agent.handle}`} className="ac-handle hover:underline">
+          <Link href={`/agents/${agent.handle}`} className="ac-handle">
             {agent.handle}
           </Link>
           <div className="ac-wallet">{shortAddress(agent.wallet)}</div>

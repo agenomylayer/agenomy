@@ -3,7 +3,6 @@
 import { useEffect, useReducer, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAccount } from "wagmi";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import type { Address } from "viem";
 import { wizardReducer, initialWizardState, canAdvance } from "./wizardMachine";
 import { useHandleAvailability } from "./useHandleAvailability";
@@ -15,6 +14,7 @@ import { pinManifest } from "../../lib/api";
 import { computeConfigHash, type Skill } from "@aeonomy/shared";
 import { SkillChip } from "../../components/SkillChip";
 import { shortAddress } from "../../components/format";
+import { WalletConnect } from "./WalletConnect";
 
 const STEP_LABELS: Record<string, string> = {
   connect: "Connect",
@@ -127,7 +127,7 @@ export function CreateWizard() {
             <p className="wizard-desc">
               Your wallet owns the agent and its deterministic smart account.
             </p>
-            <ConnectButton />
+            <WalletConnect />
           </div>
         )}
 

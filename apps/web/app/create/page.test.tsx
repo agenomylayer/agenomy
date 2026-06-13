@@ -3,6 +3,8 @@ import { render, screen } from "@testing-library/react";
 
 vi.mock("wagmi", () => ({
   useAccount: () => ({ address: undefined, isConnected: false }),
+  useConnect: () => ({ connectors: [], connect: vi.fn(), isPending: false }),
+  useDisconnect: () => ({ disconnect: vi.fn() }),
   usePublicClient: () => undefined,
   useWriteContract: () => ({
     writeContractAsync: vi.fn(),
@@ -17,9 +19,6 @@ vi.mock("wagmi", () => ({
     isSuccess: false,
     error: null,
   }),
-}));
-vi.mock("@rainbow-me/rainbowkit", () => ({
-  ConnectButton: () => <button>Connect Wallet</button>,
 }));
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ push: vi.fn() }),
