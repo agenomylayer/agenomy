@@ -16,32 +16,30 @@ export function AgentProfile({
   ipfsGateway: string;
 }) {
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16">
-      <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-accent">
-        Agent
-      </p>
+    <main className="page page--md">
+      <span className="kicker">agent</span>
 
-      <header className="flex items-center gap-4">
+      <header className="page-head" style={{ display: "flex", alignItems: "center", gap: "16px", marginTop: "14px" }}>
         <AvatarBlob seed={agent.persona.avatarSeed || agent.handle} size={64} />
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-ink">
+          <h1 className="page-title" style={{ marginTop: 0 }}>
             {agent.handle}
           </h1>
-          <p className="text-muted">{agent.persona.displayName}</p>
+          <p className="muted-note">{agent.persona.displayName}</p>
         </div>
       </header>
 
-      <section className="mt-8 rounded-2xl border border-line bg-surface p-6 shadow-sm">
-        <dl className="space-y-2 text-sm text-ink">
+      <section className="card">
+        <dl className="kv">
           <div>
-            <dt className="inline font-medium text-muted">Owner: </dt>
-            <dd className="inline font-mono">{shortAddress(agent.owner)}</dd>
+            <span className="k">Owner </span>
+            <span className="v mono">{shortAddress(agent.owner)}</span>
           </div>
           <div>
-            <dt className="inline font-medium text-muted">Wallet: </dt>
-            <dd className="inline font-mono">{shortAddress(agent.wallet)}</dd>{" "}
+            <span className="k">Wallet </span>
+            <span className="v mono">{shortAddress(agent.wallet)}</span>{" "}
             <a
-              className="text-accent underline underline-offset-2 hover:opacity-80"
+              className="link-accent"
               href={basescanAddressUrl(agent.wallet)}
               target="_blank"
               rel="noreferrer"
@@ -50,12 +48,12 @@ export function AgentProfile({
             </a>
           </div>
           <div>
-            <dt className="inline font-medium text-muted">Created: </dt>
-            <dd className="inline">{formatCreatedAt(agent.createdAt)}</dd>
+            <span className="k">Created </span>
+            <span className="v">{formatCreatedAt(agent.createdAt)}</span>
           </div>
           <div>
             <a
-              className="text-accent underline underline-offset-2 hover:opacity-80"
+              className="link-accent"
               href={ipfsUrl(ipfsGateway, agent.manifestCid)}
               target="_blank"
               rel="noreferrer"
@@ -66,32 +64,30 @@ export function AgentProfile({
         </dl>
       </section>
 
-      <section className="mt-6 rounded-2xl border border-line bg-surface p-6 shadow-sm">
-        <h2 className="mb-3 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted">
-          Skills
-        </h2>
-        <div className="flex flex-wrap gap-1">
+      <section className="card">
+        <h2 className="card-label">Skills</h2>
+        <div className="ac-skills" style={{ margin: 0 }}>
           {agent.skills.map((s) => (
             <SkillChip key={s} slug={s} />
           ))}
         </div>
       </section>
 
-      <section className="mt-6 rounded-2xl border border-line bg-surface p-6 shadow-sm">
-        <h2 className="mb-3 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted">
-          Persona
-        </h2>
-        <p className="text-sm text-ink">{agent.persona.bio}</p>
+      <section className="card">
+        <h2 className="card-label">Persona</h2>
+        <p style={{ fontSize: "14.5px", color: "var(--ink-soft)", lineHeight: 1.6 }}>
+          {agent.persona.bio}
+        </p>
       </section>
 
-      <section className="mt-6 rounded-2xl border border-dashed border-line-strong p-6 text-sm text-muted">
-        <h2 className="mb-1 font-medium text-ink">Memory</h2>
-        <p>Coming in a later slice.</p>
+      <section className="card card-placeholder">
+        <h2 className="card-label" style={{ marginBottom: "6px" }}>Memory</h2>
+        <p className="muted-note">Coming in a later slice.</p>
       </section>
 
-      <section className="mt-4 rounded-2xl border border-dashed border-line-strong p-6 text-sm text-muted">
-        <h2 className="mb-1 font-medium text-ink">Earnings</h2>
-        <p>Coming in a later slice.</p>
+      <section className="card card-placeholder">
+        <h2 className="card-label" style={{ marginBottom: "6px" }}>Earnings</h2>
+        <p className="muted-note">Coming in a later slice.</p>
       </section>
     </main>
   );

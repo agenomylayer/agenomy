@@ -7,6 +7,18 @@ function hashSeed(seed: string): number {
   return h >>> 0;
 }
 
+/**
+ * Deterministic avatar tinted from the locked warm-stone / accent palette
+ * (mirrors the landing .av-1…av-4 gradient set in globals.css). No off-system
+ * hues — each seed maps to one of four on-brand orange/green/amber/slate ramps.
+ */
+const RAMPS: ReadonlyArray<readonly [from: string, to: string]> = [
+  ["#D9430F", "#8E2A07"], // accent orange  (av-1)
+  ["#1A7551", "#0F4A33"], // green          (av-2)
+  ["#C77A12", "#8A5106"], // amber          (av-3)
+  ["#2C5C8A", "#16314A"], // slate          (av-4)
+];
+
 export function AvatarBlob({
   seed,
   size = 48,
@@ -15,9 +27,9 @@ export function AvatarBlob({
   size?: number;
 }) {
   const h = hashSeed(seed);
-  const hue = h % 360;
-  const hue2 = (h >> 3) % 360;
-  const r = 6 + (h % 7);
+  const [from, to] = RAMPS[h % RAMPS.length];
+  const r = 10 + (h % 4);
+  const gradId = `av-${(h % 100000).toString(36)}`;
   return (
     <svg
       width={size}
@@ -27,18 +39,13 @@ export function AvatarBlob({
       aria-label={`avatar for ${seed}`}
       data-testid="avatar-blob"
     >
-      <rect
-        width="48"
-        height="48"
-        rx={r}
-        fill={`hsl(${hue} 45% 88%)`}
-      />
-      <circle
-        cx={16 + (h % 16)}
-        cy={16 + ((h >> 5) % 16)}
-        r={10 + (h % 6)}
-        fill={`hsl(${hue2} 55% 55%)`}
-      />
+      <defs>
+        <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor={from} />
+          <stop offset="1" stopColor={to} />
+        </linearGradient>
+      </defs>
+      <rect width="48" height="48" rx={r} fill={`url(#${gradId})`} />
     </svg>
   );
 }

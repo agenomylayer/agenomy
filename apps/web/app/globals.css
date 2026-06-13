@@ -1010,6 +1010,179 @@ footer {
 .foot-bottom .lic { color: var(--accent-deep); }
 
 /* ============================================================
+   APP PAGES — /create, /agents, /agents/[handle]
+   Same token set / radius / shadow language as the landing,
+   expressed as reusable helpers so the product surfaces read as
+   one system. No off-palette greys/blues/whites.
+   ============================================================ */
+.page {
+  width: 100%;
+  margin: 0 auto;
+  padding: 72px var(--gutter) 96px;
+}
+.page--sm { max-width: 640px; }
+.page--md { max-width: 760px; }
+.page--lg { max-width: var(--maxw); }
+
+.page-head { margin-bottom: 36px; }
+.page-head.split {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.page-title {
+  font-size: clamp(28px, 3.4vw, 38px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  margin-top: 14px;
+  color: var(--ink);
+}
+
+/* card surface = panel + locked border/radius/shadow */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 26px;
+  box-shadow: var(--sh-sm);
+}
+.card + .card { margin-top: 18px; }
+.card-placeholder {
+  border-style: dashed;
+  border-color: var(--line-strong);
+  box-shadow: none;
+}
+.card-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--ink-mute);
+  margin-bottom: 14px;
+}
+
+/* definition lists used on review + profile */
+.kv { display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
+.kv .k { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-mute); }
+.kv .v { color: var(--ink); }
+.kv .v.mono { font-family: var(--mono); }
+.link-accent { color: var(--accent-deep); font-weight: 500; text-decoration: underline; text-underline-offset: 2px; }
+.link-accent:hover { color: var(--accent); }
+
+/* form fields */
+.field {
+  width: 100%;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: 11px 13px;
+  font-family: var(--font);
+  font-size: 14.5px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color .16s ease, box-shadow .16s ease;
+}
+.field.mono { font-family: var(--mono); }
+.field::placeholder { color: var(--ink-ghost); }
+.field:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-wash); }
+.field-hint { margin-top: 8px; font-size: 13px; color: var(--ink-mute); }
+.field-hint.ok { color: var(--green-deep); }
+.field-hint.bad { color: var(--accent-deep); }
+
+/* step rail (wizard) */
+.steps { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+.step-pill {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink-mute);
+}
+.step-pill[aria-current="step"] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #FBF4E8;
+}
+
+/* wizard step typography + layout */
+.wizard-title { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 8px; }
+.wizard-desc { font-size: 14px; color: var(--ink-mute); margin-bottom: 18px; line-height: 1.55; }
+.wizard-fields { display: flex; flex-direction: column; gap: 12px; }
+.wizard-nav { display: flex; justify-content: space-between; margin-top: 24px; }
+.skill-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+@media (max-width: 560px) { .skill-grid { grid-template-columns: 1fr; } }
+
+/* disabled + secondary button variants reused on app pages */
+.btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+.btn-next { color: var(--accent-deep); border-color: var(--accent-soft); }
+.btn-next:hover { background: var(--accent-wash); border-color: var(--accent); }
+
+/* selectable skill option (wizard) */
+.skill-option {
+  width: 100%;
+  text-align: left;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 13px 14px;
+  cursor: pointer;
+  transition: border-color .16s ease, background .16s ease, transform .12s ease;
+}
+.skill-option:hover { border-color: var(--line-strong); transform: translateY(-1px); }
+.skill-option[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--accent-wash);
+}
+.skill-option .name { display: block; font-weight: 600; color: var(--ink); font-size: 14.5px; }
+.skill-option .desc { display: block; margin-top: 3px; font-size: 12.5px; color: var(--ink-mute); }
+
+/* skill filter <select> on the gallery */
+.select {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: 8px 12px;
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--ink);
+  outline: none;
+  cursor: pointer;
+}
+.select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-wash); }
+
+/* gallery grid mirrors landing .agent-grid but flows 1→2→3 up */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+.muted-note { color: var(--ink-mute); font-size: 14px; }
+
+@media (max-width: 860px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .page { padding: 56px var(--gutter) 72px; }
+  .gallery-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 980px) {

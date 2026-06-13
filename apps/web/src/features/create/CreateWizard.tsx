@@ -98,28 +98,20 @@ export function CreateWizard() {
   }
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-16">
-      <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-accent">
-        New agent
-      </p>
-      <h1 className="mb-8 text-3xl font-semibold tracking-tight text-ink">
+    <main className="page page--sm">
+      <span className="kicker">new agent</span>
+      <h1 className="page-title" style={{ marginBottom: "28px" }}>
         Spawn an agent
       </h1>
 
-      <ol
-        className="mb-10 flex flex-wrap gap-2 font-mono text-[0.7rem] uppercase tracking-[0.14em]"
-        aria-label="steps"
-      >
+      <ol className="steps" aria-label="steps">
         {["connect", "handle", "skills", "persona", "review"].map((s) => {
           const active = state.step === s;
           return (
             <li key={s} aria-current={active ? "step" : undefined}>
               <span
-                className={`inline-flex items-center rounded-full border px-3 py-1 ${
-                  active
-                    ? "border-accent bg-accent text-surface"
-                    : "border-line bg-surface text-muted"
-                }`}
+                className="step-pill"
+                aria-current={active ? "step" : undefined}
               >
                 {STEP_LABELS[s]}
               </span>
@@ -128,13 +120,11 @@ export function CreateWizard() {
         })}
       </ol>
 
-      <section className="rounded-2xl border border-line bg-surface p-6 shadow-sm">
+      <section className="card">
         {state.step === "connect" && (
           <div>
-            <h2 className="mb-2 text-xl font-semibold text-ink">
-              Connect your wallet
-            </h2>
-            <p className="mb-5 text-sm text-muted">
+            <h2 className="wizard-title">Connect your wallet</h2>
+            <p className="wizard-desc">
               Your wallet owns the agent and its deterministic smart account.
             </p>
             <ConnectButton />
@@ -143,15 +133,13 @@ export function CreateWizard() {
 
         {state.step === "handle" && (
           <div>
-            <h2 className="mb-2 text-xl font-semibold text-ink">
-              Choose a handle
-            </h2>
-            <p className="mb-4 text-sm text-muted">
+            <h2 className="wizard-title">Choose a handle</h2>
+            <p className="wizard-desc">
               Lowercase letters, digits, and hyphens. 3–32 characters.
             </p>
             <input
               aria-label="handle"
-              className="w-full rounded-xl border border-line bg-surface px-3 py-2 font-mono text-ink outline-none focus:border-accent"
+              className="field mono"
               value={state.handle}
               onChange={(e) =>
                 dispatch({ type: "setHandle", handle: e.target.value })
@@ -159,12 +147,12 @@ export function CreateWizard() {
               placeholder="lowercase-handle"
             />
             <p
-              className={`mt-2 text-sm ${
+              className={`field-hint ${
                 availability.status === "available"
-                  ? "text-green"
+                  ? "ok"
                   : availability.status === "checking"
-                    ? "text-muted"
-                    : "text-accent"
+                    ? ""
+                    : "bad"
               }`}
               role="status"
             >
@@ -176,7 +164,7 @@ export function CreateWizard() {
               {availability.status === "error" && availability.reason}
             </p>
             {predicted.data && (
-              <p className="mt-1 font-mono text-xs text-muted">
+              <p className="field-hint mono">
                 Predicted wallet: {shortAddress(predicted.data)}
               </p>
             )}
@@ -185,11 +173,11 @@ export function CreateWizard() {
 
         {state.step === "skills" && (
           <div>
-            <h2 className="mb-2 text-xl font-semibold text-ink">Pick skills</h2>
-            <p className="mb-4 text-sm text-muted">
+            <h2 className="wizard-title">Pick skills</h2>
+            <p className="wizard-desc">
               Choose at least one capability for your agent.
             </p>
-            <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+            <ul className="skill-grid">
               {skills.map((sk) => {
                 const selected = state.skills.includes(sk.slug);
                 return (
@@ -200,16 +188,10 @@ export function CreateWizard() {
                       onClick={() =>
                         dispatch({ type: "toggleSkill", slug: sk.slug })
                       }
-                      className={`w-full rounded-xl border px-3 py-2 text-left transition-colors ${
-                        selected
-                          ? "border-accent bg-accent-wash"
-                          : "border-line bg-surface hover:border-line-strong"
-                      }`}
+                      className="skill-option"
                     >
-                      <span className="font-medium text-ink">{sk.name}</span>
-                      <span className="block text-xs text-muted">
-                        {sk.description}
-                      </span>
+                      <span className="name">{sk.name}</span>
+                      <span className="desc">{sk.description}</span>
                     </button>
                   </li>
                 );
@@ -219,11 +201,11 @@ export function CreateWizard() {
         )}
 
         {state.step === "persona" && (
-          <div className="flex flex-col gap-3">
-            <h2 className="text-xl font-semibold text-ink">Persona</h2>
+          <div className="wizard-fields">
+            <h2 className="wizard-title">Persona</h2>
             <input
               aria-label="display name"
-              className="rounded-xl border border-line bg-surface px-3 py-2 text-ink outline-none focus:border-accent"
+              className="field"
               value={state.persona.displayName}
               onChange={(e) =>
                 dispatch({
@@ -235,7 +217,8 @@ export function CreateWizard() {
             />
             <textarea
               aria-label="bio"
-              className="min-h-[96px] rounded-xl border border-line bg-surface px-3 py-2 text-ink outline-none focus:border-accent"
+              className="field"
+              style={{ minHeight: "96px", resize: "vertical" }}
               value={state.persona.bio}
               onChange={(e) =>
                 dispatch({
@@ -247,7 +230,7 @@ export function CreateWizard() {
             />
             <input
               aria-label="avatar seed"
-              className="rounded-xl border border-line bg-surface px-3 py-2 font-mono text-ink outline-none focus:border-accent"
+              className="field mono"
               value={state.persona.avatarSeed}
               onChange={(e) =>
                 dispatch({
@@ -262,42 +245,35 @@ export function CreateWizard() {
 
         {state.step === "review" && (
           <div>
-            <h2 className="mb-4 text-xl font-semibold text-ink">
-              Review &amp; spawn
-            </h2>
-            <dl className="space-y-2 text-sm text-ink">
+            <h2 className="wizard-title">Review &amp; spawn</h2>
+            <dl className="kv">
               <div>
-                <dt className="inline font-medium text-muted">Handle: </dt>
-                <dd className="inline font-mono">{state.handle}</dd>
+                <span className="k">Handle </span>
+                <span className="v mono">{state.handle}</span>
               </div>
-              <div className="flex flex-wrap items-center gap-1">
-                <dt className="font-medium text-muted">Skills: </dt>
-                <dd className="inline-flex flex-wrap gap-1">
+              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "6px" }}>
+                <span className="k">Skills </span>
+                <span className="ac-skills" style={{ margin: 0 }}>
                   {state.skills.map((s) => (
                     <SkillChip key={s} slug={s} />
                   ))}
-                </dd>
+                </span>
               </div>
               <div>
-                <dt className="inline font-medium text-muted">
-                  Display name:{" "}
-                </dt>
-                <dd className="inline">{state.persona.displayName}</dd>
+                <span className="k">Display name </span>
+                <span className="v">{state.persona.displayName}</span>
               </div>
               {predicted.data && (
                 <div>
-                  <dt className="inline font-medium text-muted">
-                    Predicted wallet:{" "}
-                  </dt>
-                  <dd className="inline font-mono">
-                    {shortAddress(predicted.data)}
-                  </dd>
+                  <span className="k">Predicted wallet </span>
+                  <span className="v mono">{shortAddress(predicted.data)}</span>
                 </div>
               )}
             </dl>
             <button
               type="button"
-              className="mt-6 rounded-xl bg-accent px-5 py-2.5 font-medium text-surface shadow-sm transition-opacity hover:opacity-90 disabled:opacity-50"
+              className="btn btn-primary"
+              style={{ marginTop: "24px" }}
               disabled={submitting || isWriting || isConfirming}
               onClick={handleSubmit}
             >
@@ -308,7 +284,7 @@ export function CreateWizard() {
                   : "Spawn agent"}
             </button>
             {(submitError || error) && (
-              <p className="mt-3 text-sm text-accent" role="alert">
+              <p className="field-hint bad" role="alert">
                 {submitError ?? (error as Error)?.message}
               </p>
             )}
@@ -316,10 +292,10 @@ export function CreateWizard() {
         )}
       </section>
 
-      <div className="mt-8 flex justify-between">
+      <div className="wizard-nav">
         <button
           type="button"
-          className="rounded-xl border border-line bg-surface px-5 py-2.5 font-medium text-ink transition-colors hover:border-line-strong disabled:opacity-40"
+          className="btn btn-ghost"
           onClick={() => dispatch({ type: "back" })}
           disabled={state.step === "connect"}
         >
@@ -328,7 +304,7 @@ export function CreateWizard() {
         {state.step !== "review" && (
           <button
             type="button"
-            className="rounded-xl border border-accent bg-surface px-5 py-2.5 font-medium text-accent transition-colors hover:bg-accent-wash disabled:opacity-40"
+            className="btn btn-ghost btn-next"
             onClick={() => dispatch({ type: "next" })}
             disabled={!canAdvance(state)}
           >

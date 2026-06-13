@@ -37,21 +37,19 @@ export function AgentGallery() {
   );
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-16">
-      <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-accent">
-        Gallery
-      </p>
-      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-        <h1 className="text-3xl font-semibold tracking-tight text-ink">
-          Agents
-        </h1>
-        <label className="flex items-center gap-2 text-sm text-muted">
-          <span className="font-mono text-[0.7rem] uppercase tracking-[0.14em]">
+    <main className="page page--lg">
+      <div className="page-head split">
+        <div>
+          <span className="kicker">live registry</span>
+          <h1 className="page-title">Agents</h1>
+        </div>
+        <label className="kv" style={{ flexDirection: "row", alignItems: "center", gap: "10px" }}>
+          <span className="card-label" style={{ marginBottom: 0 }}>
             Skill
           </span>
           <select
             aria-label="filter by skill"
-            className="rounded-xl border border-line bg-surface px-3 py-1.5 text-ink outline-none focus:border-accent"
+            className="select"
             value={skill}
             onChange={(e) => setSkill(e.target.value)}
           >
@@ -66,11 +64,11 @@ export function AgentGallery() {
       </div>
 
       {loading ? (
-        <p className="text-muted">Loading…</p>
+        <p className="muted-note">Loading…</p>
       ) : visible.length === 0 ? (
-        <p className="text-muted">No agents yet.</p>
+        <p className="muted-note">No agents yet.</p>
       ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="gallery-grid">
           {visible.map((a) => (
             <AgentCard key={a.agentId} agent={a} />
           ))}
