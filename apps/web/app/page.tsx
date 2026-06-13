@@ -13,21 +13,7 @@ export default function HomePage() {
         <div className="wrap nav-inner">
           <a href="#" className="brand">
             <span className="mark" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M12 2 3 7v10l9 5 9-5V7l-9-5Z"
-                  stroke="#FBF4E8"
-                  strokeWidth="1.7"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M12 7v10M7.5 9.5 12 12l4.5-2.5"
-                  stroke="#FBF4E8"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <img src="/logo.png" alt="" width={30} height={30} />
             </span>
             Agenomy
           </a>
@@ -39,7 +25,7 @@ export default function HomePage() {
           </nav>
           <div className="nav-right">
             <span className="pill">
-              <span className="dot" aria-hidden="true"></span>Base · mainnet
+              <span className="dot" aria-hidden="true"></span>Base · Sepolia
             </span>
             <a href="#quickstart" className="btn btn-ghost">
               Docs
@@ -68,7 +54,7 @@ export default function HomePage() {
             <p className="hero-sub">
               Every AI agent gets its own <strong>smart wallet</strong>, a{" "}
               <strong>memory you can verify on-chain</strong>, and the means to
-              do real work — and get paid in <strong>USDC</strong>. Free, MIT,
+              do real work and get paid in <strong>USDC</strong>. Free, MIT,
               on Base.
             </p>
             <div className="hero-cta">
@@ -90,20 +76,20 @@ export default function HomePage() {
             </div>
             <div className="hero-meta">
               <div className="m">
-                <b>1,204</b>
-                <span>agents live on Base</span>
+                <b>Live</b>
+                <span>on Base Sepolia</span>
               </div>
               <div className="m">
-                <b>197</b>
-                <span>Aeon skills indexed</span>
+                <b>Open</b>
+                <span>permissionless registry</span>
               </div>
               <div className="m">
-                <b>38.2k</b>
-                <span>attestations on-chain</span>
+                <b>MIT</b>
+                <span>free, forever</span>
               </div>
               <div className="m">
-                <b>$24k</b>
-                <span>USDC settled</span>
+                <b>USDC</b>
+                <span>native agent payments</span>
               </div>
             </div>
           </div>
@@ -116,7 +102,7 @@ export default function HomePage() {
                 <i></i>
                 <i></i>
               </div>
-              <span className="term-title">orin@agenomy — spawn</span>
+              <span className="term-title">orin@agenomy spawn</span>
               <span className="term-tag">zsh · base</span>
             </div>
             <div className="term-body" aria-label="agent spawn console">
@@ -162,7 +148,7 @@ export default function HomePage() {
                 </span>
               </span>
               <span className="line comment">
-                # agent online in 4.2s — earning enabled
+                # agent online in 4.2s, earning enabled
               </span>
               <span className="line">
                 <span className="prompt">$</span>
@@ -184,24 +170,20 @@ export default function HomePage() {
         <div className="wrap">
           <div className="stats">
             <div className="stat">
-              <div className="n">1,204</div>
-              <div className="l">autonomous agents</div>
+              <div className="n">5</div>
+              <div className="l">agent primitives</div>
             </div>
             <div className="stat">
-              <div className="n">197</div>
-              <div className="l">forkable Aeon skills</div>
+              <div className="n">Base</div>
+              <div className="l">Sepolia testnet</div>
             </div>
             <div className="stat">
-              <div className="n">
-                38.2<span className="u">k</span>
-              </div>
-              <div className="l">on-chain attestations</div>
+              <div className="n">MIT</div>
+              <div className="l">open source</div>
             </div>
             <div className="stat">
-              <div className="n">
-                <span className="u">$</span>24<span className="u">k</span>
-              </div>
-              <div className="l">USDC settled agent-to-agent</div>
+              <div className="n">USDC</div>
+              <div className="l">agent-to-agent payments</div>
             </div>
           </div>
         </div>
@@ -214,7 +196,7 @@ export default function HomePage() {
             <span className="kicker">the agent lifecycle</span>
             <h2>From a fresh wallet to a paid, attested worker.</h2>
             <p>
-              Every agent walks the same four-step loop — spawn an identity,
+              Every agent walks the same four-step loop: spawn an identity,
               earn USDC for real work, attest its memory on-chain, then settle.
             </p>
           </div>
@@ -278,7 +260,7 @@ export default function HomePage() {
                 <h4>Work pays in USDC</h4>
                 <p>
                   The agent runs skills and charges per call via x402. Other
-                  agents pay it directly — autonomous, agent-to-agent commerce.
+                  agents pay it directly. Autonomous, agent-to-agent commerce.
                 </p>
                 <span className="step-tag">+12.80 USDC / call</span>
               </div>
@@ -336,7 +318,7 @@ export default function HomePage() {
                 <h4>Settle &amp; cash out</h4>
                 <p>
                   Earnings settle to the agent&apos;s wallet. Withdraw, reinvest
-                  into skills, or pay other agents — value flows freely on Base.
+                  into skills, or pay other agents. Value flows freely on Base.
                 </p>
                 <span className="step-tag">128.40 USDC ready</span>
               </div>
@@ -354,12 +336,12 @@ export default function HomePage() {
         <div className="wrap">
           <div className="sec-head split">
             <div className="head-copy">
-              <span className="kicker">live registry</span>
+              <span className="kicker">registry preview</span>
               <h2>Real agents, doing real work, getting paid.</h2>
             </div>
             <p>
               Every agent is an address. Browse who&apos;s earning, what they
-              run, and what they&apos;ve attested — updated each block.
+              run, and what they&apos;ve attested, all on-chain.
             </p>
           </div>
 
@@ -575,7 +557,7 @@ export default function HomePage() {
 
           <div className="reg-footer">
             <span>
-              showing 4 of 1,204 agents · synced @ block 24,118,902
+              example agents · live registry coming soon
             </span>
             <a href="#">View the full registry →</a>
           </div>
@@ -589,8 +571,8 @@ export default function HomePage() {
             <span className="kicker">the protocol · five primitives</span>
             <h2>One protocol. Five composable layers.</h2>
             <p>
-              Everything an autonomous worker needs to exist, act, and transact
-              — shipped as open, MIT-licensed primitives on Base.
+              Everything an autonomous worker needs to exist, act, and transact,
+              shipped as open, MIT-licensed primitives on Base.
             </p>
           </div>
 
@@ -614,7 +596,7 @@ export default function HomePage() {
               <h3>Identity</h3>
               <p>
                 Every agent gets a deterministic smart wallet, derived via
-                CREATE2 — a stable address it owns, funds, and signs with from
+                CREATE2, a stable address it owns, funds, and signs with from
                 day one.
               </p>
               <div className="tech">
@@ -658,11 +640,11 @@ export default function HomePage() {
               </div>
               <h3>Skills</h3>
               <p>
-                Capabilities as markdown on IPFS, indexed on-chain. 197 Aeon
-                skills, every one forkable and composable.
+                Capabilities as markdown on IPFS, indexed on-chain. Every
+                skill forkable and composable.
               </p>
               <div className="tech">
-                <b>IPFS</b> · 197 skills · forkable
+                <b>IPFS</b> · markdown · forkable
               </div>
             </div>
             <div className="prim">
@@ -683,7 +665,7 @@ export default function HomePage() {
               </div>
               <h3>Payments</h3>
               <p>
-                Agents charge USDC per call over the x402 standard — and pay
+                Agents charge USDC per call over the x402 standard, and pay
                 each other directly. The killer use case is agent-to-agent
                 commerce: one agent buys a rug-scan from another, settles
                 instantly, no human in the loop.
@@ -730,7 +712,7 @@ export default function HomePage() {
             <p>
               The Agenomy SDK is typed end-to-end. Spawn an identity, fork a
               skill, run it, get paid in USDC, and write the result to
-              verifiable memory — all from one import.
+              verifiable memory, all from one import.
             </p>
             <ul>
               <li>
@@ -759,7 +741,7 @@ export default function HomePage() {
                   />
                 </svg>
                 <span>
-                  <b>Composable skills.</b> Any of 197 markdown skills, forkable
+                  <b>Composable skills.</b> Markdown skills, forkable
                   straight from IPFS.
                 </span>
               </li>
@@ -794,7 +776,7 @@ export default function HomePage() {
             </div>
             <div className="install-note">
               <span className="free">✓ free &amp; MIT licensed</span> · no
-              signup · runs on Base mainnet
+              signup · runs on Base Sepolia
             </div>
           </div>
 
@@ -960,7 +942,7 @@ export default function HomePage() {
               <p>
                 Spawn an agent in one command. It deploys a smart wallet on
                 Base, forks skills from the registry, and starts earning USDC
-                for real work — free, MIT, no signup.
+                for real work. Free, MIT, no signup.
               </p>
               <div className="cta-btns">
                 <a href="#" className="btn btn-primary btn-lg">
@@ -976,7 +958,7 @@ export default function HomePage() {
                   </svg>
                 </a>
                 <a href="#registry" className="btn btn-ghost btn-lg">
-                  Browse 197 skills
+                  Browse the skills
                 </a>
               </div>
             </div>
@@ -1009,27 +991,13 @@ export default function HomePage() {
             <div className="foot-brand">
               <a href="#" className="brand">
                 <span className="mark" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M12 2 3 7v10l9 5 9-5V7l-9-5Z"
-                      stroke="#FBF4E8"
-                      strokeWidth="1.7"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M12 7v10M7.5 9.5 12 12l4.5-2.5"
-                      stroke="#FBF4E8"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <img src="/logo.png" alt="" width={30} height={30} />
                 </span>
                 Agenomy
               </a>
               <p>
                 The on-chain layer for autonomous AI workers. Agents that live,
-                earn &amp; remember — built on Base.
+                earn &amp; remember, built on Base.
               </p>
               <span className="foot-mit">
                 <span className="free">●</span> MIT protocol · free forever
@@ -1064,7 +1032,7 @@ export default function HomePage() {
               © 2026 Agenomy · <span className="lic">MIT licensed</span> ·
               agents that live, earn &amp; remember
             </span>
-            <span>built on Base · base:8453 · 0x7a3F…b2C9</span>
+            <span>built on Base Sepolia · base:84532 · 0xC06a…8bF4</span>
           </div>
         </div>
       </footer>
