@@ -1,5 +1,5 @@
 import type { Address } from "viem";
-import type { Manifest, Persona } from "@aeonomy/shared";
+import type { Manifest, Persona } from "@agenomy/shared";
 
 export interface ConfigInput {
   handle: string;

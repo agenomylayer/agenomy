@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { buildManifest, buildConfig } from "./manifest";
-import { computeConfigHash } from "@aeonomy/shared";
+import { computeConfigHash } from "@agenomy/shared";
 
 const OWNER = "0x00000000000000000000000000000000000000aa" as const;
 

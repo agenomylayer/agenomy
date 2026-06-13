@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { logToAgentBase, enrichWithManifest, type DecodedSpawnLog } from '../src/mapLog';
-import { bytes32ToCidV0 } from '@aeonomy/shared';
+import { bytes32ToCidV0 } from '@agenomy/shared';
 
 const manifestHash = ('0x' + '12'.repeat(32)) as `0x${string}`;
 const configHash = ('0x' + '34'.repeat(32)) as `0x${string}`;

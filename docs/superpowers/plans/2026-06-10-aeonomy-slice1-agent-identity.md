@@ -1,4 +1,4 @@
-# Aeonomy Slice 1 — Agent Identity Implementation Plan
+# Agenomy Slice 1 — Agent Identity Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -10,7 +10,7 @@
 
 **Build order (dependency-sorted):** Phase 0 scaffold → Phase 1 contracts → Phase 2 backend → Phase 3 frontend.
 
-**Companion spec:** [docs/superpowers/specs/2026-06-10-aeonomy-slice1-agent-identity-design.md](../specs/2026-06-10-aeonomy-slice1-agent-identity-design.md) — read first for locked decisions A–E, verified addresses, and the fixed shared interface.
+**Companion spec:** [docs/superpowers/specs/2026-06-10-agenomy-slice1-agent-identity-design.md](../specs/2026-06-10-agenomy-slice1-agent-identity-design.md) — read first for locked decisions A–E, verified addresses, and the fixed shared interface.
 
 ---
 
@@ -96,7 +96,7 @@ Prerequisites (verify once, do not script): `node -v` reports v20+, `pnpm -v` re
 - [ ] **Step 5: Create root `package.json`** with full contents. The `test` script delegates to the workspace recursively so `pnpm -w test` runs every package's `test` script; `db:up`/`db:down`/`db:migrate` wrap docker + psql:
   ```json
   {
-    "name": "aeonomy",
+    "name": "agenomy",
     "version": "0.0.0",
     "private": true,
     "type": "module",
@@ -110,7 +110,7 @@ Prerequisites (verify once, do not script): `node -v` reports v20+, `pnpm -v` re
       "typecheck": "pnpm -r --if-present typecheck",
       "db:up": "docker compose up -d",
       "db:down": "docker compose down",
-      "db:migrate": "docker compose exec -T postgres psql -U aeon -d aeonomy -f /migrations/001_init.sql"
+      "db:migrate": "docker compose exec -T postgres psql -U aeon -d agenomy -f /migrations/001_init.sql"
     },
     "devDependencies": {
       "typescript": "^5.5.4"
@@ -151,19 +151,19 @@ Prerequisites (verify once, do not script): `node -v` reports v20+, `pnpm -v` re
   services:
     postgres:
       image: postgres:16
-      container_name: aeonomy-postgres
+      container_name: agenomy-postgres
       restart: unless-stopped
       environment:
         POSTGRES_USER: aeon
         POSTGRES_PASSWORD: aeon
-        POSTGRES_DB: aeonomy
+        POSTGRES_DB: agenomy
       ports:
         - "5432:5432"
       volumes:
         - ./.pgdata:/var/lib/postgresql/data
         - ./migrations:/migrations:ro
       healthcheck:
-        test: ["CMD-SHELL", "pg_isready -U aeon -d aeonomy"]
+        test: ["CMD-SHELL", "pg_isready -U aeon -d agenomy"]
         interval: 5s
         timeout: 5s
         retries: 10
@@ -171,7 +171,7 @@ Prerequisites (verify once, do not script): `node -v` reports v20+, `pnpm -v` re
 
 - [ ] **Step 2: Create `migrations/001_init.sql`** with the EXACT DDL from the shared interface (three tables: `skills`, `agents`, `indexer_state`). Full contents:
   ```sql
-  -- Aeonomy slice 1 schema. Idempotent: safe to re-run.
+  -- Agenomy slice 1 schema. Idempotent: safe to re-run.
 
   CREATE TABLE IF NOT EXISTS skills (
     slug        TEXT PRIMARY KEY,
@@ -220,7 +220,7 @@ Prerequisites (verify once, do not script): `node -v` reports v20+, `pnpm -v` re
   IPFS_GATEWAY=https://gateway.pinata.cloud
 
   # --- database ---
-  DATABASE_URL=postgres://aeon:aeon@localhost:5432/aeonomy
+  DATABASE_URL=postgres://aeon:aeon@localhost:5432/agenomy
 
   # --- registry / indexer ---
   REGISTRY_ADDRESS=0x0000000000000000000000000000000000000000
@@ -235,16 +235,16 @@ Prerequisites (verify once, do not script): `node -v` reports v20+, `pnpm -v` re
   ```bash
   pnpm db:up
   ```
-  Expected: `Container aeonomy-postgres  Started` (or `Created`/`Running`). Then wait for health and migrate:
+  Expected: `Container agenomy-postgres  Started` (or `Created`/`Running`). Then wait for health and migrate:
   ```bash
-  docker compose exec -T postgres pg_isready -U aeon -d aeonomy
+  docker compose exec -T postgres pg_isready -U aeon -d agenomy
   pnpm db:migrate
   ```
   Expected output of `pg_isready`: `... accepting connections`. Expected output of `db:migrate`: a sequence of `CREATE TABLE` / `CREATE INDEX` lines with no errors. Re-running `pnpm db:migrate` MUST stay clean (idempotent) — re-run once to confirm only `NOTICE ... already exists, skipping` appears.
 
 - [ ] **Step 5: Verify tables exist.** Run:
   ```bash
-  docker compose exec -T postgres psql -U aeon -d aeonomy -c "\dt"
+  docker compose exec -T postgres psql -U aeon -d agenomy -c "\dt"
   ```
   Expected: a table listing that includes `agents`, `indexer_state`, and `skills`.
 
@@ -267,7 +267,7 @@ Prerequisites (verify once, do not script): `node -v` reports v20+, `pnpm -v` re
 - [ ] **Step 1: Create `packages/shared/package.json`** exporting from `src/index.ts`, depending on `viem` and `bs58`, with `test`/`typecheck`/`build` scripts. Full contents:
   ```json
   {
-    "name": "@aeonomy/shared",
+    "name": "@agenomy/shared",
     "version": "0.0.0",
     "private": true,
     "type": "module",
@@ -333,14 +333,14 @@ Prerequisites (verify once, do not script): `node -v` reports v20+, `pnpm -v` re
   ```
   Expected: install completes with `Done in ...`; `viem`, `bs58`, and `vitest` appear under `packages/shared`. Verify the binary resolves:
   ```bash
-  pnpm --filter @aeonomy/shared exec vitest --version
+  pnpm --filter @agenomy/shared exec vitest --version
   ```
   Expected output: a version string like `2.1.x` (vitest) — confirms the dep graph is wired.
 
 - [ ] **Step 5: Commit.** Run:
   ```bash
   git add packages/shared/package.json packages/shared/tsconfig.json packages/shared/vitest.config.ts pnpm-lock.yaml
-  git commit -m "chore(shared): scaffold @aeonomy/shared package (viem, bs58, vitest)"
+  git commit -m "chore(shared): scaffold @agenomy/shared package (viem, bs58, vitest)"
   ```
   Expected output: a commit summary listing the 4 files.
 
@@ -692,7 +692,7 @@ This task writes the failing tests FIRST (round-trip + salt determinism), confir
 
 - [ ] **Step 2: Run the test and confirm it FAILS** (helpers/index do not exist yet). Run:
   ```bash
-  pnpm --filter @aeonomy/shared test
+  pnpm --filter @agenomy/shared test
   ```
   Expected: Vitest fails to resolve the import, printing something like `Failed to load url ./helpers` / `Cannot find module './helpers'` and `Test Files  1 failed`. This confirms the test is wired and red.
 
@@ -830,13 +830,13 @@ This task writes the failing tests FIRST (round-trip + salt determinism), confir
 
 - [ ] **Step 5: Run the test and confirm it PASSES.** Run:
   ```bash
-  pnpm --filter @aeonomy/shared test
+  pnpm --filter @agenomy/shared test
   ```
   Expected: `Test Files  1 passed (1)` and `Tests  ...  passed` covering the round-trip, salt determinism, Solidity-equivalence, config-hash, and buildManifest cases.
 
 - [ ] **Step 6: Typecheck the package.** Run:
   ```bash
-  pnpm --filter @aeonomy/shared typecheck
+  pnpm --filter @agenomy/shared typecheck
   ```
   Expected: `tsc --noEmit` exits 0 with no output.
 
@@ -858,13 +858,13 @@ This task writes the failing tests FIRST (round-trip + salt determinism), confir
   ```bash
   pnpm -w test
   ```
-  Expected: pnpm fans out recursively; only `@aeonomy/shared` has a `test` script in this phase, so output shows its Vitest run ending in `Test Files  1 passed (1)` and the overall command exits 0. (Other packages have no `test` script yet and are skipped via `--if-present`.)
+  Expected: pnpm fans out recursively; only `@agenomy/shared` has a `test` script in this phase, so output shows its Vitest run ending in `Test Files  1 passed (1)` and the overall command exits 0. (Other packages have no `test` script yet and are skipped via `--if-present`.)
 
 - [ ] **Step 2: Run the full workspace typecheck.** Run:
   ```bash
   pnpm -w typecheck
   ```
-  Expected: `@aeonomy/shared` typechecks clean (exit 0); other packages skipped.
+  Expected: `@agenomy/shared` typechecks clean (exit 0); other packages skipped.
 
 - [ ] **Step 3: Confirm a clean working tree.** Run:
   ```bash
@@ -1502,7 +1502,7 @@ Broadcast the real deployment, capture the registry address and deploy block fro
 
   # Read API + manifest pinning
   BASE_SEPOLIA_RPC_URL=https://sepolia.base.org
-  DATABASE_URL=postgres://postgres:postgres@localhost:5432/aeonomy
+  DATABASE_URL=postgres://postgres:postgres@localhost:5432/agenomy
   PINATA_JWT=your_pinata_jwt
   IPFS_GATEWAY=gateway.pinata.cloud
   ```
@@ -1514,7 +1514,7 @@ Broadcast the real deployment, capture the registry address and deploy block fro
   DEPLOY_BLOCK=0
 
   BASE_SEPOLIA_RPC_URL=https://sepolia.base.org
-  DATABASE_URL=postgres://postgres:postgres@localhost:5432/aeonomy
+  DATABASE_URL=postgres://postgres:postgres@localhost:5432/agenomy
   IPFS_GATEWAY=gateway.pinata.cloud
   ```
 
@@ -1545,10 +1545,10 @@ Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
 
 ## Phase 2: Backend — skill seed, indexer, read API & manifest pin
 
-This phase builds every non-UI backend unit that consumes the Phase 1 `@aeonomy/shared` package and the Phase 1 Postgres schema (`migrations/001_init.sql`): the Aeon skill seed script, the standalone indexer (`apps/indexer`), and the five Next.js read/write route handlers in `apps/web/app/api`. All response shapes, table columns, helper signatures, and addresses are consumed VERBATIM from the SHARED INTERFACE.
+This phase builds every non-UI backend unit that consumes the Phase 1 `@agenomy/shared` package and the Phase 1 Postgres schema (`migrations/001_init.sql`): the Aeon skill seed script, the standalone indexer (`apps/indexer`), and the five Next.js read/write route handlers in `apps/web/app/api`. All response shapes, table columns, helper signatures, and addresses are consumed VERBATIM from the SHARED INTERFACE.
 
 **Assumptions carried in from earlier phases (do not re-create here):**
-- `@aeonomy/shared` exports: `cidToBytes32(cid: string): \`0x${string}\``, `bytes32ToCidV0(h: \`0x${string}\`): string`, `computeConfigHash(config: object): \`0x${string}\``, `computeSalt`, `predictWallet`, plus types `Manifest`, `Persona`, and the `AgentRegistry` ABI export named `agentRegistryAbi` and the `AgentSpawned` event fragment.
+- `@agenomy/shared` exports: `cidToBytes32(cid: string): \`0x${string}\``, `bytes32ToCidV0(h: \`0x${string}\`): string`, `computeConfigHash(config: object): \`0x${string}\``, `computeSalt`, `predictWallet`, plus types `Manifest`, `Persona`, and the `AgentRegistry` ABI export named `agentRegistryAbi` and the `AgentSpawned` event fragment.
 - `migrations/001_init.sql` already defines `skills`, `agents`, `indexer_state` exactly as in SHARED.
 - Root `pnpm-workspace.yaml` lists `packages/*` and `apps/*`. `docker-compose.yml` runs local Postgres 16; `DATABASE_URL` points at it.
 - Vitest 2 is the test runner for `apps/indexer`, the seed script (run from repo root), and `apps/web` unit tests.
@@ -1570,7 +1570,7 @@ A pre-existing Postgres is required for the integration-flavored tests; where a 
 - [ ] **Step 1: Create `scripts/package.json`** (full contents):
 ```json
 {
-  "name": "@aeonomy/scripts",
+  "name": "@agenomy/scripts",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -1580,7 +1580,7 @@ A pre-existing Postgres is required for the integration-flavored tests; where a 
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@aeonomy/shared": "workspace:*",
+    "@agenomy/shared": "workspace:*",
     "pg": "^8.11.5"
   },
   "devDependencies": {
@@ -1733,7 +1733,7 @@ describe('mapSkills', () => {
 
 - [ ] **Step 6: Run the test and watch it FAIL** (module does not exist yet):
 ```
-pnpm --filter @aeonomy/scripts test
+pnpm --filter @agenomy/scripts test
 ```
 Expected FAIL output contains: `Failed to load url ../src/mapSkills` / `Cannot find module '../src/mapSkills'`.
 
@@ -1792,7 +1792,7 @@ export function mapSkills(catalog: AeonCatalog): SkillRow[] {
 
 - [ ] **Step 8: Re-run the test and watch it PASS:**
 ```
-pnpm --filter @aeonomy/scripts test
+pnpm --filter @agenomy/scripts test
 ```
 Expected PASS output contains: `Test Files  1 passed (1)` and `Tests  4 passed (4)`.
 
@@ -1892,7 +1892,7 @@ describe('upsertSkills', () => {
 
 - [ ] **Step 2: Run the test and watch it FAIL:**
 ```
-pnpm --filter @aeonomy/scripts test upsertSkills
+pnpm --filter @agenomy/scripts test upsertSkills
 ```
 Expected FAIL output contains: `Cannot find module '../src/upsertSkills'`.
 
@@ -1936,7 +1936,7 @@ export async function upsertSkills(pool: QueryablePool, rows: SkillRow[]): Promi
 
 - [ ] **Step 4: Re-run the test and watch it PASS:**
 ```
-pnpm --filter @aeonomy/scripts test upsertSkills
+pnpm --filter @agenomy/scripts test upsertSkills
 ```
 Expected PASS output contains: `Tests  3 passed (3)`.
 
@@ -1991,14 +1991,14 @@ main().catch((err) => {
 
 - [ ] **Step 6: Type-check the package compiles cleanly:**
 ```
-pnpm --filter @aeonomy/scripts exec tsc --noEmit
+pnpm --filter @agenomy/scripts exec tsc --noEmit
 ```
 Expected: no output, exit code 0.
 
 - [ ] **Step 7: (Optional live smoke — only if Postgres is up via docker-compose and migrations applied.) Run the seed twice to prove idempotency end-to-end:**
 ```
-DATABASE_URL=$env:DATABASE_URL pnpm --filter @aeonomy/scripts seed:skills
-pnpm --filter @aeonomy/scripts seed:skills
+DATABASE_URL=$env:DATABASE_URL pnpm --filter @agenomy/scripts seed:skills
+pnpm --filter @agenomy/scripts seed:skills
 ```
 Expected: first run prints `mapped rows = 197` (or current count) then `Seeded 197 skills.`; second run prints the same `Seeded N skills.` with no error (row count in DB unchanged). Skip this step in CI where DB is absent.
 
@@ -2022,7 +2022,7 @@ git commit -m "feat(scripts): idempotent skills upsert + seed-skills runner (cou
 - [ ] **Step 1: Create `apps/indexer/package.json`** (full contents):
 ```json
 {
-  "name": "@aeonomy/indexer",
+  "name": "@agenomy/indexer",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -2033,7 +2033,7 @@ git commit -m "feat(scripts): idempotent skills upsert + seed-skills runner (cou
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@aeonomy/shared": "workspace:*",
+    "@agenomy/shared": "workspace:*",
     "pg": "^8.11.5",
     "viem": "^2.9.0"
   },
@@ -2161,13 +2161,13 @@ describe('db helpers', () => {
 
 - [ ] **Step 5: Run the test and watch it FAIL:**
 ```
-pnpm --filter @aeonomy/indexer test db
+pnpm --filter @agenomy/indexer test db
 ```
 Expected FAIL output contains: `Cannot find module '../src/db'`.
 
 - [ ] **Step 6: Create `apps/indexer/src/db.ts`** (full contents). Column order matches `migrations/001_init.sql` exactly; bigints bound as strings (pg-safe), jsonb bound as JSON text and cast in SQL:
 ```ts
-import type { Persona } from '@aeonomy/shared';
+import type { Persona } from '@agenomy/shared';
 
 export interface QueryResultLike {
   rowCount: number | null;
@@ -2239,7 +2239,7 @@ export async function upsertAgent(pool: QueryablePool, a: AgentInsert): Promise<
 
 - [ ] **Step 7: Re-run the test and watch it PASS:**
 ```
-pnpm --filter @aeonomy/indexer test db
+pnpm --filter @agenomy/indexer test db
 ```
 Expected PASS output contains: `Tests  3 passed (3)`.
 
@@ -2261,7 +2261,7 @@ git commit -m "feat(indexer): pg db helpers for indexer_state + agents upsert (D
 ```ts
 import { describe, it, expect, vi } from 'vitest';
 import { logToAgentBase, enrichWithManifest, type DecodedSpawnLog } from '../src/mapLog';
-import { bytes32ToCidV0 } from '@aeonomy/shared';
+import { bytes32ToCidV0 } from '@agenomy/shared';
 
 const manifestHash = ('0x' + '12'.repeat(32)) as `0x${string}`;
 const configHash = ('0x' + '34'.repeat(32)) as `0x${string}`;
@@ -2358,13 +2358,13 @@ describe('enrichWithManifest', () => {
 
 - [ ] **Step 2: Run the test and watch it FAIL:**
 ```
-pnpm --filter @aeonomy/indexer test mapLog
+pnpm --filter @agenomy/indexer test mapLog
 ```
 Expected FAIL output contains: `Cannot find module '../src/mapLog'`.
 
 - [ ] **Step 3: Create `apps/indexer/src/mapLog.ts`** (full contents):
 ```ts
-import { bytes32ToCidV0, type Persona, type Manifest } from '@aeonomy/shared';
+import { bytes32ToCidV0, type Persona, type Manifest } from '@agenomy/shared';
 import type { AgentInsert } from './db';
 
 export interface DecodedSpawnLog {
@@ -2444,7 +2444,7 @@ export async function enrichWithManifest(
 
 - [ ] **Step 4: Re-run the test and watch it PASS:**
 ```
-pnpm --filter @aeonomy/indexer test mapLog
+pnpm --filter @agenomy/indexer test mapLog
 ```
 Expected PASS output contains: `Tests  4 passed (4)`.
 
@@ -2566,7 +2566,7 @@ describe('runOnce', () => {
 
 - [ ] **Step 2: Run the test and watch it FAIL:**
 ```
-pnpm --filter @aeonomy/indexer test indexer
+pnpm --filter @agenomy/indexer test indexer
 ```
 Expected FAIL output contains: `Cannot find module '../src/indexer'`.
 
@@ -2646,7 +2646,7 @@ export { enrichWithManifest };
 
 - [ ] **Step 4: Re-run the test and watch it PASS:**
 ```
-pnpm --filter @aeonomy/indexer test indexer
+pnpm --filter @agenomy/indexer test indexer
 ```
 Expected PASS output contains: `Tests  4 passed (4)`.
 
@@ -2784,13 +2784,13 @@ INDEXER_POLL_MS=5000
 
 - [ ] **Step 4: Type-check the indexer compiles cleanly:**
 ```
-pnpm --filter @aeonomy/indexer exec tsc --noEmit
+pnpm --filter @agenomy/indexer exec tsc --noEmit
 ```
 Expected: no output, exit code 0.
 
 - [ ] **Step 5: Run the full indexer test suite to confirm nothing regressed:**
 ```
-pnpm --filter @aeonomy/indexer test
+pnpm --filter @agenomy/indexer test
 ```
 Expected PASS output contains: `Test Files  3 passed (3)`.
 
@@ -2866,7 +2866,7 @@ describe('validateHandleFormat', () => {
 
 - [ ] **Step 2: Run the test and watch it FAIL:**
 ```
-pnpm --filter @aeonomy/web test handle.test
+pnpm --filter @agenomy/web test handle.test
 ```
 Expected FAIL output contains: `Cannot find module '../lib/handle'`.
 
@@ -2897,7 +2897,7 @@ export function validateHandleFormat(handle: string): HandleCheck {
 
 - [ ] **Step 4: Re-run the test and watch it PASS:**
 ```
-pnpm --filter @aeonomy/web test handle.test
+pnpm --filter @agenomy/web test handle.test
 ```
 Expected PASS output contains: `Tests  6 passed (6)`.
 
@@ -2989,7 +2989,7 @@ describe('GET /api/agents/handle-available', () => {
 
 - [ ] **Step 7: Run the route test and watch it FAIL:**
 ```
-pnpm --filter @aeonomy/web test handle-available.route
+pnpm --filter @agenomy/web test handle-available.route
 ```
 Expected FAIL output contains: `Cannot find module '../app/api/agents/handle-available/route'`.
 
@@ -3024,7 +3024,7 @@ export async function GET(request: Request): Promise<Response> {
 
 - [ ] **Step 9: Re-run the route test and watch it PASS:**
 ```
-pnpm --filter @aeonomy/web test handle-available.route
+pnpm --filter @agenomy/web test handle-available.route
 ```
 Expected PASS output contains: `Tests  5 passed (5)`.
 
@@ -3126,13 +3126,13 @@ describe('GET /api/skills', () => {
 
 - [ ] **Step 2: Run the test and watch it FAIL:**
 ```
-pnpm --filter @aeonomy/web test skills.route
+pnpm --filter @agenomy/web test skills.route
 ```
 Expected FAIL output contains: `Cannot find module '../app/api/skills/route'`.
 
 - [ ] **Step 3: Create row-coercion helpers `apps/web/lib/rows.ts`** (full contents) — normalizes pg jsonb/bigint values into the SHARED response types:
 ```ts
-import type { Persona } from '@aeonomy/shared';
+import type { Persona } from '@agenomy/shared';
 
 export interface Skill {
   slug: string;
@@ -3267,7 +3267,7 @@ export async function GET(request: Request): Promise<Response> {
 
 - [ ] **Step 5: Re-run the test and watch it PASS:**
 ```
-pnpm --filter @aeonomy/web test skills.route
+pnpm --filter @agenomy/web test skills.route
 ```
 Expected PASS output contains: `Tests  4 passed (4)`.
 
@@ -3386,7 +3386,7 @@ describe('GET /api/agents', () => {
 
 - [ ] **Step 2: Run the list test and watch it FAIL:**
 ```
-pnpm --filter @aeonomy/web test agents-list.route
+pnpm --filter @agenomy/web test agents-list.route
 ```
 Expected FAIL output contains: `Cannot find module '../app/api/agents/route'`.
 
@@ -3463,7 +3463,7 @@ export async function GET(request: Request): Promise<Response> {
 
 - [ ] **Step 4: Re-run the list test and watch it PASS:**
 ```
-pnpm --filter @aeonomy/web test agents-list.route
+pnpm --filter @agenomy/web test agents-list.route
 ```
 Expected PASS output contains: `Tests  4 passed (4)`.
 
@@ -3524,7 +3524,7 @@ describe('GET /api/agents/[handle]', () => {
 
 - [ ] **Step 6: Run the detail test and watch it FAIL:**
 ```
-pnpm --filter @aeonomy/web test agent-detail.route
+pnpm --filter @agenomy/web test agent-detail.route
 ```
 Expected FAIL output contains: `Cannot find module '../app/api/agents/[handle]/route'`.
 
@@ -3557,7 +3557,7 @@ export async function GET(
 
 - [ ] **Step 8: Re-run the detail test and watch it PASS:**
 ```
-pnpm --filter @aeonomy/web test agent-detail.route
+pnpm --filter @agenomy/web test agent-detail.route
 ```
 Expected PASS output contains: `Tests  2 passed (2)`.
 
@@ -3576,12 +3576,12 @@ git commit -m "feat(web): GET /api/agents list (filters/paging) + GET /api/agent
 - Create: `apps/web/app/api/manifests/route.ts`
 - Test: `apps/web/test/manifests.route.test.ts`
 
-- [ ] **Step 1: Write the FAILING test `apps/web/test/manifests.route.test.ts`** (full contents). Body `{ manifest: Manifest }`; pins via Pinata `pinJSONToIPFS` using `PINATA_JWT`; returns `{ cid, manifestHash }` where `manifestHash = cidToBytes32(cid)` from `@aeonomy/shared`. We inject a fake fetch via the pinata module's test seam:
+- [ ] **Step 1: Write the FAILING test `apps/web/test/manifests.route.test.ts`** (full contents). Body `{ manifest: Manifest }`; pins via Pinata `pinJSONToIPFS` using `PINATA_JWT`; returns `{ cid, manifestHash }` where `manifestHash = cidToBytes32(cid)` from `@agenomy/shared`. We inject a fake fetch via the pinata module's test seam:
 ```ts
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { POST } from '../app/api/manifests/route';
 import { __setPinataFetchForTests } from '../lib/pinata';
-import { cidToBytes32 } from '@aeonomy/shared';
+import { cidToBytes32 } from '@agenomy/shared';
 
 const VALID_CID = 'QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG';
 
@@ -3648,7 +3648,7 @@ describe('POST /api/manifests', () => {
 
 - [ ] **Step 2: Run the test and watch it FAIL:**
 ```
-pnpm --filter @aeonomy/web test manifests.route
+pnpm --filter @agenomy/web test manifests.route
 ```
 Expected FAIL output contains: `Cannot find module '../lib/pinata'`.
 
@@ -3701,7 +3701,7 @@ export async function pinJSON(content: unknown, jwt: string): Promise<string> {
 - [ ] **Step 4: Create `apps/web/app/api/manifests/route.ts`** (full contents):
 ```ts
 import { NextResponse } from 'next/server';
-import { cidToBytes32, type Manifest } from '@aeonomy/shared';
+import { cidToBytes32, type Manifest } from '@agenomy/shared';
 import { pinJSON, PinataError } from '../../../lib/pinata';
 
 export const dynamic = 'force-dynamic';
@@ -3739,21 +3739,21 @@ export async function POST(request: Request): Promise<Response> {
 
 - [ ] **Step 5: Re-run the manifests test and watch it PASS:**
 ```
-pnpm --filter @aeonomy/web test manifests.route
+pnpm --filter @agenomy/web test manifests.route
 ```
 Expected PASS output contains: `Tests  3 passed (3)`.
 
 - [ ] **Step 6: Run the ENTIRE backend suite across all three packages to confirm the phase is green end-to-end:**
 ```
-pnpm --filter @aeonomy/scripts test
-pnpm --filter @aeonomy/indexer test
-pnpm --filter @aeonomy/web test
+pnpm --filter @agenomy/scripts test
+pnpm --filter @agenomy/indexer test
+pnpm --filter @agenomy/web test
 ```
 Expected: scripts `Test Files  2 passed (2)`; indexer `Test Files  3 passed (3)`; web shows all route + handle test files passing (`handle.test`, `handle-available.route`, `skills.route`, `agents-list.route`, `agent-detail.route`, `manifests.route`).
 
 - [ ] **Step 7: Type-check the web package compiles cleanly:**
 ```
-pnpm --filter @aeonomy/web exec tsc --noEmit
+pnpm --filter @agenomy/web exec tsc --noEmit
 ```
 Expected: no output, exit code 0.
 
@@ -3775,7 +3775,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 > - `AGENT_REGISTRY_ABI` (ABI export), `LIGHT_ACCOUNT_FACTORY_ABI`, and address constants
 > - Types: `Manifest`, `Persona`, `Skill`, `AgentSummary`, `AgentDetail`
 >
-> These are imported as `@aeonomy/shared`. If an earlier phase used a different package name, substitute it consistently — but DO NOT change the symbol names above.
+> These are imported as `@agenomy/shared`. If an earlier phase used a different package name, substitute it consistently — but DO NOT change the symbol names above.
 >
 > **Aesthetic:** this phase ships **functional, minimally-styled** components (plain Tailwind utility classes, semantic markup, one neutral CSS-variable token file as a hook). Detailed visual design is produced at build time by the `frontend-design` skill (see **Task 33**). Do NOT hardcode a generic theme, a purple gradient, or shadcn default dark mode.
 
@@ -3798,7 +3798,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 - [ ] **Step 1: Create `apps/web/package.json`.**
   ```json
   {
-    "name": "@aeonomy/web",
+    "name": "@agenomy/web",
     "version": "0.0.0",
     "private": true,
     "type": "module",
@@ -3812,7 +3812,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
       "test:watch": "vitest"
     },
     "dependencies": {
-      "@aeonomy/shared": "workspace:*",
+      "@agenomy/shared": "workspace:*",
       "@rainbow-me/rainbowkit": "^2.1.0",
       "@tanstack/react-query": "^5.50.0",
       "next": "15.0.0",
@@ -3844,7 +3844,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
   /** @type {import('next').NextConfig} */
   const nextConfig = {
     reactStrictMode: true,
-    transpilePackages: ["@aeonomy/shared"],
+    transpilePackages: ["@agenomy/shared"],
   };
 
   export default nextConfig;
@@ -3919,7 +3919,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
   @tailwind components;
   @tailwind utilities;
 
-  /* AEONOMY design tokens — placeholder neutral palette.
+  /* AGENOMY design tokens — placeholder neutral palette.
      The frontend-design skill (Task 33) overrides these values + adds type/spacing.
      Do NOT add a purple gradient or shadcn default dark theme here. */
   :root {
@@ -3948,7 +3948,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
   import { Providers } from "../src/providers";
 
   export const metadata: Metadata = {
-    title: "Aeonomy",
+    title: "Agenomy",
     description: "Spawn on-chain agents with deterministic smart wallets.",
   };
 
@@ -3974,7 +3974,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
   export default function HomePage() {
     return (
       <main className="mx-auto max-w-3xl px-6 py-16">
-        <h1 className="text-3xl font-semibold">Aeonomy</h1>
+        <h1 className="text-3xl font-semibold">Agenomy</h1>
         <p className="mt-2 text-muted">
           Spawn on-chain agents with deterministic smart wallets.
         </p>
@@ -4033,15 +4033,15 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
   describe("scaffold", () => {
     it("runs the vitest+jsdom toolchain", () => {
       const el = document.createElement("div");
-      el.textContent = "aeonomy";
-      expect(el.textContent).toBe("aeonomy");
+      el.textContent = "agenomy";
+      expect(el.textContent).toBe("agenomy");
     });
   });
   ```
 
 - [ ] **Step 13: Run the smoke test — expect PASS.**
   ```bash
-  pnpm --filter @aeonomy/web test
+  pnpm --filter @agenomy/web test
   ```
   Expected: `Test Files  1 passed (1)` / `Tests  1 passed (1)`.
 
@@ -4090,7 +4090,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 2: Run it — expect FAIL (module missing).**
   ```bash
-  pnpm --filter @aeonomy/web test src/env.test.ts
+  pnpm --filter @agenomy/web test src/env.test.ts
   ```
   Expected: `Failed to resolve import "./env"` / `Cannot find module './env'`.
 
@@ -4132,7 +4132,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 4: Run it — expect PASS.**
   ```bash
-  pnpm --filter @aeonomy/web test src/env.test.ts
+  pnpm --filter @agenomy/web test src/env.test.ts
   ```
   Expected: `Tests  2 passed (2)`.
 
@@ -4144,7 +4144,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
   import { clientEnv } from "./env";
 
   export const wagmiConfig = getDefaultConfig({
-    appName: "Aeonomy",
+    appName: "Agenomy",
     projectId: clientEnv.walletConnectId,
     chains: [baseSepolia],
     transports: {
@@ -4179,7 +4179,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 7: Typecheck to confirm the provider graph compiles.**
   ```bash
-  pnpm --filter @aeonomy/web typecheck
+  pnpm --filter @agenomy/web typecheck
   ```
   Expected: no errors (exit 0).
 
@@ -4201,7 +4201,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
   ```ts
   import { describe, it, expect } from "vitest";
   import { buildManifest, buildConfig } from "./manifest";
-  import { computeConfigHash } from "@aeonomy/shared";
+  import { computeConfigHash } from "@agenomy/shared";
 
   const OWNER = "0x00000000000000000000000000000000000000aa" as const;
 
@@ -4242,14 +4242,14 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 2: Run it — expect FAIL.**
   ```bash
-  pnpm --filter @aeonomy/web test src/lib/manifest.test.ts
+  pnpm --filter @agenomy/web test src/lib/manifest.test.ts
   ```
   Expected: `Cannot find module './manifest'`.
 
 - [ ] **Step 3: Implement `apps/web/src/lib/manifest.ts`.** Pure builders. Skills are sorted so the config hash is stable regardless of pick order.
   ```ts
   import type { Address } from "viem";
-  import type { Manifest, Persona } from "@aeonomy/shared";
+  import type { Manifest, Persona } from "@agenomy/shared";
 
   export interface ConfigInput {
     handle: string;
@@ -4302,7 +4302,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 4: Run it — expect PASS.**
   ```bash
-  pnpm --filter @aeonomy/web test src/lib/manifest.test.ts
+  pnpm --filter @agenomy/web test src/lib/manifest.test.ts
   ```
   Expected: `Tests  2 passed (2)`.
 
@@ -4313,7 +4313,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
     AgentSummary,
     AgentDetail,
     Manifest,
-  } from "@aeonomy/shared";
+  } from "@agenomy/shared";
   import type { Address } from "viem";
 
   async function getJson<T>(url: string): Promise<T> {
@@ -4393,7 +4393,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 6: Typecheck.**
   ```bash
-  pnpm --filter @aeonomy/web typecheck
+  pnpm --filter @agenomy/web typecheck
   ```
   Expected: exit 0.
 
@@ -4440,7 +4440,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 2: Run it — expect FAIL.**
   ```bash
-  pnpm --filter @aeonomy/web test src/hooks/spawn-args.test.ts
+  pnpm --filter @agenomy/web test src/hooks/spawn-args.test.ts
   ```
   Expected: `Cannot find module './spawn-args'`.
 
@@ -4464,7 +4464,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 4: Run it — expect PASS.**
   ```bash
-  pnpm --filter @aeonomy/web test src/hooks/spawn-args.test.ts
+  pnpm --filter @agenomy/web test src/hooks/spawn-args.test.ts
   ```
   Expected: `Tests  1 passed (1)`.
 
@@ -4478,7 +4478,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
     useWaitForTransactionReceipt,
   } from "wagmi";
   import { decodeEventLog, type Hex, type Address } from "viem";
-  import { AGENT_REGISTRY_ABI } from "@aeonomy/shared";
+  import { AGENT_REGISTRY_ABI } from "@agenomy/shared";
   import { clientEnv } from "../env";
   import { buildSpawnArgs } from "./spawn-args";
 
@@ -4564,7 +4564,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
   import { useQuery } from "@tanstack/react-query";
   import { usePublicClient } from "wagmi";
   import type { Address } from "viem";
-  import { predictWallet } from "@aeonomy/shared";
+  import { predictWallet } from "@agenomy/shared";
 
   export function usePredictedWallet(
     owner: Address | undefined,
@@ -4587,7 +4587,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 7: Typecheck.**
   ```bash
-  pnpm --filter @aeonomy/web typecheck
+  pnpm --filter @agenomy/web typecheck
   ```
   Expected: exit 0.
 
@@ -4699,7 +4699,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 2: Run it — expect FAIL.**
   ```bash
-  pnpm --filter @aeonomy/web test src/features/create/handleAvailability.test.ts
+  pnpm --filter @agenomy/web test src/features/create/handleAvailability.test.ts
   ```
   Expected: `Cannot find module './handleAvailability'`.
 
@@ -4794,7 +4794,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 4: Run it — expect PASS.**
   ```bash
-  pnpm --filter @aeonomy/web test src/features/create/handleAvailability.test.ts
+  pnpm --filter @agenomy/web test src/features/create/handleAvailability.test.ts
   ```
   Expected: `Tests  5 passed (5)` (or matching count).
 
@@ -4938,14 +4938,14 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 2: Run it — expect FAIL.**
   ```bash
-  pnpm --filter @aeonomy/web test src/features/create/wizardMachine.test.ts
+  pnpm --filter @agenomy/web test src/features/create/wizardMachine.test.ts
   ```
   Expected: `Cannot find module './wizardMachine'`.
 
 - [ ] **Step 3: Implement `apps/web/src/features/create/wizardMachine.ts`.**
   ```ts
   import type { Address } from "viem";
-  import type { Persona } from "@aeonomy/shared";
+  import type { Persona } from "@agenomy/shared";
 
   export const STEPS = [
     "connect",
@@ -5060,7 +5060,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 4: Run it — expect PASS.**
   ```bash
-  pnpm --filter @aeonomy/web test src/features/create/wizardMachine.test.ts
+  pnpm --filter @agenomy/web test src/features/create/wizardMachine.test.ts
   ```
   Expected: all tests pass.
 
@@ -5084,7 +5084,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 1: Create the fixture file `apps/web/src/test/fixtures.ts`.**
   ```ts
-  import type { AgentSummary, AgentDetail, Skill } from "@aeonomy/shared";
+  import type { AgentSummary, AgentDetail, Skill } from "@agenomy/shared";
 
   export const SKILL_FIXTURES: Skill[] = [
     {
@@ -5162,7 +5162,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 3: Run it — expect FAIL.**
   ```bash
-  pnpm --filter @aeonomy/web test src/components/format.test.ts
+  pnpm --filter @agenomy/web test src/components/format.test.ts
   ```
   Expected: `Cannot find module './format'`.
 
@@ -5193,7 +5193,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 5: Run it — expect PASS.**
   ```bash
-  pnpm --filter @aeonomy/web test src/components/format.test.ts
+  pnpm --filter @agenomy/web test src/components/format.test.ts
   ```
   Expected: `Tests  4 passed (4)`.
 
@@ -5285,14 +5285,14 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 9: Run it — expect FAIL.**
   ```bash
-  pnpm --filter @aeonomy/web test src/components/AgentCard.test.tsx
+  pnpm --filter @agenomy/web test src/components/AgentCard.test.tsx
   ```
   Expected: `Cannot find module './AgentCard'`.
 
 - [ ] **Step 10: Implement `apps/web/src/components/AgentCard.tsx`.**
   ```tsx
   import Link from "next/link";
-  import type { AgentSummary } from "@aeonomy/shared";
+  import type { AgentSummary } from "@agenomy/shared";
   import { AvatarBlob } from "./AvatarBlob";
   import { SkillChip } from "./SkillChip";
   import { shortAddress, formatCreatedAt } from "./format";
@@ -5327,7 +5327,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 11: Run it — expect PASS.**
   ```bash
-  pnpm --filter @aeonomy/web test src/components/AgentCard.test.tsx
+  pnpm --filter @agenomy/web test src/components/AgentCard.test.tsx
   ```
   Expected: `Tests  1 passed (1)`.
 
@@ -5417,7 +5417,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
   import { fetchSkills } from "../../lib/api";
   import { buildManifest, buildConfig } from "../../lib/manifest";
   import { pinManifest } from "../../lib/api";
-  import { computeConfigHash, type Skill } from "@aeonomy/shared";
+  import { computeConfigHash, type Skill } from "@agenomy/shared";
   import { SkillChip } from "../../components/SkillChip";
   import { shortAddress } from "../../components/format";
 
@@ -5743,13 +5743,13 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 5: Run the page test — expect PASS.**
   ```bash
-  pnpm --filter @aeonomy/web test app/create/page.test.tsx
+  pnpm --filter @agenomy/web test app/create/page.test.tsx
   ```
   Expected: `Tests  1 passed (1)`.
 
 - [ ] **Step 6: Typecheck the whole app.**
   ```bash
-  pnpm --filter @aeonomy/web typecheck
+  pnpm --filter @agenomy/web typecheck
   ```
   Expected: exit 0.
 
@@ -5777,7 +5777,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
   ```ts
   import { describe, it, expect } from "vitest";
   import { filterAndSortAgents } from "./filterAgents";
-  import type { AgentSummary } from "@aeonomy/shared";
+  import type { AgentSummary } from "@agenomy/shared";
 
   const a: AgentSummary = {
     agentId: 1,
@@ -5824,13 +5824,13 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 2: Run it — expect FAIL.**
   ```bash
-  pnpm --filter @aeonomy/web test src/features/gallery/filterAgents.test.ts
+  pnpm --filter @agenomy/web test src/features/gallery/filterAgents.test.ts
   ```
   Expected: `Cannot find module './filterAgents'`.
 
 - [ ] **Step 3: Implement `apps/web/src/features/gallery/filterAgents.ts`.**
   ```ts
-  import type { AgentSummary } from "@aeonomy/shared";
+  import type { AgentSummary } from "@agenomy/shared";
 
   export interface GalleryFilter {
     skill?: string;
@@ -5852,7 +5852,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 4: Run it — expect PASS.**
   ```bash
-  pnpm --filter @aeonomy/web test src/features/gallery/filterAgents.test.ts
+  pnpm --filter @agenomy/web test src/features/gallery/filterAgents.test.ts
   ```
   Expected: `Tests  3 passed (3)`.
 
@@ -5861,7 +5861,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
   "use client";
 
   import { useEffect, useMemo, useState } from "react";
-  import type { AgentSummary, Skill } from "@aeonomy/shared";
+  import type { AgentSummary, Skill } from "@agenomy/shared";
   import { fetchAgents, fetchSkills } from "../../lib/api";
   import { AgentCard } from "../../components/AgentCard";
   import { filterAndSortAgents } from "./filterAgents";
@@ -5983,13 +5983,13 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 8: Run it — expect FAIL.**
   ```bash
-  pnpm --filter @aeonomy/web test "app/agents/[handle]/AgentProfile.test.tsx"
+  pnpm --filter @agenomy/web test "app/agents/[handle]/AgentProfile.test.tsx"
   ```
   Expected: `Cannot find module './AgentProfile'`.
 
 - [ ] **Step 9: Implement `apps/web/app/agents/[handle]/AgentProfile.tsx`.** Pure presentational component (takes the already-fetched `AgentDetail` + gateway) so it is unit-testable without network.
   ```tsx
-  import type { AgentDetail } from "@aeonomy/shared";
+  import type { AgentDetail } from "@agenomy/shared";
   import { AvatarBlob } from "../../../src/components/AvatarBlob";
   import { SkillChip } from "../../../src/components/SkillChip";
   import {
@@ -6079,14 +6079,14 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 10: Run the profile test — expect PASS.**
   ```bash
-  pnpm --filter @aeonomy/web test "app/agents/[handle]/AgentProfile.test.tsx"
+  pnpm --filter @agenomy/web test "app/agents/[handle]/AgentProfile.test.tsx"
   ```
   Expected: `Tests  1 passed (1)`.
 
 - [ ] **Step 11: Implement `apps/web/app/agents/[handle]/page.tsx`.** Server component: fetch the detail from the read API (absolute URL so it works server-side), 404 via `notFound()`.
   ```tsx
   import { notFound } from "next/navigation";
-  import type { AgentDetail } from "@aeonomy/shared";
+  import type { AgentDetail } from "@agenomy/shared";
   import { AgentProfile } from "./AgentProfile";
 
   async function getAgent(handle: string): Promise<AgentDetail | null> {
@@ -6116,13 +6116,13 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 12: Typecheck.**
   ```bash
-  pnpm --filter @aeonomy/web typecheck
+  pnpm --filter @agenomy/web typecheck
   ```
   Expected: exit 0.
 
 - [ ] **Step 13: Run the full web test suite.**
   ```bash
-  pnpm --filter @aeonomy/web test
+  pnpm --filter @agenomy/web test
   ```
   Expected: all test files pass.
 
@@ -6146,7 +6146,7 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 - Modify `apps/web/app/agents/[handle]/AgentProfile.tsx` (visual only — keep link names "view on basescan" / "manifest", placeholder text "Coming in a later slice.")
 - Modify `apps/web/src/features/gallery/AgentGallery.tsx` (visual only — keep `aria-label="filter by skill"`)
 
-- [ ] **Step 1: Invoke the `frontend-design` skill** with the design brief: codename Aeonomy; a distinctive on-chain-agent identity aesthetic; surfaces = landing, `/create` wizard, `/agents` gallery cards, `/agents/[handle]` profile. Hard constraints from the spec §10: **anti-generic crypto — NO default shadcn dark mode, NO purple gradient, NO generic dashboard look.** Theme via the existing `--color-surface/--color-ink/--color-muted/--color-accent/--color-line` tokens plus any new tokens the skill adds to `globals.css`.
+- [ ] **Step 1: Invoke the `frontend-design` skill** with the design brief: codename Agenomy; a distinctive on-chain-agent identity aesthetic; surfaces = landing, `/create` wizard, `/agents` gallery cards, `/agents/[handle]` profile. Hard constraints from the spec §10: **anti-generic crypto — NO default shadcn dark mode, NO purple gradient, NO generic dashboard look.** Theme via the existing `--color-surface/--color-ink/--color-muted/--color-accent/--color-line` tokens plus any new tokens the skill adds to `globals.css`.
 
 - [ ] **Step 2: Apply the skill's output** by editing ONLY the className/markup/token layers of the files above. Preserve every test-load-bearing contract verbatim:
   - `data-testid` values: `avatar-blob`, `skill-chip`.
@@ -6158,13 +6158,13 @@ git commit -m "feat(web): POST /api/manifests pins via Pinata -> { cid, manifest
 
 - [ ] **Step 3: Re-run the entire web test suite to prove the visual pass did not break behavior.**
   ```bash
-  pnpm --filter @aeonomy/web test
+  pnpm --filter @agenomy/web test
   ```
   Expected: all test files pass (same green as Task 32, Step 13).
 
 - [ ] **Step 4: Typecheck + production build to catch styling/SSR regressions.**
   ```bash
-  pnpm --filter @aeonomy/web typecheck && pnpm --filter @aeonomy/web build
+  pnpm --filter @agenomy/web typecheck && pnpm --filter @agenomy/web build
   ```
   Expected: typecheck exit 0; `next build` completes with all routes (`/`, `/create`, `/agents`, `/agents/[handle]`) compiled.
 

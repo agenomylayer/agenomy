@@ -6,7 +6,7 @@ import {
   useWaitForTransactionReceipt,
 } from "wagmi";
 import { decodeEventLog, type Hex, type Address } from "viem";
-import { agentRegistryAbi } from "@aeonomy/shared";
+import { agentRegistryAbi } from "@agenomy/shared";
 import { clientEnv } from "../env";
 import { buildSpawnArgs } from "./spawn-args";
 

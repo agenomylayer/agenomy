@@ -1,4 +1,4 @@
-import type { AgentSummary } from "@aeonomy/shared";
+import type { AgentSummary } from "@agenomy/shared";
 
 export interface GalleryFilter {
   skill?: string;

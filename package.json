@@ -1,5 +1,5 @@
 {
-  "name": "aeonomy",
+  "name": "agenomy",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -13,7 +13,7 @@
     "typecheck": "pnpm -r --if-present typecheck",
     "db:up": "docker compose up -d",
     "db:down": "docker compose down",
-    "db:migrate": "docker compose exec -T postgres psql -U aeon -d aeonomy -f /migrations/001_init.sql"
+    "db:migrate": "docker compose exec -T postgres psql -U aeon -d agenomy -f /migrations/001_init.sql"
   },
   "devDependencies": {
     "typescript": "^5.5.4"

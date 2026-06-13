@@ -1,4 +1,4 @@
-import { bytes32ToCidV0, type Persona, type Manifest } from '@aeonomy/shared';
+import { bytes32ToCidV0, type Persona, type Manifest } from '@agenomy/shared';
 import type { AgentInsert } from './db';
 
 export interface DecodedSpawnLog {

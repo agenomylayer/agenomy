@@ -1,4 +1,4 @@
-import type { AgentDetail } from "@aeonomy/shared";
+import type { AgentDetail } from "@agenomy/shared";
 import { AvatarBlob } from "../../../src/components/AvatarBlob";
 import { SkillChip } from "../../../src/components/SkillChip";
 import {

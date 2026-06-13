@@ -1,5 +1,5 @@
 import type { Address } from "viem";
-import type { Persona } from "@aeonomy/shared";
+import type { Persona } from "@agenomy/shared";
 
 export const STEPS = [
   "connect",

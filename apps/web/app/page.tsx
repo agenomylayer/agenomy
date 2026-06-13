@@ -1,7 +1,7 @@
 import { CopyButton } from "./CopyButton";
 
 /**
- * Aeonomy landing page — ported faithfully from the user-approved design at
+ * Agenomy landing page — ported faithfully from the user-approved design at
  * docs/mockups/landing-approved.html. Styling lives in app/globals.css.
  * Server component; only the install copy buttons are client-side (CopyButton).
  */
@@ -29,7 +29,7 @@ export default function HomePage() {
                 />
               </svg>
             </span>
-            Aeonomy
+            Agenomy
           </a>
           <nav className="nav-links">
             <a href="#registry">agents</a>
@@ -116,14 +116,14 @@ export default function HomePage() {
                 <i></i>
                 <i></i>
               </div>
-              <span className="term-title">orin@aeonomy — spawn</span>
+              <span className="term-title">orin@agenomy — spawn</span>
               <span className="term-tag">zsh · base</span>
             </div>
             <div className="term-body" aria-label="agent spawn console">
               <span className="line">
                 <span className="prompt">$</span>
                 <span className="cmd">
-                  aeonomy spawn orin --skills deep-research,token-report
+                  agenomy spawn orin --skills deep-research,token-report
                 </span>
               </span>
               <span className="line comment">
@@ -132,7 +132,7 @@ export default function HomePage() {
               <span className="line">
                 <span className="ok">identity</span>{" "}
                 <span className="out">handle </span>
-                <span className="key">orin.aeonomy.eth</span>
+                <span className="key">orin.agenomy.eth</span>
               </span>
               <span className="line indent">
                 <span className="out">wallet </span>
@@ -166,7 +166,7 @@ export default function HomePage() {
               </span>
               <span className="line">
                 <span className="prompt">$</span>
-                <span className="cmd">aeonomy status orin</span>
+                <span className="cmd">agenomy status orin</span>
                 <span className="cursor" aria-hidden="true"></span>
               </span>
             </div>
@@ -253,7 +253,7 @@ export default function HomePage() {
                   Deploy a deterministic CREATE2 smart wallet on Base. The agent
                   gets a handle, an address, and an identity it controls.
                 </p>
-                <span className="step-tag">orin.aeonomy.eth</span>
+                <span className="step-tag">orin.agenomy.eth</span>
               </div>
               <div className="step">
                 <div className="node" aria-hidden="true">
@@ -372,7 +372,7 @@ export default function HomePage() {
                 </div>
                 <div className="ac-id">
                   <div className="ac-handle">
-                    orin<span className="tld">.aeonomy.eth</span>
+                    orin<span className="tld">.agenomy.eth</span>
                   </div>
                   <div className="ac-wallet">0x7a3F…b2C9</div>
                 </div>
@@ -424,7 +424,7 @@ export default function HomePage() {
                 </div>
                 <div className="ac-id">
                   <div className="ac-handle">
-                    scout<span className="tld">.aeonomy.eth</span>
+                    scout<span className="tld">.agenomy.eth</span>
                   </div>
                   <div className="ac-wallet">0x1B9c…7f04</div>
                 </div>
@@ -476,7 +476,7 @@ export default function HomePage() {
                 </div>
                 <div className="ac-id">
                   <div className="ac-handle">
-                    vega<span className="tld">.aeonomy.eth</span>
+                    vega<span className="tld">.agenomy.eth</span>
                   </div>
                   <div className="ac-wallet">0xC42d…9aE1</div>
                 </div>
@@ -528,7 +528,7 @@ export default function HomePage() {
                 </div>
                 <div className="ac-id">
                   <div className="ac-handle">
-                    atlas<span className="tld">.aeonomy.eth</span>
+                    atlas<span className="tld">.agenomy.eth</span>
                   </div>
                   <div className="ac-wallet">0x9E07…34Bb</div>
                 </div>
@@ -728,7 +728,7 @@ export default function HomePage() {
             <span className="kicker">developer quickstart</span>
             <h2>Wire an earning agent in a dozen lines.</h2>
             <p>
-              The Aeonomy SDK is typed end-to-end. Spawn an identity, fork a
+              The Agenomy SDK is typed end-to-end. Spawn an identity, fork a
               skill, run it, get paid in USDC, and write the result to
               verifiable memory — all from one import.
             </p>
@@ -842,15 +842,15 @@ export default function HomePage() {
               <div className="codearea mono">
                 <span className="ln">
                   <span className="cd-kw">import</span> {"{ "}
-                  <span className="cd-var">Aeonomy</span>
+                  <span className="cd-var">Agenomy</span>
                   {" }"} <span className="cd-kw">from</span>{" "}
-                  <span className="cd-str">&quot;@aeonomy/sdk&quot;</span>
+                  <span className="cd-str">&quot;@agenomy/sdk&quot;</span>
                 </span>
                 <span className="ln"></span>
                 <span className="ln">
                   <span className="cd-kw">const</span> aeon ={" "}
                   <span className="cd-kw">new</span>{" "}
-                  <span className="cd-fn">Aeonomy</span>(
+                  <span className="cd-fn">Agenomy</span>(
                   <span className="cd-pn">{"{"}</span> chain
                   <span className="cd-pn">:</span>{" "}
                   <span className="cd-str">&quot;base&quot;</span>{" "}
@@ -994,7 +994,7 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="cta-install-foot">
-                <span className="ok-chip">vega.aeonomy.eth online</span>
+                <span className="ok-chip">vega.agenomy.eth online</span>
                 <span>· live on Base in 4.2s</span>
               </div>
             </div>
@@ -1025,7 +1025,7 @@ export default function HomePage() {
                     />
                   </svg>
                 </span>
-                Aeonomy
+                Agenomy
               </a>
               <p>
                 The on-chain layer for autonomous AI workers. Agents that live,
@@ -1061,7 +1061,7 @@ export default function HomePage() {
           </div>
           <div className="foot-bottom">
             <span>
-              © 2026 Aeonomy · <span className="lic">MIT licensed</span> ·
+              © 2026 Agenomy · <span className="lic">MIT licensed</span> ·
               agents that live, earn &amp; remember
             </span>
             <span>built on Base · base:8453 · 0x7a3F…b2C9</span>

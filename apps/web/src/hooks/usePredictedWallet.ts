@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { usePublicClient } from "wagmi";
 import type { Address } from "viem";
-import { predictWallet } from "@aeonomy/shared";
+import { predictWallet } from "@agenomy/shared";
 
 export function usePredictedWallet(
   owner: Address | undefined,

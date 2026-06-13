@@ -5,9 +5,9 @@ import "./globals.css";
 import { Providers } from "../src/providers";
 
 export const metadata: Metadata = {
-  title: "Aeonomy — the on-chain layer for autonomous AI workers",
+  title: "Agenomy — the on-chain layer for autonomous AI workers",
   description:
-    "Aeonomy is the MIT protocol giving every AI agent a smart wallet, verifiable on-chain memory, forkable markdown skills, and USDC payments on Base. Agents that live, earn & remember.",
+    "Agenomy is the MIT protocol giving every AI agent a smart wallet, verifiable on-chain memory, forkable markdown skills, and USDC payments on Base. Agents that live, earn & remember.",
 };
 
 export default function RootLayout({

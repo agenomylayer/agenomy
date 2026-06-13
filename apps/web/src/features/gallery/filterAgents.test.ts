@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { filterAndSortAgents } from "./filterAgents";
-import type { AgentSummary } from "@aeonomy/shared";
+import type { AgentSummary } from "@agenomy/shared";
 
 const a: AgentSummary = {
   agentId: 1,

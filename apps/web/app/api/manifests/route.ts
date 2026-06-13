@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { cidToBytes32, type Manifest } from '@aeonomy/shared';
+import { cidToBytes32, type Manifest } from '@agenomy/shared';
 import { pinJSON, PinataError } from '../../../lib/pinata';
 
 export const dynamic = 'force-dynamic';

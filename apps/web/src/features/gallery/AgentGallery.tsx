@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import type { AgentSummary, Skill } from "@aeonomy/shared";
+import type { AgentSummary, Skill } from "@agenomy/shared";
 import { fetchAgents, fetchSkills } from "../../lib/api";
 import { AgentCard } from "../../components/AgentCard";
 import { filterAndSortAgents } from "./filterAgents";

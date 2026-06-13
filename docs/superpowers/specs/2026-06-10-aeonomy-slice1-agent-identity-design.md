@@ -1,7 +1,7 @@
-# Aeonomy — Slice 1 Design: Agent Identity + Create + Gallery
+# Agenomy — Slice 1 Design: Agent Identity + Create + Gallery
 
 > **Date:** 2026-06-10
-> **Codename:** Aeonomy (do not rename until final name is locked)
+> **Codename:** Agenomy (do not rename until final name is locked)
 > **Source of truth:** the project handoff doc. This spec maps to handoff §4.1, §6, §9, §12, §13 (MVP).
 > **Status:** Draft — awaiting user review before the per-file execution plan.
 

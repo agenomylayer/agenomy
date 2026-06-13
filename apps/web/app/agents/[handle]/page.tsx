@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import type { AgentDetail } from "@aeonomy/shared";
+import type { AgentDetail } from "@agenomy/shared";
 import { AgentProfile } from "./AgentProfile";
 
 async function getAgent(handle: string): Promise<AgentDetail | null> {

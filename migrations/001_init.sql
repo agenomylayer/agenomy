@@ -1,4 +1,4 @@
--- Aeonomy slice 1 schema. Idempotent: safe to re-run.
+-- Agenomy slice 1 schema. Idempotent: safe to re-run.
 
 CREATE TABLE IF NOT EXISTS skills (
   slug        TEXT PRIMARY KEY,

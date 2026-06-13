@@ -1,19 +1,19 @@
 services:
   postgres:
     image: postgres:16
-    container_name: aeonomy-postgres
+    container_name: agenomy-postgres
     restart: unless-stopped
     environment:
       POSTGRES_USER: aeon
       POSTGRES_PASSWORD: aeon
-      POSTGRES_DB: aeonomy
+      POSTGRES_DB: agenomy
     ports:
       - "5432:5432"
     volumes:
       - ./.pgdata:/var/lib/postgresql/data
       - ./migrations:/migrations:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U aeon -d aeonomy"]
+      test: ["CMD-SHELL", "pg_isready -U aeon -d agenomy"]
       interval: 5s
       timeout: 5s
       retries: 10

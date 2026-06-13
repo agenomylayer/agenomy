@@ -3,7 +3,7 @@ import type {
   AgentSummary,
   AgentDetail,
   Manifest,
-} from "@aeonomy/shared";
+} from "@agenomy/shared";
 import type { Address } from "viem";
 
 async function getJson<T>(url: string): Promise<T> {

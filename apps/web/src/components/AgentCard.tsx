@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { AgentSummary } from "@aeonomy/shared";
+import type { AgentSummary } from "@agenomy/shared";
 import { AvatarBlob } from "./AvatarBlob";
 import { SkillChip } from "./SkillChip";
 import { shortAddress, formatCreatedAt } from "./format";

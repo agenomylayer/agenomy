@@ -1,5 +1,5 @@
 {
-  "name": "@aeonomy/web",
+  "name": "@agenomy/web",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -13,7 +13,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@aeonomy/shared": "workspace:*",
+    "@agenomy/shared": "workspace:*",
     "@rainbow-me/rainbowkit": "^2.1.0",
     "@tanstack/react-query": "^5.50.0",
     "geist": "^1.7.2",

@@ -1,4 +1,4 @@
-import type { Persona } from '@aeonomy/shared';
+import type { Persona } from '@agenomy/shared';
 
 export interface Skill {
   slug: string;

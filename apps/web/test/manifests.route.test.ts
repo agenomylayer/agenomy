@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { POST } from '../app/api/manifests/route';
 import { __setPinataFetchForTests } from '../lib/pinata';
-import { cidToBytes32 } from '@aeonomy/shared';
+import { cidToBytes32 } from '@agenomy/shared';
 
 const VALID_CID = 'QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG';
 

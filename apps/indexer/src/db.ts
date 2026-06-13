@@ -1,4 +1,4 @@
-import type { Persona } from '@aeonomy/shared';
+import type { Persona } from '@agenomy/shared';
 
 export interface QueryResultLike {
   rowCount: number | null;

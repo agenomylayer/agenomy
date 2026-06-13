@@ -11,7 +11,7 @@ import { useSpawnAgent } from "../../hooks/useSpawnAgent";
 import { fetchSkills } from "../../lib/api";
 import { buildManifest, buildConfig } from "../../lib/manifest";
 import { pinManifest } from "../../lib/api";
-import { computeConfigHash, type Skill } from "@aeonomy/shared";
+import { computeConfigHash, type Skill } from "@agenomy/shared";
 import { SkillChip } from "../../components/SkillChip";
 import { shortAddress } from "../../components/format";
 import { WalletConnect } from "./WalletConnect";

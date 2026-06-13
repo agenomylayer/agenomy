@@ -4,7 +4,7 @@ import { http } from "wagmi";
 import { clientEnv } from "./env";
 
 export const wagmiConfig = getDefaultConfig({
-  appName: "Aeonomy",
+  appName: "Agenomy",
   projectId: clientEnv.walletConnectId,
   chains: [baseSepolia],
   transports: {

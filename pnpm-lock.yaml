@@ -14,7 +14,7 @@ importers:
 
   apps/indexer:
     dependencies:
-      '@aeonomy/shared':
+      '@agenomy/shared':
         specifier: workspace:*
         version: link:../../packages/shared
       pg:
@@ -42,7 +42,7 @@ importers:
 
   apps/web:
     dependencies:
-      '@aeonomy/shared':
+      '@agenomy/shared':
         specifier: workspace:*
         version: link:../../packages/shared
       '@rainbow-me/rainbowkit':
@@ -137,7 +137,7 @@ importers:
 
   scripts:
     dependencies:
-      '@aeonomy/shared':
+      '@agenomy/shared':
         specifier: workspace:*
         version: link:../packages/shared
       pg:

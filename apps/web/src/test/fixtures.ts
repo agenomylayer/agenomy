@@ -1,4 +1,4 @@
-import type { AgentSummary, AgentDetail, Skill } from "@aeonomy/shared";
+import type { AgentSummary, AgentDetail, Skill } from "@agenomy/shared";
 
 export const SKILL_FIXTURES: Skill[] = [
   {
