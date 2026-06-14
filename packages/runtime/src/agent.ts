@@ -46,9 +46,12 @@ export async function runAgent(inp: RunAgentInput): Promise<RunAgentResult> {
   const tools = inp.skill.tools
     .map((n) => inp.registry.get(n))
     .filter((t): t is Tool => Boolean(t));
+  const userContent =
+    inp.input.trim() ||
+    "Begin now. Use your tools to perform the task and report the result concisely.";
   const messages: ChatMessage[] = [
     { role: "system", content: system },
-    { role: "user", content: inp.input },
+    { role: "user", content: userContent },
   ];
   const trace: TraceEntry[] = [];
   let tokensIn = 0;
