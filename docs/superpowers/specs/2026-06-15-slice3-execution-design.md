@@ -10,10 +10,8 @@
 - **Our own skills.** We author our own skills in an Aeon-style format; we do NOT ship Aeon's skill files. (Aeon validated the *pattern*: a markdown Claude prompt + declared tools + schedule, run by an LLM. We adopt the pattern, author our own content.)
 - **Model-agnostic.** The runtime can drive **Claude or MiMo** (or others) by config. Default to Claude for quality; MiMo (Xiaomi, OpenAI-compatible, agentic/tool-use capable) is a swappable option to compare on cost/quality. Exact model IDs + SDK pinned at implementation per the `claude-api` reference.
 
-## Scope / decomposition
-Slice 3 is large, so it splits:
-- **Slice 3a (this spec):** the execution runtime + a real toolset + a first batch of our own real skills + **on-demand** invoke + run records + UI + replace the imported 202-skill catalog with our curated real one. Default model Claude, runtime built model-agnostic.
-- **Slice 3b (later):** scheduled/autonomous runs (the `schedule` field), more tools (e.g. web search), more skills, MiMo benchmarking/switch, and prep for Slice 4 (pay-per-invoke).
+## Scope (Aeon-level from the start)
+A real toolset, **both on-demand and scheduled/autonomous** runs, and a curated catalog of **~30 genuinely-useful skills** across crypto/on-chain, research/intel, content/growth, analysis/productivity, and autonomous digests/alerts. Runtime is model-agnostic (Claude default, MiMo swappable). Skills are cheap to author (mostly prompts) and parallelizable; the real build effort is the runtime + tools + scheduler. **Deferred:** MiMo benchmark/switch decision, X/social tools (X API is paid), and Slice 4 (pay-per-invoke).
 
 ## Background (grounding)
 Today a skill is metadata only (`{slug, name, description, category, tags}`); the 202 came from the Aeon catalog (descriptions, no executable body). An agent's manifest is `{handle, owner, persona, skills:[slug], createdAt}`. So "execution" cannot mean "run the skill's code" — there is none. It means: an LLM, prompted with the agent's persona + the chosen skill's instructions, using **real tools**, performs a task and returns a real, verifiable result.
@@ -38,13 +36,14 @@ figure in a tool result. Report clearly and concisely. If data is unavailable, s
 Skill files are authored by us, validated (frontmatter schema + declared tools must exist), and synced into the DB catalog. The prompt is parameterized with the agent's persona at runtime.
 
 ### 2. Real toolset (the foundation — this is what makes it real)
-The runtime exposes a curated set of **real tools** as LLM-callable functions (direct implementations, not MCP — keeps it model-agnostic). Starter set for 3a:
-- `onchain_read` — Base (Sepolia) RPC reads: balances, ERC-20 token info, contract calls. (Free; we already have `BASE_SEPOLIA_RPC_URL`.)
-- `market_data` — token prices / DeFi pool & yield data via DeFiLlama (free, no key) and/or CoinGecko free tier.
-- (Claude/MiMo itself needs no tool for content/analysis skills — those are real because the model genuinely produces the work.)
-- `web_search` — deferred to 3b (needs a free-tier key, e.g. Brave/Tavily).
+The runtime exposes a curated set of **real tools** as LLM-callable functions (direct implementations, not MCP — keeps it model-agnostic):
+- `onchain_read` — Base (Sepolia) RPC: ETH/token balances, ERC-20 metadata, contract view calls, gas price. (Free; we have `BASE_SEPOLIA_RPC_URL`.)
+- `explorer` — richer on-chain data via a free explorer API (Basescan/Blockscout): an address's token balances, recent txs/transfers, recently-deployed tokens. (Free tier.)
+- `market_data` — prices, 24h change, TVL, pool/yields, trending, gainers/losers via DeFiLlama (free, no key) + CoinGecko free tier.
+- `web_search` — web search + fetch for research/news/sentiment via a free-tier provider (Brave or Tavily). (One free-tier key.)
+- (Claude/MiMo alone backs the content/analysis skills — real because the model genuinely produces the work.)
 
-Each tool: a typed function with a JSON-schema signature, a real implementation, input validation, timeouts, and error handling that returns a structured error the model can react to. Adding a tool unlocks a new family of skills.
+Each tool: a typed function with a JSON-schema signature, a real implementation, input validation, timeouts, structured errors. Adding a tool unlocks a family of skills. (X/social tools deferred — X API is paid.)
 
 ### 3. Runtime (model-agnostic agent loop)
 A new service/module on the VPS, `runner`, exposes `invoke(agentHandle, skillSlug, input) -> Run`:
@@ -59,18 +58,25 @@ New table `runs` (migration `002_runs.sql`):
 Indexed by `agent_handle`. Read API: `GET /api/agents/[handle]/runs`, `GET /api/runs/[id]`. Write: `POST /api/agents/[handle]/run` (triggers a run; returns the run id; the runner executes).
 
 ### 5. Triggers
-- **3a — on-demand:** user (or later another agent) POSTs an input to `/api/agents/[handle]/run` with a chosen skill; the runner executes; result shown + logged.
-- **3b — scheduled/autonomous:** a scheduler on the VPS runs skills with a `schedule` cron, unattended; output appended to the agent's runs/feed.
+- **On-demand:** user (or later another agent) POSTs an input + chosen skill to `/api/agents/[handle]/run`; the runner executes; result shown + logged.
+- **Scheduled / autonomous:** skills with a `schedule` cron run unattended via a scheduler on the VPS; output appended to the agent's runs/feed. (Aeon's signature: daily digests + alerts.)
 
 ### 6. Catalog change
-The current 202 imported (descriptive, non-functional) skills are **archived** (kept out of the live picker; the `skills` table gets a `status`/`source` so we can hide them). The create wizard + galleries show only our **curated real** skills. Start with a **first batch of ~6–10 skills** authored across categories (Content via the model alone; On-chain + Market via the tools above); grow over time. Authoring the batch can be parallelized with a multi-agent workflow at build time (each agent drafts a skill in our format; we then validate every one against its declared tools before enabling).
+The current 202 imported (descriptive, non-functional) skills are **archived** (kept out of the live picker; the `skills` table gets a `status`/`source` so we can hide them). The picker/galleries show only our **curated real** catalog — a launch set of **~30 genuinely-useful skills**, each backed by a tool or by the model's own work:
+- **Crypto / on-chain** (onchain/explorer/market): Wallet Portfolio, Whale Watch, Token Info, New Token Scan, Gas Tracker, NFT Holdings, Price Report, Top Gainers/Losers, Trending Tokens, DeFi Pool Monitor, Yield Finder, Protocol Snapshot, Stablecoin Monitor, Token Screener.
+- **Research / intel** (web_search): Project Deep-Dive, Crypto News Digest, Sentiment Scan, Competitor Teardown, Narrative Tracker, Airdrop Finder, Fact Check.
+- **Content / growth** (model): Thread-from-Article, Reply Drafter, Tweet Ideas, Hook Writer, Newsletter Draft, Tokenomics Explainer, Growth-Loop Finder.
+- **Analysis / productivity** (model): Action Converter, Decision Helper, Risk Assessor, Roadmap Drafter.
+- **Autonomous** (scheduled versions): Daily Digest, Watchlist Alert, Gas Alert, Gainers Alert, News Brief.
+
+The catalog grows over time. Each skill is authored in our format and **validated against its declared tools before enabling**; authoring is parallelized with a multi-agent workflow at build time. Every shipped skill genuinely works (no LARP).
 
 ### 7. UI
 On the agent profile: an **Invoke** panel (pick a skill the agent has → enter input → Run) and a **Runs** list (status, output, expandable trace showing the real tool calls/results). The wizard's skill step now offers only real skills.
 
 ## Dependencies (all stored as secrets on the VPS)
 - **LLM credential — the one must-have.** Claude Code OAuth token (free within the user's subscription, for now/dev) or `ANTHROPIC_API_KEY`; and/or a **MiMo API key** (WaveSpeed / AI-ML API) if we run MiMo. Runtime reads whichever provider is configured.
-- Base RPC: already configured (free). DeFiLlama: free, no key. `web_search` key: deferred to 3b.
+- Base RPC: configured (free). DeFiLlama + CoinGecko: free. Explorer API (Basescan/Blockscout): free tier. **`web_search`: one free-tier key** (Brave or Tavily) — for the research/intel skills.
 
 ## No-LARP guardrails
 - Only skills whose declared tools exist + work are enabled.
