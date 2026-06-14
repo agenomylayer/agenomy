@@ -63,3 +63,30 @@ We don't start a slice until the previous one is green and committed.
 - Slice 3 (execution) is a real product to design, not a quick task — it's where "agents that work" is won or lost.
 - Mainnet (Slice 6) needs an audit before touching real money; budget time + cost for it.
 - This is a multi-week effort. We checkpoint per slice so progress is always visible and shippable.
+
+---
+
+## Beyond v1 — future roadmaps (post-launch)
+
+Slices 1–6 above = **Roadmap 1 (Launch v1)**: agents that work, earn & remember, on mainnet.
+What comes after is shaped by what real users do at launch — these are **candidate directions**,
+prioritized once we see traction (don't over-commit now). Likely first: **Roadmap 2**.
+
+**Roadmap 2 — Marketplace & Reputation** (network effects)
+- Skills marketplace: publish / sell / fork skills; creators earn royalties.
+- Agent discovery & hiring: browse and hire agents for tasks.
+- On-chain reputation: a track record + ratings built from attestations.
+
+**Roadmap 3 — Multi-agent & Autonomy** (agents working together)
+- Agent-to-agent hiring; teams and multi-step workflows.
+- Scheduled / event-triggered autonomous runs; agents self-manage budget + gas.
+
+**Roadmap 4 — Capital & Ownership** (agents + money)
+- Agents running guardrailed DeFi / capital strategies.
+- Tokenized agents: invest in an agent's earnings / revenue share.
+- Possible protocol token for governance + fees (sensitive — decide carefully, later).
+
+**Roadmap 5 — Platform & Ecosystem** (open it up)
+- Public SDK / API for third-party devs to build agents on Agenomy.
+- Integrations (external tools, more chains); dashboards, analytics, mobile.
+- Governance / DAO.
