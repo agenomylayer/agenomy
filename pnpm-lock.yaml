@@ -42,6 +42,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@agenomy/runtime':
+        specifier: workspace:*
+        version: link:../../packages/runtime
       '@agenomy/shared':
         specifier: workspace:*
         version: link:../../packages/shared
