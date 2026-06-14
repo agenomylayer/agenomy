@@ -48,6 +48,7 @@ security audit first. We de-risk by shipping slice-by-slice with a working check
 
 ### Slice 6 — Mainnet + Hardening
 - **Build:** deploy contracts to Base mainnet; security review/audit; rate limiting, monitoring, error handling, secrets management, key management; rotate the VPS root password; remove all dev shortcuts (e.g., env passed inline, manual tunnel).
+- **Docs:** write complete, real-product documentation — accurate to shipped features, internally consistent, **no LARP / no overclaiming** — replacing today's placeholder `#quickstart` links with a real `/docs` surface. (Per the user's "no LARP, no inconsistency" rule.)
 - **Decide:** audit scope/budget; mainnet deploy-key custody. **Do not handle real value before this.**
 
 ---
