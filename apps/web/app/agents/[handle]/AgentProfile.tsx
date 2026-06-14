@@ -2,6 +2,7 @@ import type { AgentDetail } from "@agenomy/shared";
 import { AvatarBlob } from "../../../src/components/AvatarBlob";
 import { SkillChip } from "../../../src/components/SkillChip";
 import { InvokePanel } from "./InvokePanel";
+import { SchedulesPanel } from "./SchedulesPanel";
 import {
   shortAddress,
   formatCreatedAt,
@@ -75,6 +76,8 @@ export function AgentProfile({
       </section>
 
       <InvokePanel handle={agent.handle} />
+
+      <SchedulesPanel handle={agent.handle} />
 
       <section className="card">
         <h2 className="card-label">Persona</h2>

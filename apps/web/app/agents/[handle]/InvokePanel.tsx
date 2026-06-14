@@ -15,6 +15,7 @@ interface RunRow {
   input: string;
   status: string;
   output: string | null;
+  source?: string;
   started_at: string;
 }
 interface RunResult {
@@ -145,6 +146,11 @@ export function InvokePanel({ handle }: { handle: string }) {
                   {r.skill_slug}
                 </span>{" "}
                 <span style={{ color: r.status === "ok" ? "var(--green)" : "var(--accent)" }}>{r.status}</span>
+                {r.source === "scheduled" && (
+                  <span className="muted-note" style={{ marginLeft: "6px", fontSize: "11px" }}>
+                    · scheduled
+                  </span>
+                )}
                 {r.output && (
                   <div style={{ color: "var(--ink-soft)", marginTop: "2px" }}>{r.output}</div>
                 )}
