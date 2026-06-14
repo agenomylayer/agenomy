@@ -4,3 +4,5 @@ export { onchainRead } from "./tools/onchain";
 export { marketData } from "./tools/market";
 export * from "./skills/types";
 export { parseSkill } from "./skills/loader";
+export * from "./provider";
+export * from "./agent";
