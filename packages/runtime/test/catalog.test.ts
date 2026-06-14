@@ -10,8 +10,8 @@ describe("loadSkillsFromDir", () => {
   it("loads the real skill files and validates their tools", () => {
     const skills = loadSkillsFromDir(skillsDir, ["onchain_read", "market_data"]);
     const slugs = skills.map((s) => s.slug);
-    expect(slugs).toContain("token-info");
-    expect(skills.length).toBeGreaterThanOrEqual(3);
+    expect(slugs).toContain("base-gas-check");
+    expect(skills.length).toBeGreaterThanOrEqual(10);
     expect(skills.every((s) => s.prompt.length > 0)).toBe(true);
   });
 });
