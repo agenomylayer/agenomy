@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useWalletClient } from "wagmi";
+import { paidFetch } from "../../../lib/x402-client";
 
 interface SkillItem {
   slug: string;
@@ -33,6 +35,8 @@ export function InvokePanel({ handle }: { handle: string }) {
   const [result, setResult] = useState<RunResult | null>(null);
   const [showTrace, setShowTrace] = useState(false);
   const [runs, setRuns] = useState<RunRow[]>([]);
+  const [price, setPrice] = useState("0");
+  const { data: walletClient } = useWalletClient();
 
   function loadRuns() {
     fetch(`/api/agents/${handle}/runs`)
@@ -50,6 +54,10 @@ export function InvokePanel({ handle }: { handle: string }) {
       })
       .catch(() => {});
     loadRuns();
+    fetch(`/api/agents/${handle}/pricing`)
+      .then((r) => r.json())
+      .then((d) => setPrice(d.priceAtomic ?? "0"))
+      .catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -59,7 +67,8 @@ export function InvokePanel({ handle }: { handle: string }) {
     setResult(null);
     setShowTrace(false);
     try {
-      const res = await fetch(`/api/agents/${handle}/run`, {
+      const doFetch = price !== "0" && walletClient ? paidFetch(walletClient) : fetch;
+      const res = await doFetch(`/api/agents/${handle}/run`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ skillSlug: skill, input }),
@@ -97,13 +106,19 @@ export function InvokePanel({ handle }: { handle: string }) {
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
+        {price !== "0" && (
+          <p className="muted-note" style={{ margin: 0 }}>
+            Price: {(Number(price) / 1e6).toLocaleString(undefined, { maximumFractionDigits: 6 })} USDC per run
+            {!walletClient ? " — connect your wallet to pay" : ""}
+          </p>
+        )}
         <button
           className="btn btn-primary"
-          disabled={running || !skill}
+          disabled={running || !skill || (price !== "0" && !walletClient)}
           onClick={run}
           style={{ alignSelf: "flex-start" }}
         >
-          {running ? "Running…" : "Run"}
+          {running ? "Running…" : price !== "0" ? "Pay & Run" : "Run"}
         </button>
       </div>
 

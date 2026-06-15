@@ -91,6 +91,9 @@ importers:
       '@x402/evm':
         specifier: ^2.15.0
         version: 2.15.0(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)
+      '@x402/fetch':
+        specifier: ^2.15.0
+        version: 2.15.0
       geist:
         specifier: ^1.7.2
         version: 1.7.2(next@15.0.0(@babel/core@7.29.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
@@ -1866,6 +1869,9 @@ packages:
 
   '@x402/evm@2.15.0':
     resolution: {integrity: sha512-HfFbGGL4SpAeAzfvai9oz8cyfPzyWQFSO5hNDwSaGQYoOx8ZTmTobo5YxuXH7gazci13JruFRmjobtvlbQu5WA==}
+
+  '@x402/fetch@2.15.0':
+    resolution: {integrity: sha512-kugdE8zsIa4NV4lgjORbBmb3IuKFd6IpIqR32vIVl8T2aiyG7YWo6C+r5GLa7Dyn6EdXMpqtni90B4QJ/bf4QA==}
 
   abitype@1.0.6:
     resolution: {integrity: sha512-MMSqYh4+C/aVqI2RQaWqbvI4Kxo5cQV40WQ4QFtDnNzCkqChm8MuENhElmynZlO0qUy/ObkEUaXtKqYnx1Kp3A==}
@@ -6384,6 +6390,10 @@ snapshots:
       - bufferutil
       - typescript
       - utf-8-validate
+
+  '@x402/fetch@2.15.0':
+    dependencies:
+      '@x402/core': 2.15.0
 
   abitype@1.0.6(typescript@5.9.3)(zod@3.25.76):
     optionalDependencies:
