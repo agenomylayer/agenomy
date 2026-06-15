@@ -1,6 +1,7 @@
 ---
 slug: wallet-eth-balance
 name: Base Wallet ETH Balance
+description: Check the native ETH balance of one or more wallets on Base.
 category: onchain
 tools:
   - onchain_read

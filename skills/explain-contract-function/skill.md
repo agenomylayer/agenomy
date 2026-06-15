@@ -1,6 +1,7 @@
 ---
 slug: explain-contract-function
 name: Explain a Smart Contract Function
+description: Break down a Solidity function into plain-language mechanics and risks.
 category: analysis
 tools: []
 schedule: null

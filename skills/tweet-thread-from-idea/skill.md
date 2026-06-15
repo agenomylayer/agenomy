@@ -1,6 +1,7 @@
 ---
 slug: tweet-thread-from-idea
 name: Tweet Thread from an Idea
+description: Turn raw notes into a tight X thread with a hook and payoff.
 category: content
 tools: []
 schedule: null

@@ -1,6 +1,7 @@
 ---
 slug: project-risk-redflags
 name: Red-Flag Risk Checklist
+description: Scan a project for red flags across team, tokenomics, custody, and mechanism.
 category: analysis
 tools: []
 schedule: null

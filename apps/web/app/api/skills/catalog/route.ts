@@ -11,9 +11,11 @@ export async function GET(): Promise<Response> {
   const skills = loadSkillsFromDir(SKILLS_DIR, registry.names()).map((s) => ({
     slug: s.slug,
     name: s.name,
+    description: s.description,
     category: s.category,
     inputs: s.inputs,
     tools: s.tools,
+    tags: [],
   }));
   return NextResponse.json({ skills });
 }

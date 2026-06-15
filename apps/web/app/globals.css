@@ -1242,3 +1242,121 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* ============================================================
+   AGENT PANEL PRIMITIVES (run + result, schedules, earnings)
+   ============================================================ */
+
+/* vertical form stack inside a panel */
+.form-col { display: flex; flex-direction: column; gap: 11px; }
+.form-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.form-err { margin: 0; color: var(--accent-deep); font-size: 13.5px; }
+
+/* in-card sub-section label, optional top divider */
+.subhead {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin: 22px 0 12px;
+}
+.subhead.divide { border-top: 1px solid var(--line-soft); padding-top: 18px; }
+
+/* small status + amount tags */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 2px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.tag-ok { color: var(--green-deep); background: var(--green-soft); border: 1px solid var(--green-line); }
+.tag-err { color: var(--accent-deep); background: var(--accent-soft); border: 1px solid rgba(217, 67, 15, 0.26); }
+.tag-mute { color: var(--ink-mute); background: var(--panel-2); border: 1px solid var(--line); }
+.amount-pos { color: var(--green-deep); font-weight: 600; }
+
+/* toggle chips (schedule cadence presets) */
+.choices { display: flex; flex-wrap: wrap; gap: 7px; }
+.choice {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: border-color .15s ease, background .15s ease, color .15s ease;
+}
+.choice:hover { border-color: var(--line-strong); background: var(--panel-2); }
+.choice[aria-pressed="true"] { border-color: var(--accent); background: var(--accent); color: #FBF4E8; }
+
+/* extra-small button (row actions) */
+.btn-xs { padding: 6px 12px; font-size: 12.5px; border-radius: var(--r-sm); }
+
+/* data feed: recent runs, schedules, payments */
+.feed { list-style: none; margin: 16px 0 0; padding: 0; }
+.feed-row { padding: 13px 0; border-top: 1px solid var(--line-soft); }
+.feed-row:first-child { padding-top: 4px; border-top: none; }
+.feed-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.feed-name { font-family: var(--mono); font-size: 13px; color: var(--ink); word-break: break-word; }
+.feed-meta { font-family: var(--mono); font-size: 11.5px; color: var(--ink-mute); white-space: nowrap; }
+.feed-sub { margin-top: 4px; font-size: 13px; line-height: 1.5; color: var(--ink-soft); word-break: break-word; }
+.feed-actions { display: flex; gap: 7px; margin-top: 9px; }
+
+/* skill run result block */
+.result {
+  margin-top: 16px;
+  background: var(--code-bg);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-md);
+  padding: 15px 17px;
+}
+.result-top { display: flex; align-items: center; gap: 9px; margin-bottom: 9px; }
+.result-out { margin: 0; font-size: 14.5px; line-height: 1.6; white-space: pre-wrap; color: var(--ink); }
+.result-trace {
+  margin: 10px 0 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.55;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  background: var(--panel-3);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-sm);
+  padding: 12px;
+  color: var(--ink-soft);
+}
+
+/* owner-only section (set price) */
+.owner-box {
+  margin-top: 20px;
+  background: var(--accent-wash);
+  border: 1px solid var(--accent-soft);
+  border-radius: var(--r-md);
+  padding: 15px 17px;
+}
+.owner-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  margin-bottom: 11px;
+}
+.owner-tag::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}

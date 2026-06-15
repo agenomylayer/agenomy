@@ -1,6 +1,7 @@
 ---
 slug: summarize-whitepaper-thread
 name: Summarize a Whitepaper or Thread
+description: Produce a fast TL;DR and mechanism breakdown of a long doc or thread.
 category: analysis
 tools: []
 schedule: null

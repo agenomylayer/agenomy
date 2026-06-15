@@ -87,7 +87,7 @@ export function InvokePanel({ handle }: { handle: string }) {
   return (
     <section className="card">
       <h2 className="card-label">Run a skill</h2>
-      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+      <div className="form-col">
         <select className="field" value={skill} onChange={(e) => setSkill(e.target.value)}>
           {skills.map((s) => (
             <option key={s.slug} value={s.slug}>
@@ -123,52 +123,43 @@ export function InvokePanel({ handle }: { handle: string }) {
       </div>
 
       {result && (
-        <div className="card" style={{ marginTop: "14px", background: "var(--panel-2)" }}>
-          <p style={{ margin: 0, fontSize: "14.5px", lineHeight: 1.6, whiteSpace: "pre-wrap" }}>
+        <div className="result">
+          <div className="result-top">
+            <span className="subhead" style={{ margin: 0 }}>Result</span>
+            <span className={result.status === "ok" ? "tag tag-ok" : "tag tag-err"}>{result.status}</span>
+          </div>
+          <p className="result-out">
             {result.status === "ok" ? result.output : `error: ${result.error ?? "run failed"}`}
           </p>
           {result.trace && result.trace.length > 0 && (
             <>
               <button
-                className="btn btn-ghost"
-                style={{ marginTop: "10px", fontSize: "13px" }}
+                className="btn btn-ghost btn-xs"
+                style={{ marginTop: "10px" }}
                 onClick={() => setShowTrace(!showTrace)}
               >
                 {showTrace ? "hide" : "show"} trace ({result.trace.length})
               </button>
-              {showTrace && (
-                <pre
-                  className="mono"
-                  style={{ marginTop: "8px", fontSize: "12px", overflowX: "auto", whiteSpace: "pre-wrap" }}
-                >
-                  {JSON.stringify(result.trace, null, 2)}
-                </pre>
-              )}
+              {showTrace && <pre className="result-trace">{JSON.stringify(result.trace, null, 2)}</pre>}
             </>
           )}
         </div>
       )}
 
       {runs.length > 0 && (
-        <div style={{ marginTop: "16px" }}>
-          <h3 className="card-label" style={{ fontSize: "12px" }}>
-            Recent runs
-          </h3>
-          <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "8px" }}>
+        <div>
+          <p className="subhead divide">Recent runs</p>
+          <ul className="feed">
             {runs.map((r) => (
-              <li key={r.id} style={{ fontSize: "13.5px", borderTop: "1px solid var(--line)", paddingTop: "8px" }}>
-                <span className="mono" style={{ color: "var(--ink-mute)" }}>
-                  {r.skill_slug}
-                </span>{" "}
-                <span style={{ color: r.status === "ok" ? "var(--green)" : "var(--accent)" }}>{r.status}</span>
-                {r.source === "scheduled" && (
-                  <span className="muted-note" style={{ marginLeft: "6px", fontSize: "11px" }}>
-                    · scheduled
+              <li key={r.id} className="feed-row">
+                <div className="feed-top">
+                  <span className="feed-name">{r.skill_slug}</span>
+                  <span className={r.status === "ok" ? "tag tag-ok" : "tag tag-err"}>
+                    {r.status}
+                    {r.source === "scheduled" ? " · scheduled" : ""}
                   </span>
-                )}
-                {r.output && (
-                  <div style={{ color: "var(--ink-soft)", marginTop: "2px" }}>{r.output}</div>
-                )}
+                </div>
+                {r.output && <div className="feed-sub">{r.output}</div>}
               </li>
             ))}
           </ul>

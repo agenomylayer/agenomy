@@ -14,16 +14,12 @@ async function getJson<T>(url: string): Promise<T> {
   return (await res.json()) as T;
 }
 
-export async function fetchSkills(params?: {
+export async function fetchSkills(_params?: {
   category?: string;
   q?: string;
 }): Promise<Skill[]> {
-  const qs = new URLSearchParams();
-  if (params?.category) qs.set("category", params.category);
-  if (params?.q) qs.set("q", params.q);
-  const suffix = qs.toString() ? `?${qs.toString()}` : "";
-  const data = await getJson<{ skills: Skill[] }>(`/api/skills${suffix}`);
-  return data.skills;
+  const data = await getJson<{ skills: Skill[] }>(`/api/skills/catalog`);
+  return data.skills as Skill[];
 }
 
 export async function fetchAgents(params?: {

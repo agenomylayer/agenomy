@@ -1,6 +1,7 @@
 ---
 slug: changelog-to-tweet
 name: Changelog to Tweet
+description: Turn release notes or a changelog into punchy shipping tweets.
 category: content
 tools: []
 schedule: null

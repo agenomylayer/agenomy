@@ -1,6 +1,7 @@
 ---
 slug: base-gas-check
 name: Base Gas Price Check
+description: Fetch the current Base gas price in gwei using an onchain read.
 category: onchain
 tools:
   - onchain_read

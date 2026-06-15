@@ -1,6 +1,7 @@
 ---
 slug: token-price-report
 name: Token Price Report
+description: Report current USD prices for tokens using live market data.
 category: market
 tools:
   - market_data

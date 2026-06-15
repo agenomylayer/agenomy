@@ -1,6 +1,7 @@
 ---
 slug: reply-drafter
 name: Reply Drafter
+description: Draft sharp X replies to a post from several distinct angles.
 category: content
 tools: []
 schedule: null

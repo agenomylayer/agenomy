@@ -1,6 +1,7 @@
 ---
 slug: erc20-token-lookup
 name: ERC-20 Token Lookup on Base
+description: Look up an ERC-20 token symbol, decimals, and a holder balance on Base.
 category: onchain
 tools:
   - onchain_read

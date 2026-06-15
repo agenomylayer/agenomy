@@ -1,6 +1,7 @@
 ---
 slug: pitch-refiner
 name: Project One-Liner & Pitch Refiner
+description: Sharpen a project description into a clear one-liner and pitch.
 category: content
 tools: []
 schedule: null

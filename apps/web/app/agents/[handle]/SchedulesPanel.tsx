@@ -105,7 +105,7 @@ export function SchedulesPanel({ handle }: { handle: string }) {
         Runs this agent automatically. Times are UTC. Input is stored once and reused each run.
       </p>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+      <div className="form-col">
         <select className="field" value={skill} onChange={(e) => setSkill(e.target.value)}>
           {skills.map((s) => (
             <option key={s.slug} value={s.slug}>
@@ -124,12 +124,13 @@ export function SchedulesPanel({ handle }: { handle: string }) {
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+        <div className="choices">
           {PRESETS.map((p) => (
             <button
               key={p.key}
-              className={cron === p.cron ? "btn btn-primary" : "btn btn-ghost"}
-              style={{ fontSize: "13px" }}
+              type="button"
+              className="choice"
+              aria-pressed={cron === p.cron}
               onClick={() => setCron(p.cron)}
             >
               {p.label}
@@ -145,32 +146,40 @@ export function SchedulesPanel({ handle }: { handle: string }) {
         <button className="btn btn-primary" disabled={busy || !skill} onClick={create} style={{ alignSelf: "flex-start" }}>
           {busy ? "Saving…" : "Add schedule"}
         </button>
-        {err && <p style={{ color: "var(--accent)", margin: 0, fontSize: "13.5px" }}>{err}</p>}
+        {err && <p className="form-err">{err}</p>}
       </div>
 
       {rows.length > 0 && (
-        <ul style={{ listStyle: "none", margin: "16px 0 0", padding: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
-          {rows.map((r) => (
-            <li key={r.id} style={{ borderTop: "1px solid var(--line)", paddingTop: "10px", fontSize: "13.5px" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", gap: "8px" }}>
-                <span className="mono">{r.skill_slug}</span>
-                <span className="muted-note">{cadence(r.cron)}</span>
-              </div>
-              {r.input && <div style={{ color: "var(--ink-soft)" }}>input: {r.input}</div>}
-              <div className="muted-note">
-                next: {fmt(r.next_run_at)} · last: {fmt(r.last_run_at)} · {r.enabled ? "enabled" : "paused"}
-              </div>
-              <div style={{ display: "flex", gap: "8px", marginTop: "4px" }}>
-                <button className="btn btn-ghost" style={{ fontSize: "12px" }} onClick={() => toggle(r)}>
-                  {r.enabled ? "pause" : "resume"}
-                </button>
-                <button className="btn btn-ghost" style={{ fontSize: "12px" }} onClick={() => remove(r)}>
-                  delete
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <>
+          <p className="subhead divide">Active schedules</p>
+          <ul className="feed">
+            {rows.map((r) => (
+              <li key={r.id} className="feed-row">
+                <div className="feed-top">
+                  <span className="feed-name">{r.skill_slug}</span>
+                  <span className={r.enabled ? "tag tag-ok" : "tag tag-mute"}>
+                    {r.enabled ? "enabled" : "paused"}
+                  </span>
+                </div>
+                <div className="feed-sub">
+                  {cadence(r.cron)}
+                  {r.input ? ` · input: ${r.input}` : ""}
+                </div>
+                <div className="feed-sub" style={{ color: "var(--ink-mute)" }}>
+                  next {fmt(r.next_run_at)} · last {fmt(r.last_run_at)}
+                </div>
+                <div className="feed-actions">
+                  <button className="btn btn-ghost btn-xs" onClick={() => toggle(r)}>
+                    {r.enabled ? "pause" : "resume"}
+                  </button>
+                  <button className="btn btn-ghost btn-xs" onClick={() => remove(r)}>
+                    delete
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </>
       )}
     </section>
   );

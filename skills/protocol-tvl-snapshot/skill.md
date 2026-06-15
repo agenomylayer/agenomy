@@ -1,6 +1,7 @@
 ---
 slug: protocol-tvl-snapshot
 name: Protocol TVL Snapshot
+description: Get the current USD TVL for a DeFi protocol from live market data.
 category: market
 tools:
   - market_data

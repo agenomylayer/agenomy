@@ -20,9 +20,12 @@ export function parseSkill(md: string, knownTools: string[]): SkillDef {
       : String(data.schedule);
   const prompt = content.trim();
   if (!prompt) throw new Error(`skill "${data.slug}" has an empty prompt body`);
+  const description =
+    typeof data.description === "string" ? data.description.trim() : "";
   return {
     slug: String(data.slug),
     name: String(data.name),
+    description,
     category: String(data.category),
     tools,
     schedule,

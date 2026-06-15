@@ -70,25 +70,33 @@ export function EarningsPanel({ handle, owner }: { handle: string; owner: string
       )}
 
       {data?.recent && data.recent.length > 0 && (
-        <ul style={{ listStyle: "none", margin: "12px 0 0", padding: 0, display: "flex", flexDirection: "column", gap: "8px" }}>
-          {data.recent.map((e, i) => (
-            <li key={i} style={{ fontSize: "13.5px", borderTop: "1px solid var(--line)", paddingTop: "8px" }}>
-              <span className="mono">{e.skill_slug}</span>{" "}
-              <span style={{ color: "var(--green)" }}>+{fmtUsdc(e.payment_amount)} USDC</span>{" "}
-              <a className="link-accent" href={`https://sepolia.basescan.org/tx/${e.payment_tx}`} target="_blank" rel="noreferrer">tx</a>
-            </li>
-          ))}
-        </ul>
+        <>
+          <p className="subhead divide">Recent payments</p>
+          <ul className="feed">
+            {data.recent.map((e, i) => (
+              <li key={i} className="feed-row">
+                <div className="feed-top">
+                  <span className="feed-name">{e.skill_slug}</span>
+                  <span style={{ whiteSpace: "nowrap" }}>
+                    <span className="amount-pos">+{fmtUsdc(e.payment_amount)} USDC</span>{" "}
+                    <a className="link-accent" href={`https://sepolia.basescan.org/tx/${e.payment_tx}`} target="_blank" rel="noreferrer">tx</a>
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </>
       )}
 
       {isOwner && (
-        <div style={{ marginTop: "16px", borderTop: "1px solid var(--line)", paddingTop: "12px", display: "flex", flexDirection: "column", gap: "8px" }}>
-          <p className="muted-note" style={{ margin: 0 }}>Set price per run (USDC, 0 = free). You sign with your owner wallet.</p>
-          <div style={{ display: "flex", gap: "8px" }}>
+        <div className="owner-box">
+          <span className="owner-tag">Owner</span>
+          <p className="muted-note" style={{ margin: "0 0 10px" }}>Set price per run (USDC, 0 = free). You sign with your owner wallet.</p>
+          <div className="form-row">
             <input className="field mono" style={{ maxWidth: "160px" }} placeholder="0.00" value={price} onChange={(e) => setPrice(e.target.value)} />
             <button className="btn btn-primary" disabled={busy} onClick={savePrice}>{busy ? "Signing…" : "Set price"}</button>
           </div>
-          {msg && <p className="muted-note" style={{ margin: 0 }}>{msg}</p>}
+          {msg && <p className="muted-note" style={{ margin: "10px 0 0" }}>{msg}</p>}
         </div>
       )}
     </section>

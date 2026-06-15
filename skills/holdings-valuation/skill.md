@@ -1,6 +1,7 @@
 ---
 slug: holdings-valuation
 name: Holdings Valuation
+description: Value a list of token holdings in USD using live market prices.
 category: market
 tools:
   - market_data

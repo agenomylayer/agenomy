@@ -1,6 +1,7 @@
 ---
 slug: tokenomics-breakdown
 name: Tokenomics Breakdown
+description: Break down token supply, allocations, vesting, and emissions.
 category: analysis
 tools: []
 schedule: null
