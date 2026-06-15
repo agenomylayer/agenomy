@@ -1,10 +1,19 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
+
+// The profile now mounts client panels that use wagmi + the x402 client. Stub them for this unit test.
+vi.mock("wagmi", () => ({
+  useAccount: () => ({ address: undefined }),
+  useSignMessage: () => ({ signMessageAsync: async () => "0x" }),
+  useWalletClient: () => ({ data: undefined }),
+}));
+vi.mock("../../../lib/x402-client", () => ({ paidFetch: () => fetch }));
+
 import { AgentProfile } from "./AgentProfile";
 import { AGENT_DETAIL_FIXTURE } from "../../../src/test/fixtures";
 
 describe("AgentProfile", () => {
-  it("renders identity, basescan link, persona, skills, and placeholders", () => {
+  it("renders identity, basescan link, persona, skills, and the earnings/memory sections", () => {
     render(
       <AgentProfile agent={AGENT_DETAIL_FIXTURE} ipfsGateway="gateway.pinata.cloud" />,
     );
@@ -27,8 +36,9 @@ describe("AgentProfile", () => {
       "https://gateway.pinata.cloud/ipfs/QmFakeCidForTestsXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
     );
 
-    expect(screen.getByText(/memory/i)).toBeInTheDocument();
+    // Earnings is now a real panel (no longer a placeholder); Memory is still "coming in a later slice".
     expect(screen.getByText(/earnings/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/coming in a later slice/i)).toHaveLength(2);
+    expect(screen.getByText(/memory/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/coming in a later slice/i)).toHaveLength(1);
   });
 });

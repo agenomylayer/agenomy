@@ -3,6 +3,7 @@ import { AvatarBlob } from "../../../src/components/AvatarBlob";
 import { SkillChip } from "../../../src/components/SkillChip";
 import { InvokePanel } from "./InvokePanel";
 import { SchedulesPanel } from "./SchedulesPanel";
+import { EarningsPanel } from "./EarningsPanel";
 import {
   shortAddress,
   formatCreatedAt,
@@ -91,10 +92,7 @@ export function AgentProfile({
         <p className="muted-note">Coming in a later slice.</p>
       </section>
 
-      <section className="card card-placeholder">
-        <h2 className="card-label" style={{ marginBottom: "6px" }}>Earnings</h2>
-        <p className="muted-note">Coming in a later slice.</p>
-      </section>
+      <EarningsPanel handle={agent.handle} owner={agent.owner} />
     </main>
   );
 }
