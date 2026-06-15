@@ -31,7 +31,11 @@ const PRESET_LABELS: Record<string, string> = {
   "0 9 * * 1": "Weekly (Mon 09:00 UTC)",
 };
 const cadence = (cron: string) => PRESET_LABELS[cron] ?? cron;
-const fmt = (s: string | null) => (s ? new Date(s).toLocaleString() : "—");
+const fmt = (s: string | null) => (s ? new Date(s).toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "—");
+
+const ClockIc = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><polyline points="12 7 12 12 15.5 14" /></svg>
+);
 
 export function SchedulesPanel({ handle }: { handle: string }) {
   const [skills, setSkills] = useState<SkillItem[]>([]);
@@ -96,41 +100,36 @@ export function SchedulesPanel({ handle }: { handle: string }) {
     load();
   }
 
-  const current = skills.find((s) => s.slug === skill);
-
   return (
-    <section className="card">
-      <h2 className="card-label">Schedules</h2>
-      <p className="muted-note" style={{ marginTop: 0 }}>
-        Runs this agent automatically. Times are UTC. Input is stored once and reused each run.
-      </p>
+    <section className="ac-card" id="schedules">
+      <div className="ac-sechead">
+        <div className="ac-sectitle">
+          <span className="ac-secic">{ClockIc}</span>
+          <h2>Schedules</h2>
+        </div>
+        <span className="ac-secsub">UTC</span>
+      </div>
 
       <div className="form-col">
         <select className="field" value={skill} onChange={(e) => setSkill(e.target.value)}>
           {skills.map((s) => (
             <option key={s.slug} value={s.slug}>
-              {s.name} ({s.category})
+              {s.name}
             </option>
           ))}
         </select>
-        {current && (
-          <p className="muted-note" style={{ margin: 0 }}>
-            Input: {current.inputs}
-          </p>
-        )}
         <input
           className="field"
           placeholder="input reused each run (leave blank if none)"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <div className="choices">
+        <div className="ac-cadence">
           {PRESETS.map((p) => (
             <button
               key={p.key}
               type="button"
-              className="choice"
-              aria-pressed={cron === p.cron}
+              className={cron === p.cron ? "ac-cad on" : "ac-cad"}
               onClick={() => setCron(p.cron)}
             >
               {p.label}
@@ -139,7 +138,7 @@ export function SchedulesPanel({ handle }: { handle: string }) {
         </div>
         <input
           className="field mono"
-          placeholder="custom cron (UTC), e.g. 0 9 * * 1"
+          placeholder="custom cron, e.g. 0 9 * * 1"
           value={cron}
           onChange={(e) => setCron(e.target.value)}
         />
@@ -152,23 +151,17 @@ export function SchedulesPanel({ handle }: { handle: string }) {
       {rows.length > 0 && (
         <>
           <p className="subhead divide">Active schedules</p>
-          <ul className="feed">
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
             {rows.map((r) => (
-              <li key={r.id} className="feed-row">
-                <div className="feed-top">
-                  <span className="feed-name">{r.skill_slug}</span>
-                  <span className={r.enabled ? "tag tag-ok" : "tag tag-mute"}>
-                    {r.enabled ? "enabled" : "paused"}
-                  </span>
+              <div className="ac-schedrow" key={r.id}>
+                <span className={r.enabled ? "sd on" : "sd off"} aria-hidden="true" />
+                <div className="body">
+                  <div className="ac-schedname">{r.skill_slug}</div>
+                  <div className="ac-schedcad">
+                    {cadence(r.cron)} · next {fmt(r.next_run_at)}
+                  </div>
                 </div>
-                <div className="feed-sub">
-                  {cadence(r.cron)}
-                  {r.input ? ` · input: ${r.input}` : ""}
-                </div>
-                <div className="feed-sub" style={{ color: "var(--ink-mute)" }}>
-                  next {fmt(r.next_run_at)} · last {fmt(r.last_run_at)}
-                </div>
-                <div className="feed-actions">
+                <div className="right">
                   <button className="btn btn-ghost btn-xs" onClick={() => toggle(r)}>
                     {r.enabled ? "pause" : "resume"}
                   </button>
@@ -176,9 +169,9 @@ export function SchedulesPanel({ handle }: { handle: string }) {
                     delete
                   </button>
                 </div>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </>
       )}
     </section>

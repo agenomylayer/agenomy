@@ -15,6 +15,10 @@ interface Earnings {
   recent: Array<{ skill_slug: string; payment_amount: string; payer: string; payment_tx: string; started_at: string }>;
 }
 
+const CoinIc = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v10M9.2 9.4a2.5 2.5 0 0 1 2.8-1.4c1.6.2 2.4 1.3 2.2 2.4c-.3 1.6-3.6 1.3-3.9 3c-.2 1.1.7 2.2 2.3 2.4a2.5 2.5 0 0 0 2.8-1.4" /></svg>
+);
+
 export function EarningsPanel({ handle, owner }: { handle: string; owner: string }) {
   const [data, setData] = useState<Earnings | null>(null);
   const [price, setPrice] = useState("");
@@ -58,33 +62,54 @@ export function EarningsPanel({ handle, owner }: { handle: string; owner: string
     }
   }
 
+  const free = savedPrice === "0";
+
   return (
-    <section className="card">
-      <h2 className="card-label">Earnings</h2>
-      {data && (
-        <dl className="kv">
-          <div><span className="k">Wallet balance </span><span className="v mono">{fmtUsdc(data.walletBalanceAtomic)} USDC</span></div>
-          <div><span className="k">Total earned </span><span className="v mono">{fmtUsdc(data.totalEarnedAtomic)} USDC</span></div>
-          <div><span className="k">Price / run </span><span className="v mono">{fmtUsdc(savedPrice)} USDC{savedPrice === "0" ? " (free)" : ""}</span></div>
-        </dl>
-      )}
+    <section className="ac-card" id="earnings">
+      <div className="ac-sechead">
+        <div className="ac-sectitle">
+          <span className="ac-secic">{CoinIc}</span>
+          <h2>Earnings</h2>
+        </div>
+        <span className="ac-secsub">USDC on Base</span>
+      </div>
+
+      <div className="ac-earngrid">
+        <div className="ac-earn">
+          <div className="k">Wallet balance</div>
+          <div className="v">{data ? fmtUsdc(data.walletBalanceAtomic) : "0.00"}<span className="u">USDC</span></div>
+        </div>
+        <div className="ac-earn">
+          <div className="k">Total earned</div>
+          <div className="v">{data ? fmtUsdc(data.totalEarnedAtomic) : "0.00"}<span className="u">USDC</span></div>
+        </div>
+      </div>
+
+      <div className="ac-earnfoot">
+        <span className="lbl">Price per run</span>
+        {free ? (
+          <span className="ac-pricefree">Free</span>
+        ) : (
+          <span className="ac-priceset">{fmtUsdc(savedPrice)} USDC</span>
+        )}
+      </div>
 
       {data?.recent && data.recent.length > 0 && (
         <>
           <p className="subhead divide">Recent payments</p>
-          <ul className="feed">
+          <div className="ac-feed">
             {data.recent.map((e, i) => (
-              <li key={i} className="feed-row">
-                <div className="feed-top">
-                  <span className="feed-name">{e.skill_slug}</span>
-                  <span style={{ whiteSpace: "nowrap" }}>
-                    <span className="amount-pos">+{fmtUsdc(e.payment_amount)} USDC</span>{" "}
-                    <a className="link-accent" href={`https://sepolia.basescan.org/tx/${e.payment_tx}`} target="_blank" rel="noreferrer">tx</a>
-                  </span>
+              <div className="ac-runrow" key={i}>
+                <div className="body">
+                  <div className="ac-runname">{e.skill_slug}</div>
                 </div>
-              </li>
+                <div className="right">
+                  <span className="amount-pos">+{fmtUsdc(e.payment_amount)} USDC</span>
+                  <a className="link-accent" href={`https://sepolia.basescan.org/tx/${e.payment_tx}`} target="_blank" rel="noreferrer">tx</a>
+                </div>
+              </div>
             ))}
-          </ul>
+          </div>
         </>
       )}
 
