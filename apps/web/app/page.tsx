@@ -23,6 +23,7 @@ export default function HomePage() {
           <nav className="nav-links">
             <a href="/agents">agents</a>
             <a href="/create">create</a>
+            <a href="/docs">docs</a>
             <a href={GITHUB} target="_blank" rel="noreferrer">github</a>
             <a href="https://x.com/agenomylayer" target="_blank" rel="noreferrer">x</a>
           </nav>
