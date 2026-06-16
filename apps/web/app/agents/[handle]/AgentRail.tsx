@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AvatarBlob } from "../../../src/components/AvatarBlob";
 
 const ICONS: Record<string, React.ReactNode> = {
@@ -39,25 +39,6 @@ export function AgentRail({
   avatarSeed: string;
 }) {
   const [active, setActive] = useState("overview");
-
-  useEffect(() => {
-    if (typeof IntersectionObserver === "undefined") return;
-    const els = NAV.map((n) => document.getElementById(n.id)).filter(
-      (el): el is HTMLElement => el != null,
-    );
-    if (els.length === 0) return;
-    const obs = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible[0]) setActive(visible[0].target.id);
-      },
-      { rootMargin: "-18% 0px -72% 0px", threshold: 0 },
-    );
-    els.forEach((el) => obs.observe(el));
-    return () => obs.disconnect();
-  }, []);
 
   return (
     <aside className="ac-rail">
