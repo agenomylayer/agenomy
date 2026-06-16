@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import s from "./docs.module.css";
 
 const GROUPS: Array<{ title: string; items: Array<[string, string]> }> = [
-  { title: "Get started", items: [["/docs", "Introduction"], ["/docs/quickstart", "Quickstart"]] },
+  { title: "Get started", items: [["/docs", "Introduction"], ["/docs/quickstart", "Quickstart"], ["/docs/roadmap", "Roadmap"]] },
   { title: "Guides", items: [["/docs/concepts", "Concepts"], ["/docs/skills", "Skills"], ["/docs/payments", "Payments (x402)"]] },
   { title: "Reference", items: [["/docs/api", "API & contracts"], ["/docs/faq", "FAQ"]] },
 ];

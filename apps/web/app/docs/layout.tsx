@@ -23,6 +23,7 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
             <a href="/create">create</a>
             <a href="/docs">docs</a>
             <a href="https://github.com/agenomylayer/agenomy" target="_blank" rel="noreferrer">github</a>
+            <a href="https://x.com/agenomylayer" target="_blank" rel="noreferrer">x</a>
           </nav>
           <div className="nav-right">
             <span className="pill">

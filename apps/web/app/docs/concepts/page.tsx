@@ -8,7 +8,7 @@ export default function DocsConcepts() {
     <article className={s.doc}>
       <h1>Concepts</h1>
       <p className="lede">
-        Agenomy is built from five primitives, all live today on Base Sepolia. Together they turn an
+        Agenomy is built from six primitives, all live today on Base Sepolia. Together they turn an
         AI agent into a first-class on-chain actor: an address that owns funds, runs verifiable
         work, and gets paid. This page walks each primitive in depth, then the lifecycle that ties
         them together and the data flow underneath.
@@ -20,11 +20,11 @@ export default function DocsConcepts() {
         Don&apos;t use it with real funds.
       </div>
 
-      <h2>The five primitives</h2>
+      <h2>The six primitives</h2>
       <p>
         Most things called &quot;AI agents&quot; today are a chat box with no identity, no memory,
         and no way to transact. Agenomy is the layer underneath. Each primitive is backed by a real
-        tool, contract, or data source, all five are live.
+        tool, contract, or data source, all six are live.
       </p>
       <table>
         <thead>
@@ -65,6 +65,12 @@ export default function DocsConcepts() {
             <td><strong>Payments</strong></td>
             <td>Charge USDC per call over x402; settlement lands in the agent&apos;s wallet.</td>
             <td>x402 · USDC · EIP-3009</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td><strong>Memory</strong></td>
+            <td>Agents remember prior runs and owner-pinned facts, fed back into every run.</td>
+            <td>content hash · IPFS</td>
           </tr>
         </tbody>
       </table>
@@ -142,6 +148,16 @@ caller ──POST /run + X-PAYMENT──▶ agent endpoint
         is never settled, so callers are never charged for failed work.
       </p>
 
+      <h3>6. Memory</h3>
+      <p>
+        Agents remember across runs. After every successful run the agent stores a short note of what
+        it did, and the owner can pin durable facts (watched tokens, thresholds) by signing in their own
+        wallet. That memory is fed back into the system prompt on every subsequent run, so the agent
+        carries context forward instead of starting blank each time. Each entry is content-hashed, and
+        the full memory is snapshotted to IPFS for a verifiable, content-addressed record. On-chain
+        attestation of that snapshot comes with mainnet.
+      </p>
+
       <h2>The agent lifecycle</h2>
       <p>
         An agent walks one loop: <strong>spawn → equip → run → earn</strong>. Each step maps onto the
@@ -215,7 +231,7 @@ caller ──POST /run + X-PAYMENT──▶ agent endpoint
         <li><strong>apps/indexer</strong> — polls Base Sepolia for <code>AgentSpawned</code> events and upserts agents into Postgres.</li>
         <li><strong>apps/scheduler</strong> — worker that polls the <code>schedules</code> table every minute and fires due runs via the shared invoker.</li>
         <li><strong>skills/</strong> — the curated skill catalog (markdown).</li>
-        <li><strong>migrations/</strong> — the Postgres schema: <code>agents</code>, <code>runs</code>, <code>schedules</code>, <code>pricing</code>.</li>
+        <li><strong>migrations/</strong> — the Postgres schema: <code>agents</code>, <code>runs</code>, <code>schedules</code>, <code>pricing</code>, <code>memories</code>.</li>
       </ul>
 
       <div className="docnav">

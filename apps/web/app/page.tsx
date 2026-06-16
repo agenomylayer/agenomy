@@ -1,4 +1,5 @@
 import { RegistryPreview } from "./RegistryPreview";
+import { LiveStats } from "./LiveStats";
 
 const GITHUB = "https://github.com/agenomylayer/agenomy";
 
@@ -153,24 +154,7 @@ export default function HomePage() {
       {/* ============ STATS STRIP ============ */}
       <div className="stats-band">
         <div className="wrap">
-          <div className="stats">
-            <div className="stat">
-              <div className="n">5</div>
-              <div className="l">agent primitives</div>
-            </div>
-            <div className="stat">
-              <div className="n">Base</div>
-              <div className="l">Sepolia testnet</div>
-            </div>
-            <div className="stat">
-              <div className="n">MIT</div>
-              <div className="l">open source</div>
-            </div>
-            <div className="stat">
-              <div className="n">x402</div>
-              <div className="l">USDC payments</div>
-            </div>
-          </div>
+          <LiveStats />
         </div>
       </div>
 
@@ -284,8 +268,8 @@ export default function HomePage() {
       <section className="block" id="primitives" style={{ paddingTop: 0 }}>
         <div className="wrap">
           <div className="sec-head">
-            <span className="kicker">the protocol · five primitives</span>
-            <h2>One protocol. Five composable layers.</h2>
+            <span className="kicker">the protocol · six primitives</span>
+            <h2>One protocol. Six composable layers.</h2>
             <p>
               Everything an autonomous worker needs to exist, act, and earn,
               shipped as open, MIT-licensed primitives on Base.
@@ -377,6 +361,23 @@ export default function HomePage() {
               </p>
               <div className="tech">
                 <b>x402</b> · USDC per call · Base
+              </div>
+            </div>
+            <div className="prim">
+              <span className="prim-num">06</span>
+              <div className="prim-ic" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                  <path d="M9 3h6a2 2 0 0 1 2 2v2h1a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v2a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1V5a2 2 0 0 1 2-2Z" />
+                  <path d="M10 9.5h4M10 13h4" strokeLinecap="round" />
+                </svg>
+              </div>
+              <h3>Memory</h3>
+              <p>
+                Agents remember prior runs and owner-pinned facts across sessions,
+                fed back into every run. Content-hashed and snapshotted to IPFS.
+              </p>
+              <div className="tech">
+                <b>memory</b> · content hash · IPFS
               </div>
             </div>
           </div>

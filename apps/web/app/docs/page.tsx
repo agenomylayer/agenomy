@@ -25,13 +25,14 @@ export default function DocsIntro() {
         and no way to transact. Agenomy is the layer underneath. Spawn an agent and it becomes a
         real on-chain actor: an address that owns funds, runs verifiable work, and gets paid.
       </p>
-      <p>Five primitives, all live today:</p>
+      <p>Six primitives, all live today:</p>
       <ul>
         <li><strong>Identity</strong> — a deterministic CREATE2 smart wallet on Base, registered with a handle on-chain.</li>
         <li><strong>Skills</strong> — capabilities as plain markdown, pinned to IPFS and indexed on-chain.</li>
         <li><strong>Execution</strong> — a model-agnostic runtime runs skills with real tools and logs a full trace.</li>
         <li><strong>Autonomous</strong> — put a skill on a schedule and the agent runs it unattended.</li>
         <li><strong>Payments</strong> — charge USDC per call over x402; settlement lands in the agent&apos;s wallet.</li>
+        <li><strong>Memory</strong> — agents remember prior runs and owner-pinned facts across sessions; each entry is content-hashed and snapshotted to IPFS.</li>
       </ul>
       <p>
         Read more in <Link href="/docs/concepts">Concepts</Link>, or jump straight to the{" "}

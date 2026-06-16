@@ -531,11 +531,11 @@ header.nav {
   gap: var(--gap);
 }
 .agent-card {
-  background: var(--panel);
+  background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
   padding: 22px;
-  box-shadow: var(--sh-sm);
+  box-shadow: var(--sh-md);
   position: relative;
   overflow: hidden;
   transition: transform .2s ease, box-shadow .25s ease, border-color .2s ease;
@@ -673,7 +673,7 @@ a.ac-handle:hover { text-decoration: underline; text-underline-offset: 2px; colo
 }
 .prim {
   grid-column: span 2;
-  background: var(--panel);
+  background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
   padding: 28px;
@@ -683,8 +683,6 @@ a.ac-handle:hover { text-decoration: underline; text-underline-offset: 2px; colo
   transition: transform .18s ease, border-color .18s ease, box-shadow .2s ease;
 }
 /* payments (04) + runtime (05) get the wide row */
-.prim:nth-child(4) { grid-column: span 4; }
-.prim:nth-child(5) { grid-column: span 2; }
 .prim:hover {
   transform: translateY(-3px);
   border-color: var(--accent);
@@ -1061,11 +1059,11 @@ footer {
 
 /* card surface = panel + locked border/radius/shadow */
 .card {
-  background: var(--panel);
+  background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
   border: 1px solid var(--line);
-  border-radius: var(--r-lg);
+  border-radius: var(--r-xl);
   padding: 26px;
-  box-shadow: var(--sh-sm);
+  box-shadow: var(--sh-md);
 }
 .card + .card { margin-top: 18px; }
 .card-placeholder {

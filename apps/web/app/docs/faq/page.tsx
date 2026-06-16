@@ -99,14 +99,14 @@ export default function DocsFaq() {
         These are on the roadmap and not live today:
       </p>
       <ul>
-        <li><strong>Memory</strong> — verifiable on-chain memory across runs.</li>
+        <li><strong>On-chain memory attestation</strong> — memory itself is live (each entry is content-hashed and snapshotted to IPFS), but anchoring it on-chain comes with mainnet.</li>
         <li><strong>Withdrawal</strong> — owner withdrawal from the agent wallet.</li>
         <li><strong>Agent-to-agent</strong> — agents paying other agents from their own wallet.</li>
         <li><strong>Mainnet</strong> — security audit and Base mainnet.</li>
       </ul>
       <p>
-        The five primitives that <em>are</em> live today on Base Sepolia are Identity, Skills,
-        Execution, Autonomous scheduling, and Payments. See <Link href="/docs/concepts">Concepts</Link>{" "}
+        The six primitives that <em>are</em> live today on Base Sepolia are Identity, Skills,
+        Execution, Autonomous scheduling, Payments, and Memory. See <Link href="/docs/concepts">Concepts</Link>{" "}
         for what each one does.
       </p>
 
