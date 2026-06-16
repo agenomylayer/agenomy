@@ -59,6 +59,20 @@ describe("invokeSkillRun", () => {
     expect(insert.values![3]).toBe("scheduled");
   });
 
+  it("reads memory before the run and writes an auto note after a successful run", async () => {
+    const pool = fakePool((text) => {
+      if (text.includes("SELECT persona")) return { rowCount: 1, rows: [{ persona: { displayName: "Gas Watcher" } }] };
+      if (text.includes("kind = 'pinned'")) return { rowCount: 1, rows: [{ content: "watch ETH" }] };
+      if (text.includes("INSERT INTO runs")) return { rowCount: 1, rows: [{ id: 7 }] };
+      return undefined;
+    });
+    await invokeSkillRun({ pool, handle: "gas", skillSlug: "base-gas-check", input: "", source: "manual", env, fetchFn: mockLLM() });
+    expect(pool.calls.some((c) => c.text.includes("kind = 'pinned'"))).toBe(true);
+    const ins = pool.calls.find((c) => c.text.includes("INSERT INTO memories"));
+    expect(ins).toBeTruthy();
+    expect(String(ins!.values![1]).startsWith("base-gas-check: ")).toBe(true);
+  });
+
   it("returns agent_not_found when the agent is missing", async () => {
     const pool = fakePool((text) =>
       text.includes("SELECT persona") ? { rowCount: 0, rows: [] } : undefined,

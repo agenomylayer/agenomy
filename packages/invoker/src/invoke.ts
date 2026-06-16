@@ -8,6 +8,7 @@ import {
 } from "@agenomy/runtime";
 import type { Queryable } from "./db";
 import { createRun, finishRun, type RunSource } from "./runs";
+import { buildMemoryContext, writeAutoMemory } from "./memory";
 
 export interface InvokeEnv {
   llmBaseUrl: string;
@@ -62,11 +63,13 @@ export async function invokeSkillRun(opts: InvokeOpts): Promise<InvokeResult> {
     return fail("LLM not configured", "llm_not_configured");
   }
 
+  const memory = await buildMemoryContext(pool, handle);
   const runId = await createRun(pool, { agentHandle: handle, skillSlug, input, source });
   const result = await runAgent({
     skill,
     persona,
     input,
+    memory,
     registry,
     provider,
     toolCtx: { rpcUrl: env.rpcUrl, fetch },
@@ -81,6 +84,14 @@ export async function invokeSkillRun(opts: InvokeOpts): Promise<InvokeResult> {
     tokensOut: result.tokensOut,
     error: result.error,
   });
+
+  if (result.status === "ok") {
+    try {
+      await writeAutoMemory(pool, { agentHandle: handle, skillSlug, output: result.output, runId });
+    } catch {
+      /* memory must never fail a run */
+    }
+  }
 
   return { runId, status: result.status, output: result.output, trace: result.trace, error: result.error };
 }

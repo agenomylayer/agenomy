@@ -12,6 +12,7 @@ export interface RunAgentInput {
   toolCtx: ToolContext; // rpcUrl + fetch passed to tools
   fetchFn?: typeof fetch; // test seam for the provider call
   maxSteps?: number;
+  memory?: string; // persistent memory injected into the system prompt
 }
 
 export interface TraceEntry {
@@ -42,7 +43,10 @@ function rawToolCalls(calls: ToolCall[]) {
 /** Drive an agent: skill prompt (persona-filled) + input -> tool-use loop -> final answer + trace. */
 export async function runAgent(inp: RunAgentInput): Promise<RunAgentResult> {
   const maxSteps = inp.maxSteps ?? 6;
-  const system = inp.skill.prompt.replace(/\{\{persona\}\}/g, inp.persona || "an autonomous agent");
+  let system = inp.skill.prompt.replace(/\{\{persona\}\}/g, inp.persona || "an autonomous agent");
+  if (inp.memory && inp.memory.trim()) {
+    system += `\n\n${inp.memory.trim()}\n\nUse this memory when relevant. Do not invent memories you do not have.`;
+  }
   const tools = inp.skill.tools
     .map((n) => inp.registry.get(n))
     .filter((t): t is Tool => Boolean(t));

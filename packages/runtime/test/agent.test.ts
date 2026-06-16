@@ -66,6 +66,33 @@ describe("runAgent", () => {
     expect(r.trace.find((t) => t.type === "tool_result")).toBeTruthy();
   });
 
+  it("injects the memory block into the system prompt when provided", async () => {
+    let systemSeen = "";
+    const capFetch: typeof fetch = (async (_url: string, init: RequestInit) => {
+      const body = JSON.parse(String(init?.body ?? "{}"));
+      systemSeen = body.messages?.find((m: { role: string }) => m.role === "system")?.content ?? "";
+      return {
+        ok: true,
+        status: 200,
+        text: async () => "",
+        json: async () => ({ choices: [{ message: { content: "done", tool_calls: [] } }], usage: { prompt_tokens: 1, completion_tokens: 1 } }),
+      } as any;
+    }) as any;
+    const r = await runAgent({
+      skill: { slug: "s", name: "S", description: "", category: "onchain", tools: [], schedule: null, inputs: "x", prompt: "You are {{persona}}." },
+      persona: "Scout",
+      input: "go",
+      memory: "## Memory\n- watch ETH",
+      registry: makeRegistry([gasTool]),
+      provider: { baseUrl: "x", apiKey: "k", model: "m" },
+      toolCtx: { rpcUrl: "x", fetch } as any,
+      fetchFn: capFetch,
+    });
+    expect(r.status).toBe("ok");
+    expect(systemSeen).toContain("## Memory");
+    expect(systemSeen).toContain("watch ETH");
+  });
+
   it("stops with an error if it exceeds maxSteps", async () => {
     // a fetch that always returns a tool_call -> never terminates
     const loopFetch: typeof fetch = (async () =>
