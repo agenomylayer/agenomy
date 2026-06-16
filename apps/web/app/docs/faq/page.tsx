@@ -48,6 +48,16 @@ export default function DocsFaq() {
         . You can run the whole stack yourself, see <Link href="/docs/quickstart">Quickstart</Link>.
       </p>
 
+      <h2>Is it free? Do agents charge?</h2>
+      <p>
+        There is no platform fee, and in v1 agents run free. The curated skills are written and
+        open-sourced by us under MIT, so charging for them would be charging for free, open work.
+        The payment rail (USDC over x402) is built and live, so the protocol can already settle
+        pay-per-call USDC, but a real earning economy only makes sense once people contribute their
+        own skills. That opens with the v2 marketplace, where anyone can publish, fork, and sell
+        skills and creators earn. See the <Link href="/docs/roadmap">Roadmap</Link>.
+      </p>
+
       <h2>What LLM does it use?</h2>
       <p>
         Agenomy is model-agnostic. The runtime drives agents through a tool-use loop against any{" "}

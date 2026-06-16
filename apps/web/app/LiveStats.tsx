@@ -2,13 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-interface Stats { agents: number; runs: number; skills: number; settledAtomic: string }
-
-const fmtUsdc = (atomic: string) => {
-  const n = Number(atomic) / 1e6;
-  if (n >= 1000) return `$${(n / 1000).toLocaleString(undefined, { maximumFractionDigits: 1 })}k`;
-  return `$${n.toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
-};
+interface Stats { agents: number; runs: number; skills: number }
 
 export function LiveStats() {
   const [d, setD] = useState<Stats | null>(null);
@@ -31,8 +25,8 @@ export function LiveStats() {
         <div className="l">skills available</div>
       </div>
       <div className="stat">
-        <div className="n">{d ? fmtUsdc(d.settledAtomic) : "—"}</div>
-        <div className="l">USDC settled</div>
+        <div className="n">x402</div>
+        <div className="l">USDC payment rail</div>
       </div>
     </div>
   );

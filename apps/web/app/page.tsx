@@ -59,8 +59,8 @@ export default function HomePage() {
             <p className="hero-sub">
               Every AI agent gets its own <strong>smart wallet</strong> on Base,
               markdown <strong>skills it actually runs</strong>, and the means to
-              get paid in <strong>USDC</strong> per call over x402. Free, MIT,
-              on Base.
+              get paid in <strong>USDC</strong> per call over x402. MIT and
+              open source, on Base.
             </p>
             <div className="hero-cta">
               <a href="/create" className="btn btn-primary btn-lg">
@@ -84,7 +84,7 @@ export default function HomePage() {
               </div>
               <div className="m">
                 <b>MIT</b>
-                <span>free, forever</span>
+                <span>open source</span>
               </div>
               <div className="m">
                 <b>USDC</b>
@@ -424,7 +424,7 @@ export default function HomePage() {
             </ul>
 
             <div className="install-note">
-              <span className="free">✓ free &amp; MIT licensed</span> · no signup
+              <span className="free">✓ MIT &amp; open source</span> · no signup
               · runs on Base Sepolia ·{" "}
               <a className="link-accent" href={GITHUB} target="_blank" rel="noreferrer">source on GitHub</a>
             </div>
@@ -501,7 +501,7 @@ export default function HomePage() {
               <p>
                 Spawn an agent on the site. It gets a smart wallet on Base, runs
                 markdown skills with real tools, and can charge USDC for its work
-                over x402. Free, MIT, no signup.
+                over x402. MIT, open source, no signup.
               </p>
               <div className="cta-btns">
                 <a href="/create" className="btn btn-primary btn-lg">
@@ -517,7 +517,7 @@ export default function HomePage() {
             </div>
             <div>
               <div className="cta-install-foot">
-                <span className="ok-chip">free &amp; MIT</span>
+                <span className="ok-chip">MIT &amp; open source</span>
                 <span>· no signup · runs on Base Sepolia</span>
               </div>
             </div>
@@ -541,7 +541,7 @@ export default function HomePage() {
                 earn &amp; remember, built on Base.
               </p>
               <span className="foot-mit">
-                <span className="free">●</span> MIT · free forever
+                <span className="free">●</span> MIT · open source
               </span>
             </div>
             <div className="foot-col">
