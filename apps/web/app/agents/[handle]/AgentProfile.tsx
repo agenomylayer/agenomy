@@ -7,33 +7,13 @@ import { SchedulesPanel } from "./SchedulesPanel";
 import { EarningsPanel } from "./EarningsPanel";
 import { AgentRail } from "./AgentRail";
 import { AgentStats } from "./AgentStats";
+import { MemoryPanel } from "./MemoryPanel";
 import {
   shortAddress,
   formatCreatedAt,
   basescanAddressUrl,
   ipfsUrl,
 } from "../../../src/components/format";
-
-const I = {
-  overview: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /></svg>
-  ),
-  run: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="6 4 20 12 6 20 6 4" /></svg>
-  ),
-  clock: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><polyline points="12 7 12 12 15.5 14" /></svg>
-  ),
-  coin: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v10M9.2 9.4a2.5 2.5 0 0 1 2.8-1.4c1.6.2 2.4 1.3 2.2 2.4c-.3 1.6-3.6 1.3-3.9 3c-.2 1.1.7 2.2 2.3 2.4a2.5 2.5 0 0 0 2.8-1.4" /></svg>
-  ),
-  chip: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 3h6a2 2 0 0 1 2 2v2h1a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v2a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1V5a2 2 0 0 1 2-2Z" /><path d="M10 9.5h4M10 13h4" /></svg>
-  ),
-  spark: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3 2.5 5.5L20 11l-5.5 2.5L12 19l-2.5-5.5L4 11l5.5-2.5L12 3Z" /></svg>
-  ),
-};
 
 export function AgentProfile({
   agent,
@@ -124,14 +104,7 @@ export function AgentProfile({
           </div>
 
           {/* memory */}
-          <section id="memory">
-            <div className="ac-memory">
-              <div className="ac-memicon">{I.chip}</div>
-              <h3>Memory</h3>
-              <p>Persistent context so {agent.handle} remembers prior runs, watched tokens, and thresholds across sessions.</p>
-              <span className="soon">Coming in a later slice</span>
-            </div>
-          </section>
+          <MemoryPanel handle={agent.handle} owner={agent.owner} ipfsGateway={ipfsGateway} />
 
           <div className="ac-foot">
             Agenomy <span className="mono">·</span> the on-chain layer for autonomous AI workers

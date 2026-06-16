@@ -26,7 +26,7 @@ const NAV: Array<{ id: string; label: string; tag?: string }> = [
   { id: "run", label: "Run" },
   { id: "schedules", label: "Schedules" },
   { id: "earnings", label: "Earnings" },
-  { id: "memory", label: "Memory", tag: "soon" },
+  { id: "memory", label: "Memory" },
 ];
 
 export function AgentRail({

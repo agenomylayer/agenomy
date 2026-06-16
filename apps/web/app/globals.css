@@ -1541,6 +1541,17 @@ html { scroll-behavior: smooth; }
 /* primary action card (Run) gets a touch more elevation as the anchor */
 .ac-card-primary { box-shadow: var(--sh-md); border-color: var(--line-strong); }
 
+/* memory panel */
+.ac-memsnap { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--ink-mute); margin-bottom: 14px; padding: 11px 14px; background: var(--code-bg); border: 1px solid var(--line-soft); border-radius: var(--r-md); }
+.ac-memrow { display: flex; align-items: flex-start; gap: 12px; padding: 13px 16px; background: var(--panel-2); border-bottom: 1px solid var(--line-soft); }
+.ac-memrow:last-child { border-bottom: none; }
+.ac-memrow .body { min-width: 0; flex: 1; }
+.ac-memtext { font-size: 13.5px; color: var(--ink); line-height: 1.5; word-break: break-word; }
+.ac-memtime { font-family: var(--mono); font-size: 11px; color: var(--ink-ghost); margin-top: 3px; }
+.ac-memkind { font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; flex: 0 0 auto; }
+.ac-memkind.pinned { color: var(--accent-deep); background: var(--accent-soft); border: 1px solid rgba(217, 67, 15, .26); }
+.ac-memkind.auto { color: var(--ink-mute); background: var(--panel-3); border: 1px solid var(--line); }
+
 /* section card + iconized header */
 .ac-card { background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%); border: 1px solid var(--line); border-radius: var(--r-xl); box-shadow: var(--sh-sm); padding: 24px 26px; scroll-margin-top: 22px; }
 .ac-sechead { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 16px; }

@@ -39,9 +39,9 @@ describe("AgentProfile", () => {
       "https://gateway.pinata.cloud/ipfs/QmFakeCidForTestsXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
     );
 
-    // earnings + memory sections present; memory still a placeholder
+    // earnings + memory sections present (memory is now a real panel)
     expect(screen.getAllByText(/earnings/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/memory/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/coming in a later slice/i)).toHaveLength(1);
+    expect(screen.getByText(/no memories yet/i)).toBeInTheDocument();
   });
 });
