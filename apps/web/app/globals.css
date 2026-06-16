@@ -1439,14 +1439,12 @@ footer {
 /* ============================================================
    AGENT CONSOLE (#6 left-rail dashboard) — all ac- prefixed
    ============================================================ */
-.ac-app { display: grid; grid-template-columns: 248px 1fr; gap: 26px; align-items: start; scroll-behavior: smooth; }
+.ac-app { display: grid; grid-template-columns: 248px 1fr; gap: 26px; align-items: stretch; scroll-behavior: smooth; }
 .ac-main { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
 html { scroll-behavior: smooth; }
 
 /* left rail */
 .ac-rail {
-  position: sticky;
-  top: 22px;
   background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
   border: 1px solid var(--line);
   border-radius: var(--r-xl);
@@ -1484,7 +1482,7 @@ html { scroll-behavior: smooth; }
 .ac-navitem.on { background: var(--accent-wash); border-color: rgba(217, 67, 15, .22); color: var(--accent-deep); font-weight: 600; }
 .ac-navitem.on svg { color: var(--accent); }
 .ac-navitem .nt { margin-left: auto; font-family: var(--mono); font-size: 10.5px; background: var(--panel); color: var(--ink-ghost); border: 1px solid var(--line-soft); padding: 1px 7px; border-radius: 999px; font-weight: 600; }
-.ac-railfoot { margin-top: 4px; padding-top: 13px; border-top: 1px solid var(--line-soft); display: flex; align-items: center; gap: 9px; font-size: 12px; color: var(--ink-mute); }
+.ac-railfoot { margin-top: auto; padding-top: 13px; border-top: 1px solid var(--line-soft); display: flex; align-items: center; gap: 9px; font-size: 12px; color: var(--ink-mute); }
 .ac-dotok { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px var(--green-soft); }
 
 /* breadcrumb */
@@ -1568,7 +1566,7 @@ html { scroll-behavior: smooth; }
 .ac-runicon svg { width: 15px; height: 15px; }
 .ac-runrow .body { min-width: 0; }
 .ac-runname { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--ink); }
-.ac-rundetail { font-size: 12.5px; color: var(--ink-mute); margin-top: 1px; word-break: break-word; }
+.ac-rundetail { font-size: 12.5px; color: var(--ink-mute); margin-top: 2px; word-break: break-word; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .ac-rundetail.err { color: var(--accent-deep); }
 .ac-runrow .right { margin-left: auto; display: flex; align-items: center; gap: 10px; flex: 0 0 auto; }
 

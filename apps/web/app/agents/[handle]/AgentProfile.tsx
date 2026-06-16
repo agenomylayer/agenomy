@@ -5,6 +5,7 @@ import { SkillChip } from "../../../src/components/SkillChip";
 import { InvokePanel } from "./InvokePanel";
 import { SchedulesPanel } from "./SchedulesPanel";
 import { EarningsPanel } from "./EarningsPanel";
+import { AgentRail } from "./AgentRail";
 import {
   shortAddress,
   formatCreatedAt,
@@ -44,31 +45,11 @@ export function AgentProfile({
     <main className="page page--lg">
       <div className="ac-app">
         {/* ---------------- left rail ---------------- */}
-        <aside className="ac-rail">
-          <div className="ac-railagent">
-            <span className="ac-railavatar">
-              <AvatarBlob seed={agent.persona.avatarSeed || agent.handle} size={38} />
-            </span>
-            <div style={{ minWidth: 0 }}>
-              <div className="nm">{agent.persona.displayName || agent.handle}</div>
-              <div className="hd">{agent.handle}</div>
-            </div>
-          </div>
-
-          <nav className="ac-nav">
-            <div className="ac-navlabel">Agent</div>
-            <a className="ac-navitem on" href="#overview">{I.overview}Overview</a>
-            <a className="ac-navitem" href="#run">{I.run}Run</a>
-            <a className="ac-navitem" href="#schedules">{I.clock}Schedules</a>
-            <a className="ac-navitem" href="#earnings">{I.coin}Earnings</a>
-            <a className="ac-navitem" href="#memory">{I.chip}Memory<span className="nt">soon</span></a>
-          </nav>
-
-          <div className="ac-railfoot">
-            <span className="ac-dotok" aria-hidden="true" />
-            Live on Base Sepolia
-          </div>
-        </aside>
+        <AgentRail
+          handle={agent.handle}
+          displayName={agent.persona.displayName || agent.handle}
+          avatarSeed={agent.persona.avatarSeed || agent.handle}
+        />
 
         {/* ---------------- main column ---------------- */}
         <div className="ac-main">

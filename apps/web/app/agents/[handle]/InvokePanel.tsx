@@ -185,10 +185,10 @@ export function InvokePanel({ handle }: { handle: string }) {
               <span className="ac-secic">{HistIc}</span>
               <h2>Recent runs</h2>
             </div>
-            <span className="ac-secsub">last {runs.length}</span>
+            <span className="ac-secsub">last {Math.min(runs.length, 6)}</span>
           </div>
           <div className="ac-feed">
-            {runs.map((r) => {
+            {runs.slice(0, 6).map((r) => {
               const ok = r.status === "ok";
               return (
                 <div className="ac-runrow" key={r.id}>
