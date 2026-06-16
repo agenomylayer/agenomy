@@ -6,6 +6,7 @@ import { InvokePanel } from "./InvokePanel";
 import { SchedulesPanel } from "./SchedulesPanel";
 import { EarningsPanel } from "./EarningsPanel";
 import { AgentRail } from "./AgentRail";
+import { AgentStats } from "./AgentStats";
 import {
   shortAddress,
   formatCreatedAt,
@@ -76,7 +77,17 @@ export function AgentProfile({
                   <span className="ac-chipnet test"><span className="pulse" />Sepolia testnet</span>
                 </div>
               </div>
+              <AgentStats handle={agent.handle} skillCount={agent.skills.length} />
             </div>
+
+            {agent.skills.length > 0 && (
+              <div className="ac-heroskills">
+                <span className="lbl">Skills</span>
+                {agent.skills.map((s) => (
+                  <SkillChip key={s} slug={s} />
+                ))}
+              </div>
+            )}
 
             <div className="ac-facts">
               <div className="ac-fact">
@@ -100,22 +111,6 @@ export function AgentProfile({
                   <a href={ipfsUrl(ipfsGateway, agent.manifestCid)} target="_blank" rel="noreferrer">IPFS</a>
                 </div>
               </div>
-            </div>
-          </section>
-
-          {/* skills */}
-          <section className="ac-card" id="skills">
-            <div className="ac-sechead">
-              <div className="ac-sectitle">
-                <span className="ac-secic">{I.spark}</span>
-                <h2>Skills</h2>
-              </div>
-              <span className="ac-secsub">{agent.skills.length} installed</span>
-            </div>
-            <div className="ac-skills">
-              {agent.skills.map((s) => (
-                <SkillChip key={s} slug={s} />
-              ))}
             </div>
           </section>
 

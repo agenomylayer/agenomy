@@ -1505,7 +1505,7 @@ html { scroll-behavior: smooth; }
   padding: 26px 28px 24px;
   scroll-margin-top: 22px;
 }
-.ac-herotop { display: flex; gap: 20px; align-items: flex-start; }
+.ac-herotop { display: flex; gap: 22px; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; }
 .ac-heroavatar { width: 62px; height: 62px; border-radius: 16px; flex: 0 0 auto; overflow: hidden; border: 1px solid var(--line-strong); box-shadow: var(--sh-sm); line-height: 0; }
 .ac-heroid { flex: 1; min-width: 0; }
 .ac-herotitle { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
@@ -1526,6 +1526,20 @@ html { scroll-behavior: smooth; }
 .ac-fact .v.mono { font-family: var(--mono); font-size: 13px; color: var(--ink); }
 .ac-fact a { color: var(--accent-deep); font-weight: 600; border-bottom: 1px solid var(--accent-soft); }
 .ac-fact a:hover { border-bottom-color: var(--accent); }
+
+/* hero quick stats (right of hero top) */
+.ac-herostats { display: grid; grid-template-columns: repeat(2, minmax(96px, 1fr)); gap: 1px; background: var(--line-soft); border: 1px solid var(--line-soft); border-radius: var(--r-md); overflow: hidden; flex: 0 0 auto; }
+.ac-stat { background: var(--panel-2); padding: 11px 14px; min-width: 0; }
+.ac-stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-ghost); font-weight: 600; }
+.ac-stat .v { margin-top: 4px; font-family: var(--mono); font-size: 19px; font-weight: 800; letter-spacing: -.5px; color: var(--ink); line-height: 1.1; }
+.ac-stat .v .u { font-size: 11px; color: var(--ink-mute); font-weight: 600; margin-left: 2px; }
+
+/* hero skills row */
+.ac-heroskills { display: flex; align-items: center; gap: 9px 11px; flex-wrap: wrap; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line-soft); }
+.ac-heroskills .lbl { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-ghost); font-weight: 600; }
+
+/* primary action card (Run) gets a touch more elevation as the anchor */
+.ac-card-primary { box-shadow: var(--sh-md); border-color: var(--line-strong); }
 
 /* section card + iconized header */
 .ac-card { background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%); border: 1px solid var(--line); border-radius: var(--r-xl); box-shadow: var(--sh-sm); padding: 24px 26px; scroll-margin-top: 22px; }

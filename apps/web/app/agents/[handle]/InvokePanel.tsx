@@ -112,7 +112,7 @@ export function InvokePanel({ handle }: { handle: string }) {
 
   return (
     <>
-      <section className="ac-card" id="run">
+      <section className="ac-card ac-card-primary" id="run">
         <div className="ac-sechead">
           <div className="ac-sectitle">
             <span className="ac-secic">{RunIc}</span>
