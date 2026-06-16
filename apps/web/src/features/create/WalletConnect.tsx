@@ -1,18 +1,19 @@
 "use client";
 
-import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { useAccount, useDisconnect } from "wagmi";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { shortAddress } from "../../components/format";
 
 /**
- * Wallet connect control styled with the canonical design system
- * (.btn btn-primary / .btn btn-ghost) instead of RainbowKit's own
- * blue/white themed ConnectButton, so the /create wizard stays on the
- * warm-stone palette like the rest of the app.
+ * Wallet connect control. Opens RainbowKit's wallet picker modal (MetaMask,
+ * Coinbase, WalletConnect QR, etc.) via useConnectModal, wrapped in our own
+ * warm-stone .btn so the page keeps the design system. More robust than
+ * connecting blindly to connectors[0].
  */
 export function WalletConnect() {
   const { address, isConnected } = useAccount();
-  const { connectors, connect, isPending } = useConnect();
   const { disconnect } = useDisconnect();
+  const { openConnectModal, connectModalOpen } = useConnectModal();
 
   if (isConnected && address) {
     return (
@@ -21,28 +22,22 @@ export function WalletConnect() {
           <span className="dot" />
           <b className="mono">{shortAddress(address)}</b>
         </span>
-        <button
-          type="button"
-          className="btn btn-ghost"
-          onClick={() => disconnect()}
-        >
+        <button type="button" className="btn btn-ghost" onClick={() => disconnect()}>
           Disconnect
         </button>
       </div>
     );
   }
 
-  const connector = connectors[0];
-
   return (
     <div className="wallet-connect">
       <button
         type="button"
         className="btn btn-primary"
-        disabled={isPending || !connector}
-        onClick={() => connector && connect({ connector })}
+        disabled={!openConnectModal || connectModalOpen}
+        onClick={() => openConnectModal?.()}
       >
-        {isPending ? "Connecting…" : "Connect Wallet"}
+        {connectModalOpen ? "Connecting…" : "Connect Wallet"}
       </button>
     </div>
   );

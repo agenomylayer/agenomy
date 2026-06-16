@@ -1,7 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useAccount, useDisconnect } from "wagmi";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { AvatarBlob } from "../../../src/components/AvatarBlob";
+import { shortAddress } from "../../../src/components/format";
 
 const ICONS: Record<string, React.ReactNode> = {
   overview: (
@@ -39,6 +42,9 @@ export function AgentRail({
   avatarSeed: string;
 }) {
   const [active, setActive] = useState("overview");
+  const { address, isConnected } = useAccount();
+  const { disconnect } = useDisconnect();
+  const { openConnectModal } = useConnectModal();
 
   return (
     <aside className="ac-rail">
@@ -67,6 +73,25 @@ export function AgentRail({
           </a>
         ))}
       </nav>
+
+      <div className="ac-railwallet">
+        {isConnected && address ? (
+          <>
+            <span className="ac-dotok" aria-hidden="true" />
+            <span className="addr mono">{shortAddress(address)}</span>
+            <button className="btn btn-ghost btn-xs" onClick={() => disconnect()}>disconnect</button>
+          </>
+        ) : (
+          <button
+            className="btn btn-primary btn-xs"
+            style={{ width: "100%" }}
+            disabled={!openConnectModal}
+            onClick={() => openConnectModal?.()}
+          >
+            Connect wallet
+          </button>
+        )}
+      </div>
 
       <div className="ac-railfoot">
         <span className="ac-dotok" aria-hidden="true" />

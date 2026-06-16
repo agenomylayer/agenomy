@@ -6,6 +6,10 @@ vi.mock("wagmi", () => ({
   useAccount: () => ({ address: undefined }),
   useSignMessage: () => ({ signMessageAsync: async () => "0x" }),
   useWalletClient: () => ({ data: undefined }),
+  useDisconnect: () => ({ disconnect: () => {} }),
+}));
+vi.mock("@rainbow-me/rainbowkit", () => ({
+  useConnectModal: () => ({ openConnectModal: undefined, connectModalOpen: false }),
 }));
 vi.mock("../../../lib/x402-client", () => ({ paidFetch: () => fetch }));
 

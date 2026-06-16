@@ -1487,7 +1487,9 @@ html { scroll-behavior: smooth; }
 .ac-navitem.on { background: var(--accent-wash); border-color: rgba(217, 67, 15, .22); color: var(--accent-deep); font-weight: 600; }
 .ac-navitem.on svg { color: var(--accent); }
 .ac-navitem .nt { margin-left: auto; font-family: var(--mono); font-size: 10.5px; background: var(--panel); color: var(--ink-ghost); border: 1px solid var(--line-soft); padding: 1px 7px; border-radius: 999px; font-weight: 600; }
-.ac-railfoot { margin-top: 6px; padding-top: 13px; border-top: 1px solid var(--line-soft); display: flex; align-items: center; gap: 9px; font-size: 12px; color: var(--ink-mute); }
+.ac-railwallet { padding-top: 13px; border-top: 1px solid var(--line-soft); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ac-railwallet .addr { font-size: 12px; color: var(--ink-soft); }
+.ac-railfoot { margin-top: 2px; display: flex; align-items: center; gap: 9px; font-size: 12px; color: var(--ink-mute); }
 .ac-dotok { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px var(--green-soft); }
 
 /* breadcrumb */
