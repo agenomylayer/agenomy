@@ -5,5 +5,7 @@ export { marketData } from "./tools/market";
 export * from "./skills/types";
 export { parseSkill } from "./skills/loader";
 export { loadSkillsFromDir } from "./skills/catalog";
+export { aeonToAgenomySkill } from "./skills/aeon-adapter";
+export type { AeonConvertOptions } from "./skills/aeon-adapter";
 export * from "./provider";
 export * from "./agent";

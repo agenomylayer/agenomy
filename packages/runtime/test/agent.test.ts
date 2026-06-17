@@ -45,6 +45,7 @@ describe("runAgent", () => {
       skill: {
         slug: "s",
         name: "S",
+        description: "",
         category: "onchain",
         tools: ["onchain_read"],
         schedule: null,
@@ -108,7 +109,7 @@ describe("runAgent", () => {
         }),
       }) as any) as any;
     const r = await runAgent({
-      skill: { slug: "s", name: "S", category: "onchain", tools: ["onchain_read"], schedule: null, inputs: "x", prompt: "p" },
+      skill: { slug: "s", name: "S", description: "", category: "onchain", tools: ["onchain_read"], schedule: null, inputs: "x", prompt: "p" },
       persona: "",
       input: "x",
       registry: makeRegistry([gasTool]),
