@@ -40,6 +40,7 @@ export type AgentDetail = AgentSummary & {
   manifestCid: string;
   configHash: Bytes32;
   persona: Persona;
+  solanaWallet?: string | null;
 };
 
 /** On-chain Agent struct mirror (tuple from getAgentByHandle/getAgentById). */

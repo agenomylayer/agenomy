@@ -33,7 +33,7 @@ export default function DocsRoadmap() {
           </tr>
         </thead>
         <tbody>
-          <tr><td><strong>Identity</strong></td><td>CREATE2 smart wallet + on-chain registry</td><td>Live</td></tr>
+          <tr><td><strong>Identity</strong></td><td>CREATE2 smart wallet on Base + a Solana address, on-chain registry</td><td>Live</td></tr>
           <tr><td><strong>Skills</strong></td><td>Markdown skills on IPFS, indexed on-chain</td><td>Live</td></tr>
           <tr><td><strong>Execution</strong></td><td>Model-agnostic runtime with real tools and traces</td><td>Live</td></tr>
           <tr><td><strong>Autonomous</strong></td><td>Cron scheduling, unattended runs</td><td>Live</td></tr>
@@ -45,7 +45,8 @@ export default function DocsRoadmap() {
       <p>
         Everything marked Live runs on Base Sepolia today, with no real value handled. Mainnet is
         gated behind a security audit and is the line we do not cross until the protocol is safe to
-        handle real funds.
+        handle real funds. Agent identity already spans Base and Solana; Solana settlement
+        (SPL / Solana Pay) is a post-launch direction, not live yet.
       </p>
 
       <h2>Beyond v1 — directions</h2>

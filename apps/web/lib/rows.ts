@@ -1,4 +1,5 @@
 import type { Persona } from '@agenomy/shared';
+import { deriveSolanaAddress } from './solana';
 
 export interface Skill {
   slug: string;
@@ -22,6 +23,7 @@ export interface AgentDetail extends AgentSummary {
   manifestCid: string | null;
   configHash: string;
   persona: Persona | null;
+  solanaWallet: string | null;
 }
 
 function asArray(v: unknown): string[] {
@@ -90,5 +92,11 @@ export function toAgentDetail(row: Record<string, unknown>): AgentDetail {
         : String(row.manifest_cid),
     configHash: String(row.config_hash),
     persona: asPersona(row.persona),
+    // Every agent has a Solana identity address: use the explicitly linked one
+    // if present, otherwise derive a stable, real address from its Base wallet.
+    solanaWallet:
+      row.solana_wallet === null || row.solana_wallet === undefined
+        ? deriveSolanaAddress(String(row.wallet ?? row.agent_id))
+        : String(row.solana_wallet),
   };
 }

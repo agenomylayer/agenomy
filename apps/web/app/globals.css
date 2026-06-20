@@ -870,6 +870,7 @@ a.ac-handle:hover { text-decoration: underline; text-underline-offset: 2px; colo
   display: inline-block;
 }
 .builton-inner .chip.base i { background: #0052FF; border-radius: 50%; }
+.builton-inner .chip.solana i { background: linear-gradient(135deg, #9945FF, #14F195); border-radius: 50%; }
 .builton-inner .chip.usdc i { background: var(--green); border-radius: 50%; }
 .builton-inner .chip.x402 i { background: var(--accent); }
 .builton-inner .chip.eas i { background: var(--accent-deep); border-radius: 50%; }

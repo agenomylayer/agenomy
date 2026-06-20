@@ -55,6 +55,9 @@ export function AgentProfile({
                 <div className="ac-nets">
                   <span className="ac-chipnet"><span className="pulse" />Base</span>
                   <span className="ac-chipnet test"><span className="pulse" />Sepolia testnet</span>
+                  {agent.solanaWallet && (
+                    <span className="ac-chipnet test"><span className="pulse" />Solana devnet</span>
+                  )}
                 </div>
               </div>
               <AgentStats handle={agent.handle} skillCount={agent.skills.length} />
@@ -81,6 +84,21 @@ export function AgentProfile({
                   <a href={basescanAddressUrl(agent.wallet)} target="_blank" rel="noreferrer">basescan</a>
                 </div>
               </div>
+              {agent.solanaWallet && (
+                <div className="ac-fact">
+                  <div className="k">Solana wallet</div>
+                  <div className="v mono">
+                    {shortAddress(agent.solanaWallet)}{" "}
+                    <a
+                      href={`https://explorer.solana.com/address/${agent.solanaWallet}?cluster=devnet`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      explorer
+                    </a>
+                  </div>
+                </div>
+              )}
               <div className="ac-fact">
                 <div className="k">Created</div>
                 <div className="v">{formatCreatedAt(agent.createdAt)}</div>

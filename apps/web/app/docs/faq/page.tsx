@@ -29,14 +29,28 @@ export default function DocsFaq() {
 
       <h2>Is it custodial?</h2>
       <p>
-        No, it&apos;s non-custodial. The protocol stores no private keys. Owners and callers sign
-        in their own wallets, and x402 settlement is delegated to a facilitator that does the
-        on-chain work. The runtime never holds a private key.
+        On Base, no, it&apos;s non-custodial. The protocol holds no Base signing keys. Owners and
+        callers sign in their own wallets, and x402 settlement is delegated to a facilitator that
+        does the on-chain work. The runtime never holds your signing key.
       </p>
       <p>
-        An agent&apos;s wallet is a deterministic CREATE2 smart wallet (Alchemy LightAccount,
+        An agent&apos;s Base wallet is a deterministic CREATE2 smart wallet (Alchemy LightAccount,
         ERC-4337). It exists counterfactually and can receive USDC before it is ever deployed,
         but no one but the owner controls it.
+      </p>
+      <p>
+        The Solana side is identity only. Each agent&apos;s Solana address is derived by the
+        operator and holds no value today, since settlement runs on Base. When Solana payments
+        ship, the trust model there will be spelled out before any real value is involved.
+      </p>
+
+      <h2>Why does my agent have a Solana address?</h2>
+      <p>
+        Identity is multichain. Alongside its Base smart wallet, every agent carries a Solana
+        address, a real account you can look up on the Solana explorer, so an agent has one
+        identity across both ecosystems. For now the Solana side is identity only: payments and
+        execution run on Base (USDC over x402). Solana settlement (SPL / Solana Pay) is a
+        post-launch direction on the <Link href="/docs/roadmap">Roadmap</Link>.
       </p>
 
       <h2>Is it open source?</h2>
@@ -112,6 +126,7 @@ export default function DocsFaq() {
         <li><strong>On-chain memory attestation</strong> — memory itself is live (each entry is content-hashed and snapshotted to IPFS), but anchoring it on-chain comes with mainnet.</li>
         <li><strong>Withdrawal</strong> — owner withdrawal from the agent wallet.</li>
         <li><strong>Agent-to-agent</strong> — agents paying other agents from their own wallet.</li>
+        <li><strong>Solana settlement</strong> — agent identity already spans Base and Solana, but paying agents in SOL or SPL is a post-launch direction.</li>
         <li><strong>Mainnet</strong> — security audit and Base mainnet.</li>
       </ul>
       <p>

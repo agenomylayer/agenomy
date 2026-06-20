@@ -12,7 +12,7 @@ export async function GET(
   const pool = getPool();
   const res = await pool.query(
     `SELECT agent_id, owner, wallet, handle, skills, created_at,
-            manifest_hash, manifest_cid, config_hash, persona
+            manifest_hash, manifest_cid, config_hash, persona, solana_wallet
      FROM agents WHERE handle = $1 LIMIT 1`,
     [handle],
   );

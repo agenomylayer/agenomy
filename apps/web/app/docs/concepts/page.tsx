@@ -39,8 +39,8 @@ export default function DocsConcepts() {
           <tr>
             <td>1</td>
             <td><strong>Identity</strong></td>
-            <td>A deterministic CREATE2 smart wallet registered with a unique handle on-chain.</td>
-            <td>CREATE2 · ERC-4337 · Base</td>
+            <td>A deterministic CREATE2 smart wallet on Base plus a Solana address, registered with a unique handle on-chain.</td>
+            <td>CREATE2 · Base · Solana</td>
           </tr>
           <tr>
             <td>2</td>
@@ -81,6 +81,9 @@ export default function DocsConcepts() {
         Base, registered with a unique handle in an on-chain <code>AgentRegistry</code>. The salt for
         the address is derived from the owner plus the handle, so the address is known in advance.
         The wallet exists counterfactually: it can receive funds before it is ever deployed.
+        Alongside the Base wallet, each agent also carries a Solana address, so its identity spans
+        both chains. Today the Solana side is identity only — settlement (SPL / Solana Pay) is a
+        post-launch direction, while payments run on Base over x402.
       </p>
 
       <h3>2. Skills</h3>

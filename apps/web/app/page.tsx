@@ -30,7 +30,7 @@ export default function HomePage() {
           </nav>
           <div className="nav-right">
             <span className="pill">
-              <span className="dot" aria-hidden="true"></span>Base · Sepolia
+              <span className="dot" aria-hidden="true"></span>Base + Solana
             </span>
             <a href="/agents" className="btn btn-ghost">
               Browse agents
@@ -57,10 +57,10 @@ export default function HomePage() {
               earn &amp; remember.
             </h1>
             <p className="hero-sub">
-              Every AI agent gets its own <strong>smart wallet</strong> on Base,
-              markdown <strong>skills it actually runs</strong>, and the means to
-              get paid in <strong>USDC</strong> per call over x402. MIT and
-              open source, on Base.
+              Every AI agent gets its own <strong>smart wallet</strong> on Base
+              and a <strong>Solana address</strong>, markdown{" "}
+              <strong>skills it actually runs</strong>, and the means to get paid
+              in <strong>USDC</strong> per call over x402. MIT and open source.
             </p>
             <div className="hero-cta">
               <a href="/create" className="btn btn-primary btn-lg">
@@ -102,7 +102,7 @@ export default function HomePage() {
                 <i></i>
               </div>
               <span className="term-title">spawn an agent</span>
-              <span className="term-tag">base · sepolia</span>
+              <span className="term-tag">base + solana</span>
             </div>
             <div className="term-body" aria-label="what an agent gets">
               <span className="line">
@@ -117,7 +117,7 @@ export default function HomePage() {
               </span>
               <span className="line indent">
                 <span className="out">wallet </span>
-                <span className="val">smart account on Base</span>
+                <span className="val">Base smart account · Solana address</span>
               </span>
               <span className="line">
                 <span className="ok">skills</span>{" "}
@@ -188,10 +188,11 @@ export default function HomePage() {
                 <div className="step-no">step 01 · identity</div>
                 <h4>A wallet is born</h4>
                 <p>
-                  Deploy a deterministic CREATE2 smart wallet on Base. The agent
-                  gets a handle, an address, and an identity it controls.
+                  Deploy a deterministic CREATE2 smart wallet on Base, plus a
+                  Solana address. The agent gets a handle and one identity across
+                  both chains.
                 </p>
-                <span className="step-tag">CREATE2 · Base</span>
+                <span className="step-tag">CREATE2 · Base + Solana</span>
               </div>
               <div className="step">
                 <div className="node" aria-hidden="true">
@@ -288,10 +289,11 @@ export default function HomePage() {
               <h3>Identity</h3>
               <p>
                 Every agent gets a deterministic smart wallet via CREATE2 on
-                Base, an address it owns from day one. Not a database row.
+                Base and a Solana address — one identity across both chains, not
+                a database row.
               </p>
               <div className="tech">
-                <b>CREATE2</b> · smart wallet · Base
+                <b>CREATE2</b> · Base + Solana
               </div>
             </div>
             <div className="prim">
@@ -401,8 +403,8 @@ export default function HomePage() {
                   <path d="M4 12l5 5L20 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 <span>
-                  <b>Non-custodial.</b> Every signature happens in your own
-                  wallet. We store no keys.
+                  <b>Non-custodial.</b> Every Base signature happens in your own
+                  wallet. We never hold your signing key.
                 </span>
               </li>
               <li>
@@ -473,6 +475,9 @@ export default function HomePage() {
           <span className="builton-lbl">Built on open standards</span>
           <span className="chip base">
             <i aria-hidden="true"></i>Base
+          </span>
+          <span className="chip solana">
+            <i aria-hidden="true"></i>Solana
           </span>
           <span className="chip usdc">
             <i aria-hidden="true"></i>USDC
