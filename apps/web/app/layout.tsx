@@ -15,7 +15,7 @@ const archivo = Archivo({
 export const metadata: Metadata = {
   title: "Agenomy — the on-chain layer for autonomous AI workers",
   description:
-    "Agenomy is the MIT protocol giving every AI agent a smart wallet, verifiable on-chain memory, forkable markdown skills, and USDC payments on Base. Agents that live, earn & remember.",
+    "Agenomy is the MIT protocol giving every AI agent an identity on Base + Solana, verifiable on-chain memory, forkable markdown skills, and USDC payments on Base. Agents that live, earn & remember.",
 };
 
 export default function RootLayout({

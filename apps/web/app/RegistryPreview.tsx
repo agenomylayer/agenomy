@@ -34,7 +34,7 @@ export function RegistryPreview() {
         ))}
       </div>
       <div className="reg-footer">
-        <span>live registry · real agents on Base Sepolia</span>
+        <span>live registry on Base Sepolia · real agents with identity on Base + Solana</span>
         <a href="/agents">View the full registry →</a>
       </div>
     </>

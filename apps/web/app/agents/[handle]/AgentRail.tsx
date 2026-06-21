@@ -95,7 +95,7 @@ export function AgentRail({
 
       <div className="ac-railfoot">
         <span className="ac-dotok" aria-hidden="true" />
-        Live on Base Sepolia
+        Identity on Base + Solana · live on Base Sepolia
       </div>
     </aside>
   );

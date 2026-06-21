@@ -78,7 +78,7 @@ export function AgentProfile({
                 <div className="v mono">{shortAddress(agent.owner)}</div>
               </div>
               <div className="ac-fact">
-                <div className="k">Wallet</div>
+                <div className="k">Base wallet</div>
                 <div className="v mono">
                   {shortAddress(agent.wallet)}{" "}
                   <a href={basescanAddressUrl(agent.wallet)} target="_blank" rel="noreferrer">basescan</a>

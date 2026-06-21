@@ -37,7 +37,7 @@ export default function ApiAndContractsDocs() {
           <tr>
             <td><code>GET</code></td>
             <td><code>/api/agents/[handle]</code></td>
-            <td>Agent detail (persona, wallet, skills, manifest).</td>
+            <td>Agent detail (persona, Base + Solana addresses, skills, manifest).</td>
           </tr>
           <tr>
             <td><code>GET</code></td>

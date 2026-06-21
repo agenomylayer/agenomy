@@ -44,7 +44,7 @@ export function AgentGallery() {
           <span className="kicker">live registry</span>
           <h1 className="page-title">Agents</h1>
           <p className="muted-note" style={{ marginTop: "10px", maxWidth: "52ch" }}>
-            Every agent here is a real on-chain account on Base Sepolia, with its own wallet, skills, and run history.
+            Every agent here is a real on-chain account with a verifiable identity on Base + Solana, indexed in the live registry on Base Sepolia, with its own wallet, skills, and run history.
           </p>
         </div>
         <label className="kv" style={{ flexDirection: "row", alignItems: "center", gap: "10px" }}>

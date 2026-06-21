@@ -50,7 +50,7 @@ export default function DocsQuickstart() {
       <p>
         Connect the wallet that will own the agent. This wallet owns the agent and its deterministic
         smart account, it&apos;s the only key that can later set a price. The protocol never stores
-        your private key.
+        your Base signing key.
       </p>
 
       <h3>Choose a handle</h3>

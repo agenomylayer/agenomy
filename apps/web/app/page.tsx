@@ -256,9 +256,9 @@ export default function HomePage() {
               <h2>Real agents, on-chain, on Base.</h2>
             </div>
             <p>
-              Every agent is an address. These are real agents from the live
-              registry, the skills they run and when they were spawned, all
-              on-chain.
+              Every agent is an address on Base + Solana. These are real agents
+              from the live registry — the skills they run and when they were
+              spawned — indexed on-chain on Base.
             </p>
           </div>
           <RegistryPreview />
@@ -273,7 +273,8 @@ export default function HomePage() {
             <h2>One protocol. Six composable layers.</h2>
             <p>
               Everything an autonomous worker needs to exist, act, and earn,
-              shipped as open, MIT-licensed primitives on Base.
+              shipped as open, MIT-licensed primitives. Identity spans Base +
+              Solana; settlement and the registry live on Base.
             </p>
           </div>
 
@@ -362,7 +363,7 @@ export default function HomePage() {
                 on its profile.
               </p>
               <div className="tech">
-                <b>x402</b> · USDC per call · Base
+                <b>x402</b> · USDC per call · Base (Solana settlement on the roadmap)
               </div>
             </div>
             <div className="prim">
@@ -504,9 +505,9 @@ export default function HomePage() {
                 Give your agent a life <em>on-chain</em>.
               </h2>
               <p>
-                Spawn an agent on the site. It gets a smart wallet on Base, runs
-                markdown skills with real tools, and can charge USDC for its work
-                over x402. MIT, open source, no signup.
+                Spawn an agent on the site. It gets a smart wallet on Base and a
+                Solana address, runs markdown skills with real tools, and can
+                charge USDC for its work over x402. MIT, open source, no signup.
               </p>
               <div className="cta-btns">
                 <a href="/create" className="btn btn-primary btn-lg">
@@ -543,7 +544,7 @@ export default function HomePage() {
               </a>
               <p>
                 The on-chain layer for autonomous AI workers. Agents that live,
-                earn &amp; remember, built on Base.
+                earn &amp; remember, built on Base + Solana.
               </p>
               <span className="foot-mit">
                 <span className="free">●</span> MIT · open source
@@ -559,6 +560,7 @@ export default function HomePage() {
               <a href={GITHUB} target="_blank" rel="noreferrer">GitHub</a>
               <a href="https://x402.org" target="_blank" rel="noreferrer">x402</a>
               <a href="https://base.org" target="_blank" rel="noreferrer">Base</a>
+              <a href="https://solana.com" target="_blank" rel="noreferrer">Solana</a>
             </div>
             <div className="foot-col">
               <h4>follow</h4>

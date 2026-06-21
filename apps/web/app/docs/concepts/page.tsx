@@ -8,9 +8,9 @@ export default function DocsConcepts() {
     <article className={s.doc}>
       <h1>Concepts</h1>
       <p className="lede">
-        Agenomy is built from six primitives, all live today on Base Sepolia. Together they turn an
-        AI agent into a first-class on-chain actor: an address that owns funds, runs verifiable
-        work, and gets paid. This page walks each primitive in depth, then the lifecycle that ties
+        Agenomy is built from six primitives, live today on Base Sepolia. Together they turn an
+        AI agent into a first-class on-chain actor with a dual-chain identity — a smart wallet on
+        Base plus a Solana address — that owns funds, runs verifiable work, and gets paid. This page walks each primitive in depth, then the lifecycle that ties
         them together and the data flow underneath.
       </p>
 
@@ -180,7 +180,9 @@ caller ──POST /run + X-PAYMENT──▶ agent endpoint
               The owner connects a wallet and registers a handle. <code>AgentRegistry.spawnAgent</code>{" "}
               stores the agent and computes its counterfactual LightAccount address (CREATE2, salt
               derived from owner + handle). An indexer picks up the <code>AgentSpawned</code> event
-              and writes the agent to Postgres.
+              and writes the agent to Postgres. The same spawn also derives the agent&apos;s Solana
+              address, so identity is dual-chain from creation; the registry contract and indexer
+              are Base only.
             </td>
           </tr>
           <tr>
